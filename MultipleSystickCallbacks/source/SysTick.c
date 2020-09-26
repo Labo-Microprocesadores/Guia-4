@@ -48,17 +48,21 @@ void Systick_ClrCallback(void (*oldCallback)(void))
 {
 	bool callbackFound = false;
 	int i = 0;
-	while((callbackFound == false) && (i < getArrayEffectiveLength(timerElements))){
+	int arrayEffectiveLength = getArrayEffectiveLength(timerElements);
+	while((callbackFound == false) && (i < arrayEffectiveLength)){
 		if(timerElements[i].callback == oldCallback){
 			callbackFound = true;
 			for(int j=i; j<((getArrayEffectiveLength(timerElements))-1); j++){
-				timerElements[j] = timerElements[j+1];
+				timerElements[j].callback = timerElements[j+1].callback;
+				timerElements[j].counter = timerElements[j+1].counter;
+				timerElements[j].timersPeriodMultiple = timerElements[j+1].timersPeriodMultiple;
+
 			}
 
 			//"Deleting" element
-			timerElements[getArrayEffectiveLength(timerElements)-1].callback = NULL;
-			timerElements[getArrayEffectiveLength(timerElements)-1].counter = 0;
-			timerElements[getArrayEffectiveLength(timerElements)-1].timersPeriodMultiple = 0;
+			timerElements[arrayEffectiveLength-1].callback = NULL;
+			timerElements[arrayEffectiveLength-1].counter = 0;
+			timerElements[arrayEffectiveLength-1].timersPeriodMultiple = 0;
 
 			//timerElements = (timerElement*)realloc(timerElements, sizeof(timerElement)*((sizeof(timerElements)/sizeof(timerElement))-1));
 		}
