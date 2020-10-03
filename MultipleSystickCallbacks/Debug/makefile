@@ -25,25 +25,25 @@ endif
 # Add inputs and outputs from these tool invocations to the build variables 
 
 # All Target
-all: FirstProject.axf
+all: MultipleSystickCallbacks.axf
 
 # Tool invocations
-FirstProject.axf: $(OBJS) $(USER_OBJS)
+MultipleSystickCallbacks.axf: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: MCU Linker'
-	arm-none-eabi-gcc -nostdlib -Xlinker -Map="FirstProject.map" -Xlinker --gc-sections -Xlinker -print-memory-usage -Xlinker --sort-section=alignment -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -T FirstProject_Debug.ld -o "FirstProject.axf" $(OBJS) $(USER_OBJS) $(LIBS)
+	arm-none-eabi-gcc -nostdlib -Xlinker -Map="MultipleSystickCallbacks.map" -Xlinker --gc-sections -Xlinker -print-memory-usage -Xlinker --sort-section=alignment -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -T FirstProject_Debug.ld -o "MultipleSystickCallbacks.axf" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 	$(MAKE) --no-print-directory post-build
 
 # Other Targets
 clean:
-	-$(RM) $(EXECUTABLES)$(OBJS)$(C_DEPS) FirstProject.axf
+	-$(RM) $(EXECUTABLES)$(OBJS)$(C_DEPS) MultipleSystickCallbacks.axf
 	-@echo ' '
 
 post-build:
 	-@echo 'Performing post-build steps'
-	-arm-none-eabi-size "FirstProject.axf"; # arm-none-eabi-objcopy -v -O binary "FirstProject.axf" "FirstProject.bin" ; # checksum -p MK64FN1M0xxx12 -d "FirstProject.bin";
+	-arm-none-eabi-size "MultipleSystickCallbacks.axf"; # arm-none-eabi-objcopy -v -O binary "MultipleSystickCallbacks.axf" "MultipleSystickCallbacks.bin" ; # checksum -p MK64FN1M0xxx12 -d "MultipleSystickCallbacks.bin";
 	-@echo ' '
 
 .PHONY: all clean dependents post-build

@@ -10,7 +10,7 @@
 
 #include "board.h"
 #include "gpio.h"
-#include "SysTick.h"
+#include "Timer.h"
 
 /*******************************************************************************
  * CONSTANT AND MACRO DEFINITIONS USING #DEFINE
@@ -32,7 +32,7 @@ static uint32_t b_counter = DELAY;
                         GLOBAL FUNCTION DEFINITIONS
  *******************************************************************************
  ******************************************************************************/
-
+int id1, id2;
 /* Función que se llama 1 vez, al comienzo del programa */
 void App_Init (void)
 {
@@ -44,10 +44,12 @@ void App_Init (void)
     //gpioWrite(LED, HIGH);
     gpioWrite(PIN_LED_GREEN, HIGH);
     gpioWrite(PIN_LED_RED, HIGH);
-    SysTick_Init();
-    SysTick_AddCallback(&callback, 12500000L*8); //1s
-    SysTick_AddCallback(&callback2, 12500000L*4); //0.5s
+    Timer_Init();
+    id1 = Timer_Create(&callback, 12500000L*8); //1s
+    id2 = Timer_Create(&callback2, 12500000L*4); //0.5s
+
 }
+
 
 /* Función que se llama constantemente en un ciclo infinito */
 void App_Run (void)
@@ -62,10 +64,6 @@ void App_Run (void)
  *******************************************************************************
  ******************************************************************************/
 
-static void delayLoop(volatile uint32_t veces)
-{
-    while (veces--);
-}
 
 void callback(void)
 {
@@ -75,13 +73,13 @@ void callback(void)
 	gpioToggle(PIN_LED_RED);
 
 	if (i == 10){
-		Systick_ChangeCallbackTime(&callback, 12500000L*4);	//Makes it faster after 10 cycles.
+		Timer_ChangeTime(id1, 12500000L*4);	//Makes it faster after 10 cycles.
 
 	}
 
 	if (i == 30){
 
-		Systick_ClrCallback(&callback);	//Cancels the toggle after 30 cycles.
+		Timer_Delete(id1);	//Cancels the toggle after 30 cycles.
 		gpioWrite(PIN_LED_RED, HIGH);
 	}
 
@@ -94,13 +92,13 @@ void callback2(void)
 	gpioToggle(PIN_LED_GREEN);
 
 	if (i == 10){
-		Systick_ChangeCallbackTime(&callback2, 12500000L*2);	//Makes it faster after 10 cycles.
+		Timer_ChangeTime(id2, 12500000L*2);	//Makes it faster after 10 cycles.
 
 	}
 
 	if (i == 30){
 
-		Systick_ClrCallback(&callback2);	//Cancels the toggle after 30 cycles.
+		Timer_Delete(id2);	//Cancels the toggle after 30 cycles.
 		gpioWrite(PIN_LED_GREEN, HIGH);
 	}
 

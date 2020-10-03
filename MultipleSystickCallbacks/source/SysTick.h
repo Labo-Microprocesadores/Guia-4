@@ -20,17 +20,19 @@
 
 #define SYSTICK_ISR_FREQUENCY_HZ 1000U //?
 #define SYSTICK_ISR_PERIOD_S 12500000L //125ms
-#define INTIAL_TIMER_ELEMENTS_ARRAY_LENGTH	50
+#define INITIAL_SYSTICK_ELEMENTS_ARRAY_LENGTH	200
 
-typedef struct timerElement
+typedef struct SysTickElement
 {
+	int callbackID;
 	void (*callback)(void);
 	int timersPeriodMultiple;
 	int counter;
-} timerElement;
+	bool paused;
+} SysTickElement;
 
-extern timerElement timerElements[INTIAL_TIMER_ELEMENTS_ARRAY_LENGTH];
 
+typedef enum SystickError {SystickNoError = 0, SystickNotMultipleOfSystickPeriod = -1, SystickNoIdFound = -2} SystickError;
 
 
 /*******************************************************************************
@@ -51,10 +53,12 @@ extern timerElement timerElements[INTIAL_TIMER_ELEMENTS_ARRAY_LENGTH];
  * @return Initialization and registration succeed
  **/
 bool SysTick_Init (void);
-void SysTick_AddCallback(void (*newCallback)(void), int newTime);
-void Systick_ClrCallback(void (*oldCallback)(void));
-void Systick_ChangeCallbackTime(void (*oldCallback)(void), int newTime);
-int getArrayEffectiveLength (timerElement timerElements [] );
+int SysTick_AddCallback(void (*newCallback)(void), int newTime);
+SystickError Systick_ClrCallback(int id);
+SystickError Systick_PauseCallback(int id);
+SystickError Systick_ResumeCallback(int id);
+SystickError Systick_ChangeCallbackTime(int id, int newTime);
+
 
 /*******************************************************************************
  ******************************************************************************/
