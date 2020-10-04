@@ -25,7 +25,7 @@ static typedef  struct
 static Button_t buttons[BUTTON_NUM];
 static int timecounter;
 
-void systick_callback(void)
+static void systick_callback(void)
 {
 
 	int i;
@@ -140,4 +140,10 @@ bool buttonConfiguration(pin_t button, int type, int time)
 	}
 	//if there is no empty space for the value
 	return false;
+}
+
+void buttonsInit(void)
+{
+	//ver que mas poner aca, no entiendo muy bien
+	SysTick_AddCallback(&systick_callback, SYSTICK_ISR_PERIOD_S);
 }
