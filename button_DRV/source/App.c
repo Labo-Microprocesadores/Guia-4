@@ -39,10 +39,13 @@ void App_Init (void)
 {
 	gpioMode(PIN_LED_RED, OUTPUT);
 	gpioMode(PIN_LED_GREEN, OUTPUT);
+	//gpioMode(PIN_LED_BLUE, OUTPUT);
+	gpioWrite(PIN_LED_RED, HIGH);
+	gpioWrite(PIN_LED_GREEN, HIGH);
 	gpioMode(PIN_SW3, INPUT);
 	SysTick_Init();
 	buttonsInit();
-	buttonConfiguration(PIN_SW3, NORMAL, 3);
+	buttonConfiguration(PIN_SW3, TYPEMATIC, 50);
 
 }
 
@@ -52,15 +55,14 @@ void App_Run (void)
 {
 	if(wasPressed(PIN_SW3))
 	{
-		gpioWrite(PIN_LED_RED, LOW);
-		gpioWrite(PIN_LED_GREEN, HIGH);
-
+		gpioToggle(PIN_LED_RED);
 	}
 	else if(wasReleased(PIN_SW3))
 	{
-		gpioWrite(PIN_LED_RED, LOW);
+		gpioWrite(PIN_LED_RED, HIGH);
 		gpioWrite(PIN_LED_GREEN, HIGH);
 	}
+
 }
 
 

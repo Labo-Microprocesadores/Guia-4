@@ -1,7 +1,7 @@
 /***************************************************************************//**
   @file     Button.c
   @brief    Button configurations
-  @author   Carlos and Matias
+  @author   Grupo 2
  ******************************************************************************/
 
 
@@ -33,7 +33,7 @@ static void systick_callback(void)
 
 	for( i=0 ; i<BUTTON_NUM ; i++ )
 	{
-		bool pinState = gpioRead(buttons[i].pin);
+		bool pinState = !gpioRead(buttons[i].pin);
 		if( buttons[i].lastState && !pinState )
 		{
 			buttons[i].wasReleased = true;
@@ -43,11 +43,7 @@ static void systick_callback(void)
 		}
 		else if( pinState )
 		{
-			buttons[i].wasReleased = false;
-			buttons[i].wasPressed = true;
-			buttons[i].lastState = true;
-
-			if( buttons[i].typefunction == LKP && ++buttons[i].currentCount == buttons[i].lkpTime )
+			if( buttons[i].typefunction == LKP && (++buttons[i].currentCount) == buttons[i].lkpTime )
 			{
 				buttons[i].wasLkp = true;
 			}
@@ -55,6 +51,12 @@ static void systick_callback(void)
 			{
 				 buttons[i].wasPressed= true;
 				 buttons[i].currentCount = 0;
+			}
+			else if(!buttons[i].lastState)
+			{
+				buttons[i].wasReleased = false;
+				buttons[i].wasPressed = true;
+				buttons[i].lastState = true;
 			}
 		}
 	}
@@ -133,11 +135,15 @@ bool buttonConfiguration(pin_t button, int type, int time)
 	}
 	//if the pin was not there use an empty space
 	for(count=0;count<BUTTON_NUM;count++)
-		{
+	{
 		if(buttons[count].pin==0)
 		{
 			buttons[count].pin=button;
 			buttons[count].typefunction=type;
+			if(type == LKP)
+				buttons[count].lkpTime = time;
+			else
+				buttons[count].typeTime = time;
 			return true;
 		}
 	}
@@ -148,5 +154,5 @@ bool buttonConfiguration(pin_t button, int type, int time)
 void buttonsInit(void)
 {
 	//agregar botones del punto h
-	SysTick_AddCallback(&systick_callback, 10*SYSTICK_ISR_PERIOD_S);
+	SysTick_AddCallback(&systick_callback, 50*SYSTICK_ISR_PERIOD_S);
 }

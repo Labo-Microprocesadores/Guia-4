@@ -1,7 +1,7 @@
 /***************************************************************************//**
   @file     Button.c
   @brief    Button configurations
-  @author   Carlos and Matias
+  @author   Grupo 2
  ******************************************************************************/
 
 #ifndef BUTTON_H_
@@ -37,6 +37,8 @@ void buttonsInit(void);
 bool wasPressed(pin_t button);
 
 bool wasReleased(pin_t button);
+
+bool wasLkp(pin_t button);
 
 bool buttonConfiguration(pin_t button, int type,int time);
 
