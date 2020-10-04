@@ -49,8 +49,8 @@ void App_Init (void)
 
 
 
-    id1 = Timer_Create(&callback, 12500000L*8); //1s
-    id2 = Timer_Create(&callback2, 12500000L*4); //0.5s
+    id1 = Timer_AddCallback(&callback, 12500000L*8); //1s
+    id2 = Timer_AddCallback(&callback2, 12500000L*4); //0.5s
 
 }
 

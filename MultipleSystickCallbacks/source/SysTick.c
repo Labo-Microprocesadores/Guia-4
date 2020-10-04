@@ -138,8 +138,10 @@ SystickError Systick_ResumeCallback(int id)
 	return SystickNoError;
 }
 
+
 //Returns the number of elements added to the array (the number of elements before an element with NULL callback is found).
 static int getArrayEffectiveLength (SysTickElement sysTickElements[] ){
+
 	int i = 0;
 	bool foundLast = false;
 	while (foundLast == false && i < INITIAL_SYSTICK_ELEMENTS_ARRAY_LENGTH){
@@ -152,7 +154,6 @@ static int getArrayEffectiveLength (SysTickElement sysTickElements[] ){
 	}
 	return i;
 }
-
 
 
 

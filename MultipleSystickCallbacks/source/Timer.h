@@ -8,25 +8,29 @@
 #ifndef TIMER_H_
 #define TIMER_H_
 
-#define INITIAL_TIMER_ELEMENTS_ARRAY_LENGTH	200
-
 #include "SysTick.h"
 #include <stdbool.h>
+
+
+#define TIMER_ISR_PERIOD_S 10000000L //100ms
+#define INITIAL_TIMER_ELEMENTS_ARRAY_LENGTH	20
+
 typedef struct TimerElement
 {
 	int callbackID;
 	void (*callback)(void);
-	int time;
+	int timersPeriodMultiple;
+	int counter;
 	bool paused;
 } TimerElement;
 
 
-typedef enum TimerError {TimerNoError = SystickNoError, TimerNotMultipleOfSystemPeriod = SystickNotMultipleOfSystickPeriod, TimerNoIdFound = SystickNoIdFound} TimerError;
+typedef enum TimerError {TimerNoError = 0, TimerNotMultipleOfSystickPeriod = -1, TimerNoIdFound = -2} TimerError;
 
 bool Timer_Init (void);
 
 //CreateTimer
-int Timer_Create(void (*timerCallback)(void), int time);
+int Timer_AddCallback(void (*newCallback)(void), int time);
 
 //PauseTimer
 
