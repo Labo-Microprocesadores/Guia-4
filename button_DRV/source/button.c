@@ -13,6 +13,9 @@ static typedef  struct
 	{
 		pin_t pin=-1;
 		enum type typefunction = -1;
+		bool pullup;
+		bool wasPressed;
+		bool wasReleased;
 		int currentCount;
 		int lkpTime;
 		bool wasLkp;
@@ -49,7 +52,7 @@ void systick_callback(void)
 /**
  * @brief Configure button array based on user input
  * @param button, button's pin number
- * @param type, button's type of working (typematic, lkp, pullup, wasPressed, wasReleased)
+ * @param type, button's type of working (typematic, lkp)
  * @return Configure succeed
  */
 bool configureButton(pin_t button, int type)

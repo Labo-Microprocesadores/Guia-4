@@ -25,7 +25,7 @@
  * ENUMERATIONS AND STRUCTURES AND TYPEDEFS
  ******************************************************************************/
 
-	enum type{typematic, lkp, pullup, wasPressed, wasReleased};
+	enum type{typematic, lkp};
 
 
 /*******************************************************************************
