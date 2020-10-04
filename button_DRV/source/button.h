@@ -19,6 +19,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include "gpio.h"
 
 
 /*******************************************************************************
@@ -37,7 +38,7 @@ bool wasPressed(pin_t button);
 
 bool wasReleased(pin_t button);
 
-bool buttonConfiguration(pin_t button, int type = NORMAL,int time = TIME_BASE);
+bool buttonConfiguration(pin_t button, int type,int time);
 
 
 #endif /* BUTTON_H_ */

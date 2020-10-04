@@ -1,7 +1,7 @@
 /***************************************************************************//**
   @file     SysTick.h
   @brief    SysTick driver
-  @author   Nicolás Magliola
+  @author   Grupo2
  ******************************************************************************/
 
 #ifndef _SYSTICK_H_
@@ -18,7 +18,21 @@
  * CONSTANT AND MACRO DEFINITIONS USING #DEFINE
  ******************************************************************************/
 
-#define SYSTICK_ISR_FREQUENCY_HZ 1000U
+#define SYSTICK_ISR_FREQUENCY_HZ 1000U //?
+#define SYSTICK_ISR_PERIOD_S 100000L //1ms
+#define INITIAL_SYSTICK_ELEMENTS_ARRAY_LENGTH	20
+
+typedef struct SysTickElement
+{
+	int callbackID;
+	void (*callback)(void);
+	int timersPeriodMultiple;
+	int counter;
+	bool paused;
+} SysTickElement;
+
+
+typedef enum SystickError {SystickNoError = 0, SystickNotMultipleOfSystickPeriod = -1, SystickNoIdFound = -2} SystickError;
 
 
 /*******************************************************************************
@@ -38,7 +52,13 @@
  * @param funcallback Function to be call every SysTick
  * @return Initialization and registration succeed
  **/
-bool SysTick_Init (void (*funcallback)(void));
+bool SysTick_Init (void);
+int SysTick_AddCallback(void (*newCallback)(void), int newTime);
+SystickError Systick_ClrCallback(int id);
+SystickError Systick_PauseCallback(int id);
+SystickError Systick_ResumeCallback(int id);
+SystickError Systick_ChangeCallbackTime(int id, int newTime);
+
 
 /*******************************************************************************
  ******************************************************************************/

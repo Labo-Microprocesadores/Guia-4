@@ -9,10 +9,10 @@
 #include "SysTick.h"
 #include "gpio.h"
 
-static typedef  struct
+typedef  struct
 	{
-		pin_t pin=-1;
-		enum type typefunction = -1;
+		pin_t pin;
+		enum type typefunction;
 		bool lastState;
 		int currentCount;
 		int lkpTime;
@@ -23,32 +23,35 @@ static typedef  struct
 	}Button_t;
 
 static Button_t buttons[BUTTON_NUM];
-static int timecounter;
+
+
 
 static void systick_callback(void)
 {
 
 	int i;
+
 	for( i=0 ; i<BUTTON_NUM ; i++ )
 	{
-		if( buttons[i].lastState && !gpioRead(buttons[i].pin) )
+		bool pinState = gpioRead(buttons[i].pin);
+		if( buttons[i].lastState && !pinState )
 		{
 			buttons[i].wasReleased = true;
 			buttons[i].wasPressed = false;
 			buttons[i].currentCount = 0;
 			buttons[i].lastState = false;
 		}
-		else if( gpioRead(buttons[i].pin) )
+		else if( pinState )
 		{
 			buttons[i].wasReleased = false;
 			buttons[i].wasPressed = true;
-			buttons[i].lastState = false;
+			buttons[i].lastState = true;
 
-			if( buttons[i].lkp )
+			if( buttons[i].typefunction == LKP && ++buttons[i].currentCount == buttons[i].lkpTime )
 			{
-				++buttons[i].currentCount == buttons[i].lkpTime ?  buttons[i].wasLkp = true : buttons[i].wasLkp = false;
+				buttons[i].wasLkp = true;
 			}
-			else if( buttons[i].typematic && ++buttons[i].currentCount == buttons[i].typeTime)
+			else if( buttons[i].typefunction == TYPEMATIC && ++buttons[i].currentCount == buttons[i].typeTime)
 			{
 				 buttons[i].wasPressed= true;
 				 buttons[i].currentCount = 0;
@@ -131,7 +134,7 @@ bool buttonConfiguration(pin_t button, int type, int time)
 	//if the pin was not there use an empty space
 	for(count=0;count<BUTTON_NUM;count++)
 		{
-		if(buttons[count].pin==-1)
+		if(buttons[count].pin==0)
 		{
 			buttons[count].pin=button;
 			buttons[count].typefunction=type;
@@ -144,6 +147,6 @@ bool buttonConfiguration(pin_t button, int type, int time)
 
 void buttonsInit(void)
 {
-	//ver que mas poner aca, no entiendo muy bien
-	SysTick_AddCallback(&systick_callback, SYSTICK_ISR_PERIOD_S);
+	//agregar botones del punto h
+	SysTick_AddCallback(&systick_callback, 10*SYSTICK_ISR_PERIOD_S);
 }
