@@ -1,9 +1,8 @@
-/*
- * button.h
- *
- *  Created on: Sep 20, 2020
- *      Author: Carlos
- */
+/***************************************************************************//**
+  @file     Button.c
+  @brief    Button configurations
+  @author   Carlos and Matias
+ ******************************************************************************/
 
 #ifndef BUTTON_H_
 #define BUTTON_H_
@@ -26,9 +25,8 @@
  * ENUMERATIONS AND STRUCTURES AND TYPEDEFS
  ******************************************************************************/
 
+	enum type{typematic, lkp, pullup, wasPressed, wasReleased};
 
-
-	//agregar enum con tipos de boton para configure
 
 /*******************************************************************************
  * FUNCTION PROTOTYPES WITH GLOBAL SCOPE
