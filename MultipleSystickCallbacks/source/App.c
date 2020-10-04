@@ -7,7 +7,9 @@
 /*******************************************************************************
  * INCLUDE HEADER FILES
  ******************************************************************************/
-
+#include <stddef.h>
+#include <stdlib.h>
+#include <stdio.h>
 #include "board.h"
 #include "gpio.h"
 #include "Timer.h"
@@ -21,12 +23,15 @@
 /*******************************************************************************
  * FUNCTION PROTOTYPES FOR PRIVATE FUNCTIONS WITH FILE LEVEL SCOPE
  ******************************************************************************/
-
-static void delayLoop(uint32_t veces);
-void callback(void);
+typedef struct args
+    {
+    	int word1;
+    	int word2;
+    } args;
+void callback(args);
 void callback2(void);
 
-static uint32_t b_counter = DELAY;
+
 /*******************************************************************************
  *******************************************************************************
                         GLOBAL FUNCTION DEFINITIONS
@@ -45,8 +50,16 @@ void App_Init (void)
     gpioWrite(PIN_LED_GREEN, HIGH);
     gpioWrite(PIN_LED_RED, HIGH);
     Timer_Init();
-    id1 = Timer_Create(&callback, 12500000L*8); //1s
-    id2 = Timer_Create(&callback2, 12500000L*4); //0.5s
+    int word = 1;
+    int word2 = 3;
+
+
+
+    args arg = {word, word2};
+
+
+    id1 = Timer_Create(&callback,&arg, 12500000L*8); //1s
+    id2 = Timer_Create(&callback2,NULL, 12500000L*4); //0.5s
 
 }
 
@@ -65,10 +78,11 @@ void App_Run (void)
  ******************************************************************************/
 
 
-void callback(void)
+void callback(args a)
 {
 	static int i = 0;
-
+	printf("%d", a.word1);
+	printf("%d", a.word2);
 	i++;
 	gpioToggle(PIN_LED_RED);
 

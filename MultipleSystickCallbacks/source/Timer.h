@@ -26,7 +26,7 @@ typedef enum TimerError {TimerNoError = SystickNoError, TimerNotMultipleOfSystem
 bool Timer_Init (void);
 
 //CreateTimer
-int Timer_Create(void (*timerCallback)(void), int time);
+int Timer_Create(void (*timerCallback)(void*), int time);
 
 //PauseTimer
 

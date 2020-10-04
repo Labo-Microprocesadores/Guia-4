@@ -23,7 +23,7 @@ bool Timer_Init (void)
 
 
 //CreateTimer
-int Timer_Create(void (*timerCallback)(void), int time){
+int Timer_Create(void (*timerCallback)(void*), int time){
 
 	int id = SysTick_AddCallback(timerCallback, time);
 

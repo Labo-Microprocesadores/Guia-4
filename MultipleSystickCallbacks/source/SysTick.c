@@ -33,12 +33,11 @@ __ISR__ SysTick_Handler (void)
 //Systick_ClrCallback adds an element to the array of callbacks.
 //newTime should be greater than SYSTICK_ISR_PERIOD_S. It indicates the period for the callback to be called.
 //Returns ID if no error was found;
-int SysTick_AddCallback(void (*newCallback)(void), int newTime)
+int SysTick_AddCallback(void (*newCallback)(void*), int newTime)
 {
 	int newMultiple = (int) (newTime / SYSTICK_ISR_PERIOD_S);	//Calculates how many SYSTICK_ISR_PERIOD_Ss are equivalent to the callback period.
 	if(newMultiple!=0){
 		SysTickElement newSystickElement = {idCounter,newCallback, newMultiple, 0, false};	//Creates the new element
-		//sysTickElements = (timerElement*)realloc(sysTickElements, sizeof(timerElement)*((sizeof(sysTickElements)/sizeof(timerElement))+1)); //((sizeof(sysTickElements)/sizeof(timerElement))+1, sizeof(timerElement));
 		sysTickElements[getArrayEffectiveLength(sysTickElements)] = newSystickElement;
 		return idCounter++;
 	}
@@ -71,7 +70,7 @@ SystickError Systick_ClrCallback(int id)
 			sysTickElements[arrayEffectiveLength-1].callbackID = 0;
 			sysTickElements[arrayEffectiveLength-1].timersPeriodMultiple = 0;
 
-			//sysTickElements = (timerElement*)realloc(sysTickElements, sizeof(timerElement)*((sizeof(sysTickElements)/sizeof(timerElement))-1));
+
 		}
 		i++;
 	}
