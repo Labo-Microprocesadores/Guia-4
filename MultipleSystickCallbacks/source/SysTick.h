@@ -19,8 +19,8 @@
  ******************************************************************************/
 
 #define SYSTICK_ISR_FREQUENCY_HZ 1000U //?
-#define SYSTICK_ISR_PERIOD_S 12500000L //125ms
-#define INITIAL_SYSTICK_ELEMENTS_ARRAY_LENGTH	200
+#define SYSTICK_ISR_PERIOD_S 100000L //1ms
+#define INITIAL_SYSTICK_ELEMENTS_ARRAY_LENGTH	20
 
 typedef struct SysTickElement
 {

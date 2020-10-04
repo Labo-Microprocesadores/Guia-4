@@ -5,6 +5,7 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../source/App.c \
+../source/Led.c \
 ../source/SysTick.c \
 ../source/Timer.c 
 
@@ -13,11 +14,13 @@ O_SRCS += \
 
 OBJS += \
 ./source/App.o \
+./source/Led.o \
 ./source/SysTick.o \
 ./source/Timer.o 
 
 C_DEPS += \
 ./source/App.d \
+./source/Led.d \
 ./source/SysTick.d \
 ./source/Timer.d 
 

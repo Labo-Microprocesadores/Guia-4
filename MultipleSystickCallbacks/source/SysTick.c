@@ -38,7 +38,6 @@ int SysTick_AddCallback(void (*newCallback)(void), int newTime)
 	int newMultiple = (int) (newTime / SYSTICK_ISR_PERIOD_S);	//Calculates how many SYSTICK_ISR_PERIOD_Ss are equivalent to the callback period.
 	if(newMultiple!=0){
 		SysTickElement newSystickElement = {idCounter,newCallback, newMultiple, 0, false};	//Creates the new element
-		//sysTickElements = (timerElement*)realloc(sysTickElements, sizeof(timerElement)*((sizeof(sysTickElements)/sizeof(timerElement))+1)); //((sizeof(sysTickElements)/sizeof(timerElement))+1, sizeof(timerElement));
 		sysTickElements[getArrayEffectiveLength(sysTickElements)] = newSystickElement;
 		return idCounter++;
 	}
@@ -71,7 +70,7 @@ SystickError Systick_ClrCallback(int id)
 			sysTickElements[arrayEffectiveLength-1].callbackID = 0;
 			sysTickElements[arrayEffectiveLength-1].timersPeriodMultiple = 0;
 
-			//sysTickElements = (timerElement*)realloc(sysTickElements, sizeof(timerElement)*((sizeof(sysTickElements)/sizeof(timerElement))-1));
+
 		}
 		i++;
 	}
@@ -139,8 +138,10 @@ SystickError Systick_ResumeCallback(int id)
 	return SystickNoError;
 }
 
+
 //Returns the number of elements added to the array (the number of elements before an element with NULL callback is found).
 static int getArrayEffectiveLength (SysTickElement sysTickElements[] ){
+
 	int i = 0;
 	bool foundLast = false;
 	while (foundLast == false && i < INITIAL_SYSTICK_ELEMENTS_ARRAY_LENGTH){
@@ -153,7 +154,6 @@ static int getArrayEffectiveLength (SysTickElement sysTickElements[] ){
 	}
 	return i;
 }
-
 
 
 

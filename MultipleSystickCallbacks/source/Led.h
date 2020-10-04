@@ -8,9 +8,21 @@
 #ifndef LED_H_
 #define LED_H_
 
-#include "SysTick.h"
+#include "Timer.h"
+#include "board.h"
+
 
 typedef enum LedSpeed {SLOW, FAST} LedSpeed;
+
+typedef enum LedID {LED_RED = PIN_LED_RED , LED_BLUE = PIN_LED_BLUE, LED_GREEN = PIN_LED_GREEN} LedID;
+
+typedef struct LedElement
+{
+	LedID ledID;
+	int timersPeriodMultiple;
+	int counter;
+	bool isOn;
+} LedElement;
 
 void Led_LongPeriod(LED, int times ,int period,int blink_times, int blinkPeriod, int onTime)
 	//timer(led_blink, 30segundos)
