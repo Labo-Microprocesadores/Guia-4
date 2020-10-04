@@ -33,7 +33,7 @@ __ISR__ SysTick_Handler (void)
 //Systick_ClrCallback adds an element to the array of callbacks.
 //newTime should be greater than SYSTICK_ISR_PERIOD_S. It indicates the period for the callback to be called.
 //Returns ID if no error was found;
-int SysTick_AddCallback(void (*newCallback)(void*), int newTime)
+int SysTick_AddCallback(void (*newCallback)(void), int newTime)
 {
 	int newMultiple = (int) (newTime / SYSTICK_ISR_PERIOD_S);	//Calculates how many SYSTICK_ISR_PERIOD_Ss are equivalent to the callback period.
 	if(newMultiple!=0){

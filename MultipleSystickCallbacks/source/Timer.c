@@ -12,18 +12,29 @@
 static TimerElement timerElements[INITIAL_TIMER_ELEMENTS_ARRAY_LENGTH];
 static int idCounter;
 static int getArrayEffectiveLength (TimerElement timerElements [] );
+void Timer_PISR(void);
 
 bool Timer_Init (void)
 {
 	SysTick_Init();
-
+	SysTick_AddCallback(&Timer_PISR, 10000000L);
 	idCounter = 1;
 	return true;
 }
 
 
+void Timer_PISR(void){
+
+
+
+
+}
+
+
+
+
 //CreateTimer
-int Timer_Create(void (*timerCallback)(void*), int time){
+int Timer_Create(void (*timerCallback)(void), int time){
 
 	int id = SysTick_AddCallback(timerCallback, time);
 

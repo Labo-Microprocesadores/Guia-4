@@ -25,7 +25,7 @@
 typedef struct SysTickElement
 {
 	int callbackID;
-	void (*callback)(void*);
+	void (*callback)(void);
 	int timersPeriodMultiple;
 	int counter;
 	bool paused;
@@ -53,7 +53,7 @@ typedef enum SystickError {SystickNoError = 0, SystickNotMultipleOfSystickPeriod
  * @return Initialization and registration succeed
  **/
 bool SysTick_Init (void);
-int SysTick_AddCallback(void (*newCallback)(void*), int newTime);
+int SysTick_AddCallback(void (*newCallback)(void), int newTime);
 SystickError Systick_ClrCallback(int id);
 SystickError Systick_PauseCallback(int id);
 SystickError Systick_ResumeCallback(int id);

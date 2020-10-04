@@ -23,12 +23,8 @@
 /*******************************************************************************
  * FUNCTION PROTOTYPES FOR PRIVATE FUNCTIONS WITH FILE LEVEL SCOPE
  ******************************************************************************/
-typedef struct args
-    {
-    	int word1;
-    	int word2;
-    } args;
-void callback(args);
+
+void callback(void);
 void callback2(void);
 
 
@@ -50,16 +46,11 @@ void App_Init (void)
     gpioWrite(PIN_LED_GREEN, HIGH);
     gpioWrite(PIN_LED_RED, HIGH);
     Timer_Init();
-    int word = 1;
-    int word2 = 3;
 
 
 
-    args arg = {word, word2};
-
-
-    id1 = Timer_Create(&callback,&arg, 12500000L*8); //1s
-    id2 = Timer_Create(&callback2,NULL, 12500000L*4); //0.5s
+    id1 = Timer_Create(&callback, 12500000L*8); //1s
+    id2 = Timer_Create(&callback2, 12500000L*4); //0.5s
 
 }
 
@@ -78,11 +69,9 @@ void App_Run (void)
  ******************************************************************************/
 
 
-void callback(args a)
+void callback(void)
 {
 	static int i = 0;
-	printf("%d", a.word1);
-	printf("%d", a.word2);
 	i++;
 	gpioToggle(PIN_LED_RED);
 
