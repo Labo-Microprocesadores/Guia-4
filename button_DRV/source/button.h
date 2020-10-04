@@ -37,7 +37,7 @@ bool wasPressed(pin_t button);
 
 bool wasReleased(pin_t button);
 
-bool configureButton(pin_t button, int type);
+bool buttonConfiguration(pin_t button, int type);
 
 
 #endif /* BUTTON_H_ */

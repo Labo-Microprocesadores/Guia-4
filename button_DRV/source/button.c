@@ -55,7 +55,7 @@ void systick_callback(void)
  * @param type, button's type of working (typematic, lkp)
  * @return Configure succeed
  */
-bool configureButton(pin_t button, int type)
+bool buttonConfiguration(pin_t button, int type)
 {
 	int count;
 	//I move through the button arrangement and look for the same pin to reconfigure
