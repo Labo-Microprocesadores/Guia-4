@@ -25,7 +25,7 @@
  * ENUMERATIONS AND STRUCTURES AND TYPEDEFS
  ******************************************************************************/
 
-	enum type{typematic, lkp};
+	enum type{NORMAL,TYPEMATIC, LKP};
 
 
 /*******************************************************************************
@@ -37,7 +37,7 @@ bool wasPressed(pin_t button);
 
 bool wasReleased(pin_t button);
 
-bool buttonConfiguration(pin_t button, int type);
+bool buttonConfiguration(pin_t button, int type = NORMAL,int time = TIME_BASE);
 
 
 #endif /* BUTTON_H_ */
