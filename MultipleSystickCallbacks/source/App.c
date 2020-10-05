@@ -13,20 +13,17 @@
 #include "board.h"
 #include "gpio.h"
 #include "Timer.h"
+#include "Led.h"
 
 /*******************************************************************************
  * CONSTANT AND MACRO DEFINITIONS USING #DEFINE
  ******************************************************************************/
-#define LED PORTNUM2PIN(PB,23) //PTA0
+
 #define SW PORTNUM2PIN(PC,0)
 #define DELAY 6
 /*******************************************************************************
  * FUNCTION PROTOTYPES FOR PRIVATE FUNCTIONS WITH FILE LEVEL SCOPE
  ******************************************************************************/
-
-void callback(void);
-void callback2(void);
-
 
 /*******************************************************************************
  *******************************************************************************
@@ -37,21 +34,15 @@ int id1, id2;
 /* Función que se llama 1 vez, al comienzo del programa */
 void App_Init (void)
 {
-    gpioMode(SW, INPUT_PULLUP);
-    gpioMode(LED, OUTPUT);
-    gpioMode(PIN_LED_RED, OUTPUT);
-    gpioMode(PIN_LED_GREEN, OUTPUT);
-
-    //gpioWrite(LED, HIGH);
-    gpioWrite(PIN_LED_GREEN, HIGH);
-    gpioWrite(PIN_LED_RED, HIGH);
+	gpioMode(SW, INPUT_PULLUP);
     Timer_Init();
+    Led_Init();
 
-
-
-    id1 = Timer_AddCallback(&callback, 12500000L*8); //1s
-    id2 = Timer_AddCallback(&callback2, 12500000L*4); //0.5s
-
+    //Led_OnForDefinedTime(LED_RED, 125*64); //8s
+    //Led_CustomBlink(LED_RED, 3, 125*32, 125*8);
+    //Led_CustomRepetitionBlink(LED_RED, 4, 125*240, 3, 125*40, 125*32);
+    Led_InfiniteBlink(LED_RED, FAST);
+    Led_InfiniteBlink(LED_GREEN, SLOW);
 }
 
 
@@ -61,7 +52,6 @@ void App_Run (void)
 
 }
 
-
 /*******************************************************************************
  *******************************************************************************
                         LOCAL FUNCTION DEFINITIONS
@@ -69,43 +59,6 @@ void App_Run (void)
  ******************************************************************************/
 
 
-void callback(void)
-{
-	static int i = 0;
-	i++;
-	gpioToggle(PIN_LED_RED);
-
-	if (i == 10){
-		Timer_ChangeTime(id1, 12500000L*4);	//Makes it faster after 10 cycles.
-
-	}
-
-	if (i == 30){
-
-		Timer_Delete(id1);	//Cancels the toggle after 30 cycles.
-		gpioWrite(PIN_LED_RED, HIGH);
-	}
-
-}
-void callback2(void)
-{
-	static int i = 0;
-
-	i++;
-	gpioToggle(PIN_LED_GREEN);
-
-	if (i == 10){
-		Timer_ChangeTime(id2, 12500000L*2);	//Makes it faster after 10 cycles.
-
-	}
-
-	if (i == 30){
-
-		Timer_Delete(id2);	//Cancels the toggle after 30 cycles.
-		gpioWrite(PIN_LED_GREEN, HIGH);
-	}
-
-}
 
 /*******************************************************************************
  ******************************************************************************/
