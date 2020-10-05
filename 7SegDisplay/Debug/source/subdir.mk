@@ -4,15 +4,18 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../source/7SegDisplay.c \
 ../source/App.c 
 
 O_SRCS += \
 ../source/gpio.o 
 
 OBJS += \
+./source/7SegDisplay.o \
 ./source/App.o 
 
 C_DEPS += \
+./source/7SegDisplay.d \
 ./source/App.d 
 
 

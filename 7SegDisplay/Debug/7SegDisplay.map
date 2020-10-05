@@ -128,6 +128,21 @@ Discarded input sections
  .data          0x00000000        0x0 ./source/startup/startup_mk64f12.o
  .bss           0x00000000        0x0 ./source/startup/startup_mk64f12.o
  .debug_macro   0x00000000      0xa90 ./source/startup/startup_mk64f12.o
+ .group         0x00000000        0xc ./source/7SegDisplay.o
+ .text          0x00000000        0x0 ./source/7SegDisplay.o
+ .data          0x00000000        0x0 ./source/7SegDisplay.o
+ .bss           0x00000000        0x0 ./source/7SegDisplay.o
+ .debug_info    0x00000000       0x21 ./source/7SegDisplay.o
+ .debug_abbrev  0x00000000       0x13 ./source/7SegDisplay.o
+ .debug_aranges
+                0x00000000       0x18 ./source/7SegDisplay.o
+ .debug_macro   0x00000000       0x11 ./source/7SegDisplay.o
+ .debug_macro   0x00000000      0xa90 ./source/7SegDisplay.o
+ .debug_line    0x00000000       0x38 ./source/7SegDisplay.o
+ .debug_str     0x00000000     0x2d8e ./source/7SegDisplay.o
+ .comment       0x00000000       0x7f ./source/7SegDisplay.o
+ .ARM.attributes
+                0x00000000       0x39 ./source/7SegDisplay.o
  .group         0x00000000        0xc ./source/App.o
  .group         0x00000000        0xc ./source/App.o
  .group         0x00000000        0xc ./source/App.o
@@ -369,6 +384,7 @@ LOAD ./source/startup/hardware.o
 LOAD ./source/startup/main.o
 LOAD ./source/startup/semihost_hardfault.o
 LOAD ./source/startup/startup_mk64f12.o
+LOAD ./source/7SegDisplay.o
 LOAD ./source/App.o
 LOAD ./CMSIS/system_MK64F12.o
 LOAD C:/Users/malem/Desktop/Guia4/7SegDisplay/source/gpio.o
@@ -1119,7 +1135,7 @@ OUTPUT(7SegDisplay.axf elf32-littlearm)
  .debug_line    0x00000c5f      0x211 ./CMSIS/system_MK64F12.o
  .debug_line    0x00000e70      0x1ec C:/Users/malem/Desktop/Guia4/7SegDisplay/source/gpio.o
 
-.debug_str      0x00000000    0x7945b
+.debug_str      0x00000000    0x794e2
  .debug_str     0x00000000    0x77e47 ./source/startup/hardware.o
                               0x77ed5 (size before relaxing)
  .debug_str     0x00077e47       0x1e ./source/startup/main.o
@@ -1128,11 +1144,11 @@ OUTPUT(7SegDisplay.axf elf32-littlearm)
                                0x2dce (size before relaxing)
  .debug_str     0x00077e9e      0x83d ./source/startup/startup_mk64f12.o
                                0x363c (size before relaxing)
- .debug_str     0x000786db      0x153 ./source/App.o
-                               0x462f (size before relaxing)
- .debug_str     0x0007882e       0x5e ./CMSIS/system_MK64F12.o
+ .debug_str     0x000786db      0x1da ./source/App.o
+                               0x4668 (size before relaxing)
+ .debug_str     0x000788b5       0x5e ./CMSIS/system_MK64F12.o
                               0x77ddd (size before relaxing)
- .debug_str     0x0007888c      0xbcf C:/Users/malem/Desktop/Guia4/7SegDisplay/source/gpio.o
+ .debug_str     0x00078913      0xbcf C:/Users/malem/Desktop/Guia4/7SegDisplay/source/gpio.o
                               0x772d6 (size before relaxing)
 
 .comment        0x00000000       0x7e
