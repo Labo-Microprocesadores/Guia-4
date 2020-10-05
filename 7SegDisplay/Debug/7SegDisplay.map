@@ -176,38 +176,38 @@ Discarded input sections
  .debug_macro   0x00000000       0x48 ./CMSIS/system_MK64F12.o
  .debug_macro   0x00000000     0xe07b ./CMSIS/system_MK64F12.o
  .debug_macro   0x00000000     0x122b ./CMSIS/system_MK64F12.o
- .group         0x00000000        0xc C:/Users/malem/Documents/MCUXpressoIDE_10.2.0_759/workspace/7SegDisplay/source/gpio.o
- .group         0x00000000        0xc C:/Users/malem/Documents/MCUXpressoIDE_10.2.0_759/workspace/7SegDisplay/source/gpio.o
- .group         0x00000000        0xc C:/Users/malem/Documents/MCUXpressoIDE_10.2.0_759/workspace/7SegDisplay/source/gpio.o
- .group         0x00000000        0xc C:/Users/malem/Documents/MCUXpressoIDE_10.2.0_759/workspace/7SegDisplay/source/gpio.o
- .group         0x00000000        0xc C:/Users/malem/Documents/MCUXpressoIDE_10.2.0_759/workspace/7SegDisplay/source/gpio.o
- .group         0x00000000        0xc C:/Users/malem/Documents/MCUXpressoIDE_10.2.0_759/workspace/7SegDisplay/source/gpio.o
- .group         0x00000000        0xc C:/Users/malem/Documents/MCUXpressoIDE_10.2.0_759/workspace/7SegDisplay/source/gpio.o
- .group         0x00000000        0xc C:/Users/malem/Documents/MCUXpressoIDE_10.2.0_759/workspace/7SegDisplay/source/gpio.o
- .group         0x00000000        0xc C:/Users/malem/Documents/MCUXpressoIDE_10.2.0_759/workspace/7SegDisplay/source/gpio.o
- .group         0x00000000        0xc C:/Users/malem/Documents/MCUXpressoIDE_10.2.0_759/workspace/7SegDisplay/source/gpio.o
- .group         0x00000000        0xc C:/Users/malem/Documents/MCUXpressoIDE_10.2.0_759/workspace/7SegDisplay/source/gpio.o
- .group         0x00000000        0xc C:/Users/malem/Documents/MCUXpressoIDE_10.2.0_759/workspace/7SegDisplay/source/gpio.o
- .group         0x00000000        0xc C:/Users/malem/Documents/MCUXpressoIDE_10.2.0_759/workspace/7SegDisplay/source/gpio.o
- .group         0x00000000        0xc C:/Users/malem/Documents/MCUXpressoIDE_10.2.0_759/workspace/7SegDisplay/source/gpio.o
- .text          0x00000000        0x0 C:/Users/malem/Documents/MCUXpressoIDE_10.2.0_759/workspace/7SegDisplay/source/gpio.o
- .data          0x00000000        0x0 C:/Users/malem/Documents/MCUXpressoIDE_10.2.0_759/workspace/7SegDisplay/source/gpio.o
- .bss           0x00000000        0x0 C:/Users/malem/Documents/MCUXpressoIDE_10.2.0_759/workspace/7SegDisplay/source/gpio.o
+ .group         0x00000000        0xc C:/Users/malem/Desktop/Guia4/7SegDisplay/source/gpio.o
+ .group         0x00000000        0xc C:/Users/malem/Desktop/Guia4/7SegDisplay/source/gpio.o
+ .group         0x00000000        0xc C:/Users/malem/Desktop/Guia4/7SegDisplay/source/gpio.o
+ .group         0x00000000        0xc C:/Users/malem/Desktop/Guia4/7SegDisplay/source/gpio.o
+ .group         0x00000000        0xc C:/Users/malem/Desktop/Guia4/7SegDisplay/source/gpio.o
+ .group         0x00000000        0xc C:/Users/malem/Desktop/Guia4/7SegDisplay/source/gpio.o
+ .group         0x00000000        0xc C:/Users/malem/Desktop/Guia4/7SegDisplay/source/gpio.o
+ .group         0x00000000        0xc C:/Users/malem/Desktop/Guia4/7SegDisplay/source/gpio.o
+ .group         0x00000000        0xc C:/Users/malem/Desktop/Guia4/7SegDisplay/source/gpio.o
+ .group         0x00000000        0xc C:/Users/malem/Desktop/Guia4/7SegDisplay/source/gpio.o
+ .group         0x00000000        0xc C:/Users/malem/Desktop/Guia4/7SegDisplay/source/gpio.o
+ .group         0x00000000        0xc C:/Users/malem/Desktop/Guia4/7SegDisplay/source/gpio.o
+ .group         0x00000000        0xc C:/Users/malem/Desktop/Guia4/7SegDisplay/source/gpio.o
+ .group         0x00000000        0xc C:/Users/malem/Desktop/Guia4/7SegDisplay/source/gpio.o
+ .text          0x00000000        0x0 C:/Users/malem/Desktop/Guia4/7SegDisplay/source/gpio.o
+ .data          0x00000000        0x0 C:/Users/malem/Desktop/Guia4/7SegDisplay/source/gpio.o
+ .bss           0x00000000        0x0 C:/Users/malem/Desktop/Guia4/7SegDisplay/source/gpio.o
  .text.gpioWrite
-                0x00000000       0x5c C:/Users/malem/Documents/MCUXpressoIDE_10.2.0_759/workspace/7SegDisplay/source/gpio.o
+                0x00000000       0x5c C:/Users/malem/Desktop/Guia4/7SegDisplay/source/gpio.o
  .text.gpioRead
-                0x00000000       0x68 C:/Users/malem/Documents/MCUXpressoIDE_10.2.0_759/workspace/7SegDisplay/source/gpio.o
- .debug_macro   0x00000000       0x3a C:/Users/malem/Documents/MCUXpressoIDE_10.2.0_759/workspace/7SegDisplay/source/gpio.o
- .debug_macro   0x00000000       0x10 C:/Users/malem/Documents/MCUXpressoIDE_10.2.0_759/workspace/7SegDisplay/source/gpio.o
- .debug_macro   0x00000000       0x5c C:/Users/malem/Documents/MCUXpressoIDE_10.2.0_759/workspace/7SegDisplay/source/gpio.o
- .debug_macro   0x00000000       0x1c C:/Users/malem/Documents/MCUXpressoIDE_10.2.0_759/workspace/7SegDisplay/source/gpio.o
- .debug_macro   0x00000000       0x22 C:/Users/malem/Documents/MCUXpressoIDE_10.2.0_759/workspace/7SegDisplay/source/gpio.o
- .debug_macro   0x00000000       0xdf C:/Users/malem/Documents/MCUXpressoIDE_10.2.0_759/workspace/7SegDisplay/source/gpio.o
- .debug_macro   0x00000000      0xecf C:/Users/malem/Documents/MCUXpressoIDE_10.2.0_759/workspace/7SegDisplay/source/gpio.o
- .debug_macro   0x00000000       0x48 C:/Users/malem/Documents/MCUXpressoIDE_10.2.0_759/workspace/7SegDisplay/source/gpio.o
- .debug_macro   0x00000000     0xe07b C:/Users/malem/Documents/MCUXpressoIDE_10.2.0_759/workspace/7SegDisplay/source/gpio.o
- .debug_macro   0x00000000     0x122b C:/Users/malem/Documents/MCUXpressoIDE_10.2.0_759/workspace/7SegDisplay/source/gpio.o
- .debug_macro   0x00000000       0x16 C:/Users/malem/Documents/MCUXpressoIDE_10.2.0_759/workspace/7SegDisplay/source/gpio.o
+                0x00000000       0x68 C:/Users/malem/Desktop/Guia4/7SegDisplay/source/gpio.o
+ .debug_macro   0x00000000       0x3a C:/Users/malem/Desktop/Guia4/7SegDisplay/source/gpio.o
+ .debug_macro   0x00000000       0x10 C:/Users/malem/Desktop/Guia4/7SegDisplay/source/gpio.o
+ .debug_macro   0x00000000       0x5c C:/Users/malem/Desktop/Guia4/7SegDisplay/source/gpio.o
+ .debug_macro   0x00000000       0x1c C:/Users/malem/Desktop/Guia4/7SegDisplay/source/gpio.o
+ .debug_macro   0x00000000       0x22 C:/Users/malem/Desktop/Guia4/7SegDisplay/source/gpio.o
+ .debug_macro   0x00000000       0xdf C:/Users/malem/Desktop/Guia4/7SegDisplay/source/gpio.o
+ .debug_macro   0x00000000      0xecf C:/Users/malem/Desktop/Guia4/7SegDisplay/source/gpio.o
+ .debug_macro   0x00000000       0x48 C:/Users/malem/Desktop/Guia4/7SegDisplay/source/gpio.o
+ .debug_macro   0x00000000     0xe07b C:/Users/malem/Desktop/Guia4/7SegDisplay/source/gpio.o
+ .debug_macro   0x00000000     0x122b C:/Users/malem/Desktop/Guia4/7SegDisplay/source/gpio.o
+ .debug_macro   0x00000000       0x16 C:/Users/malem/Desktop/Guia4/7SegDisplay/source/gpio.o
  .text          0x00000000        0x0 c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_semihost_nf.a(_cr__main.o)
  .data          0x00000000        0x0 c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_semihost_nf.a(_cr__main.o)
  .bss           0x00000000        0x0 c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_semihost_nf.a(_cr__main.o)
@@ -371,7 +371,7 @@ LOAD ./source/startup/semihost_hardfault.o
 LOAD ./source/startup/startup_mk64f12.o
 LOAD ./source/App.o
 LOAD ./CMSIS/system_MK64F12.o
-LOAD C:/Users/malem/Documents/MCUXpressoIDE_10.2.0_759/workspace/7SegDisplay/source/gpio.o
+LOAD C:/Users/malem/Desktop/Guia4/7SegDisplay/source/gpio.o
 START GROUP
 LOAD c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_semihost_nf.a
 LOAD c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_c.a
@@ -548,10 +548,10 @@ END GROUP
                 0x00000584       0x3c ./CMSIS/system_MK64F12.o
                 0x00000584                SystemInit
  .text.gpioMode
-                0x000005c0       0x98 C:/Users/malem/Documents/MCUXpressoIDE_10.2.0_759/workspace/7SegDisplay/source/gpio.o
+                0x000005c0       0x98 C:/Users/malem/Desktop/Guia4/7SegDisplay/source/gpio.o
                 0x000005c0                gpioMode
  .text.gpioToggle
-                0x00000658       0x48 C:/Users/malem/Documents/MCUXpressoIDE_10.2.0_759/workspace/7SegDisplay/source/gpio.o
+                0x00000658       0x48 C:/Users/malem/Desktop/Guia4/7SegDisplay/source/gpio.o
                 0x00000658                gpioToggle
  .text._initio  0x000006a0       0x78 c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_c.a(initio.o)
                 0x000006a0                _initio
@@ -838,7 +838,7 @@ END GROUP
                 0x00000c72        0xe ./CMSIS/system_MK64F12.o
                 0x00000c72                SystemInitHook
  .text.parsePin
-                0x00000c80       0x42 C:/Users/malem/Documents/MCUXpressoIDE_10.2.0_759/workspace/7SegDisplay/source/gpio.o
+                0x00000c80       0x42 C:/Users/malem/Desktop/Guia4/7SegDisplay/source/gpio.o
  .text.__main   0x00000cc2        0xe c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_semihost_nf.a(_cr__main.o)
                 0x00000cc2                __CR_SEMIHOST
                 0x00000cc2                __main
@@ -889,11 +889,11 @@ END GROUP
  *(SORT_BY_ALIGNMENT(.rodata) SORT_BY_ALIGNMENT(.rodata.*) SORT_BY_ALIGNMENT(.constdata) SORT_BY_ALIGNMENT(.constdata.*))
  *fill*         0x00000f7a        0x2 ff
  .rodata.portPtrList
-                0x00000f7c       0x14 C:/Users/malem/Documents/MCUXpressoIDE_10.2.0_759/workspace/7SegDisplay/source/gpio.o
+                0x00000f7c       0x14 C:/Users/malem/Desktop/Guia4/7SegDisplay/source/gpio.o
  .rodata.gpioPtrList
-                0x00000f90       0x14 C:/Users/malem/Documents/MCUXpressoIDE_10.2.0_759/workspace/7SegDisplay/source/gpio.o
+                0x00000f90       0x14 C:/Users/malem/Desktop/Guia4/7SegDisplay/source/gpio.o
  .rodata.mode2pcr
-                0x00000fa4       0x10 C:/Users/malem/Documents/MCUXpressoIDE_10.2.0_759/workspace/7SegDisplay/source/gpio.o
+                0x00000fa4       0x10 C:/Users/malem/Desktop/Guia4/7SegDisplay/source/gpio.o
  .rodata.__num_Ciob_streams
                 0x00000fb4        0x4 c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_semihost_nf.a(__ciob.o)
                 0x00000fb4                __num_Ciob_streams
@@ -1045,7 +1045,7 @@ OUTPUT(7SegDisplay.axf elf32-littlearm)
  .debug_info    0x000007d1      0x8b0 ./source/startup/startup_mk64f12.o
  .debug_info    0x00001081      0x11d ./source/App.o
  .debug_info    0x0000119e      0x631 ./CMSIS/system_MK64F12.o
- .debug_info    0x000017cf      0x48c C:/Users/malem/Documents/MCUXpressoIDE_10.2.0_759/workspace/7SegDisplay/source/gpio.o
+ .debug_info    0x000017cf      0x48c C:/Users/malem/Desktop/Guia4/7SegDisplay/source/gpio.o
 
 .debug_abbrev   0x00000000      0x6fc
  .debug_abbrev  0x00000000      0x14d ./source/startup/hardware.o
@@ -1054,7 +1054,7 @@ OUTPUT(7SegDisplay.axf elf32-littlearm)
  .debug_abbrev  0x00000217      0x15c ./source/startup/startup_mk64f12.o
  .debug_abbrev  0x00000373       0xd3 ./source/App.o
  .debug_abbrev  0x00000446      0x154 ./CMSIS/system_MK64F12.o
- .debug_abbrev  0x0000059a      0x162 C:/Users/malem/Documents/MCUXpressoIDE_10.2.0_759/workspace/7SegDisplay/source/gpio.o
+ .debug_abbrev  0x0000059a      0x162 C:/Users/malem/Desktop/Guia4/7SegDisplay/source/gpio.o
 
 .debug_aranges  0x00000000      0x440
  .debug_aranges
@@ -1070,7 +1070,7 @@ OUTPUT(7SegDisplay.axf elf32-littlearm)
  .debug_aranges
                 0x000003d0       0x30 ./CMSIS/system_MK64F12.o
  .debug_aranges
-                0x00000400       0x40 C:/Users/malem/Documents/MCUXpressoIDE_10.2.0_759/workspace/7SegDisplay/source/gpio.o
+                0x00000400       0x40 C:/Users/malem/Desktop/Guia4/7SegDisplay/source/gpio.o
 
 .debug_ranges   0x00000000      0x400
  .debug_ranges  0x00000000       0x20 ./source/startup/hardware.o
@@ -1079,7 +1079,7 @@ OUTPUT(7SegDisplay.axf elf32-littlearm)
  .debug_ranges  0x00000040      0x320 ./source/startup/startup_mk64f12.o
  .debug_ranges  0x00000360       0x20 ./source/App.o
  .debug_ranges  0x00000380       0x20 ./CMSIS/system_MK64F12.o
- .debug_ranges  0x000003a0       0x60 C:/Users/malem/Documents/MCUXpressoIDE_10.2.0_759/workspace/7SegDisplay/source/gpio.o
+ .debug_ranges  0x000003a0       0x60 C:/Users/malem/Desktop/Guia4/7SegDisplay/source/gpio.o
 
 .debug_macro    0x00000000    0x126a7
  .debug_macro   0x00000000       0xb4 ./source/startup/hardware.o
@@ -1105,10 +1105,10 @@ OUTPUT(7SegDisplay.axf elf32-littlearm)
  .debug_macro   0x00011702       0x3a ./source/App.o
  .debug_macro   0x0001173c       0x34 ./source/App.o
  .debug_macro   0x00011770       0x98 ./CMSIS/system_MK64F12.o
- .debug_macro   0x00011808       0xd5 C:/Users/malem/Documents/MCUXpressoIDE_10.2.0_759/workspace/7SegDisplay/source/gpio.o
- .debug_macro   0x000118dd      0xa5a C:/Users/malem/Documents/MCUXpressoIDE_10.2.0_759/workspace/7SegDisplay/source/gpio.o
- .debug_macro   0x00012337      0x34e C:/Users/malem/Documents/MCUXpressoIDE_10.2.0_759/workspace/7SegDisplay/source/gpio.o
- .debug_macro   0x00012685       0x22 C:/Users/malem/Documents/MCUXpressoIDE_10.2.0_759/workspace/7SegDisplay/source/gpio.o
+ .debug_macro   0x00011808       0xd5 C:/Users/malem/Desktop/Guia4/7SegDisplay/source/gpio.o
+ .debug_macro   0x000118dd      0xa5a C:/Users/malem/Desktop/Guia4/7SegDisplay/source/gpio.o
+ .debug_macro   0x00012337      0x34e C:/Users/malem/Desktop/Guia4/7SegDisplay/source/gpio.o
+ .debug_macro   0x00012685       0x22 C:/Users/malem/Desktop/Guia4/7SegDisplay/source/gpio.o
 
 .debug_line     0x00000000     0x105c
  .debug_line    0x00000000      0x221 ./source/startup/hardware.o
@@ -1117,7 +1117,7 @@ OUTPUT(7SegDisplay.axf elf32-littlearm)
  .debug_line    0x0000043f      0x6db ./source/startup/startup_mk64f12.o
  .debug_line    0x00000b1a      0x145 ./source/App.o
  .debug_line    0x00000c5f      0x211 ./CMSIS/system_MK64F12.o
- .debug_line    0x00000e70      0x1ec C:/Users/malem/Documents/MCUXpressoIDE_10.2.0_759/workspace/7SegDisplay/source/gpio.o
+ .debug_line    0x00000e70      0x1ec C:/Users/malem/Desktop/Guia4/7SegDisplay/source/gpio.o
 
 .debug_str      0x00000000    0x7945b
  .debug_str     0x00000000    0x77e47 ./source/startup/hardware.o
@@ -1132,7 +1132,7 @@ OUTPUT(7SegDisplay.axf elf32-littlearm)
                                0x462f (size before relaxing)
  .debug_str     0x0007882e       0x5e ./CMSIS/system_MK64F12.o
                               0x77ddd (size before relaxing)
- .debug_str     0x0007888c      0xbcf C:/Users/malem/Documents/MCUXpressoIDE_10.2.0_759/workspace/7SegDisplay/source/gpio.o
+ .debug_str     0x0007888c      0xbcf C:/Users/malem/Desktop/Guia4/7SegDisplay/source/gpio.o
                               0x772d6 (size before relaxing)
 
 .comment        0x00000000       0x7e
@@ -1143,7 +1143,7 @@ OUTPUT(7SegDisplay.axf elf32-littlearm)
  .comment       0x0000007e       0x7f ./source/startup/startup_mk64f12.o
  .comment       0x0000007e       0x7f ./source/App.o
  .comment       0x0000007e       0x7f ./CMSIS/system_MK64F12.o
- .comment       0x0000007e       0x7f C:/Users/malem/Documents/MCUXpressoIDE_10.2.0_759/workspace/7SegDisplay/source/gpio.o
+ .comment       0x0000007e       0x7f C:/Users/malem/Desktop/Guia4/7SegDisplay/source/gpio.o
  .comment       0x0000007e       0x7f c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_semihost_nf.a(_cr__main.o)
  .comment       0x0000007e       0x7f c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_c.a(initio.o)
  .comment       0x0000007e       0x7f c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_c.a(setvbuf.o)
@@ -1178,7 +1178,7 @@ OUTPUT(7SegDisplay.axf elf32-littlearm)
  .ARM.attributes
                 0x0000011d       0x39 ./CMSIS/system_MK64F12.o
  .ARM.attributes
-                0x00000156       0x39 C:/Users/malem/Documents/MCUXpressoIDE_10.2.0_759/workspace/7SegDisplay/source/gpio.o
+                0x00000156       0x39 C:/Users/malem/Desktop/Guia4/7SegDisplay/source/gpio.o
  .ARM.attributes
                 0x0000018f       0x39 c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_semihost_nf.a(_cr__main.o)
  .ARM.attributes
@@ -1239,4 +1239,4 @@ OUTPUT(7SegDisplay.axf elf32-littlearm)
  .debug_frame   0x000000bc      0x904 ./source/startup/startup_mk64f12.o
  .debug_frame   0x000009c0       0x70 ./source/App.o
  .debug_frame   0x00000a30       0x74 ./CMSIS/system_MK64F12.o
- .debug_frame   0x00000aa4       0xc8 C:/Users/malem/Documents/MCUXpressoIDE_10.2.0_759/workspace/7SegDisplay/source/gpio.o
+ .debug_frame   0x00000aa4       0xc8 C:/Users/malem/Desktop/Guia4/7SegDisplay/source/gpio.o
