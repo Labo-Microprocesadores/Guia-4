@@ -8,12 +8,8 @@
 #include "SysTick.h"
 #include "gpio.h"
 
-typedef  struct
-	{
 
-	}Number_t;
-
-bool printCaracter(uint8_t caracter)
+bool printCaracter(uint8_t caracter, pin_t pins[])
 {
 	bool result[8];
 	int count;
@@ -24,7 +20,7 @@ bool printCaracter(uint8_t caracter)
 	}
 	for(count=0; count<8; count++)
 	{
-		gpioWrite(pin_t 1, result[count]);
+		gpioWrite(pins[count], result[count]);
 	}
 	return 0;
 }
