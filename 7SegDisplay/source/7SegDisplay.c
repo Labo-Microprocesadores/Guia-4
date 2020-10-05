@@ -15,15 +15,13 @@ typedef  struct
 
 bool printCaracter(uint8_t caracter)
 {
-	bool result[8];
-	uint8_t controller=0x01;
+	uint8_t result[8];
 	int count;
 	for(count=0; count<8; count++)
 	{
 		result[count]=caracter & controller;
-		caracter>>1;
+		caracter = caracter>>1;
 	}
 	return 0;
 }
-
 

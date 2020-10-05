@@ -25,6 +25,7 @@
 #define EIGHT	(uint8_t)0x7F
 #define NINE	(uint8_t)0x6F
 #define LINE	(uint8_t)0x80
+#define MASK	(uint8_t)0x01
 #define NONE	(uint8_t)0x00
 
 uint8_t screen[4] = {NONE, NONE, NONE, NONE};
