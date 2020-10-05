@@ -1,6 +1,6 @@
 /***************************************************************************//**
-  @file     Button.c
-  @brief    Button configurations
+  @file     7SegDisplay.c
+  @brief    Display configurations
   @author   Grupo 2
  ******************************************************************************/
 
@@ -15,12 +15,16 @@ typedef  struct
 
 bool printCaracter(uint8_t caracter)
 {
-	uint8_t result[8];
+	bool result[8];
 	int count;
 	for(count=0; count<8; count++)
 	{
-		result[count]=caracter & controller;
+		result[count]=(bool)(caracter & controller);
 		caracter = caracter>>1;
+	}
+	for(count=0; count<8; count++)
+	{
+		gpioWrite(pin_t 1, result[count]);
 	}
 	return 0;
 }
