@@ -34,6 +34,8 @@ static void delayLoop(uint32_t veces);
 void App_Init (void)
 {
     gpioMode(PIN_LED_BLUE, OUTPUT);
+    pin_t pins[10];
+    SevenSegDisplay_Init(pins);
 }
 
 /* Función que se llama constantemente en un ciclo infinito */

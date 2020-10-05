@@ -30,17 +30,21 @@
 
 uint8_t screen[4] = {NONE, NONE, NONE, NONE};
 
-bool SevenSegDisplay_Init(void);
+bool SevenSegDisplay_Init(pin_t pins[]);
 
-bool SevenSegDisplay_PrintCharacter(uint8_t);
+void SevenSegDisplay_PISR(void);
 
-bool SevenSegDisplay_PrintScreen(void);
+bool SevenSegDisplay_ChangeCharacter(int screen_char, uint8_t new_char);
 
-bool SevenSegDisplay_EraseScreen(void);
+bool SevenSegDisplay_PrintCharacter(uint8_t, pin_t pins[]);
+
+void SevenSegDisplay_PrintScreen(pin_t pins[]);
+
+void SevenSegDisplay_EraseScreen(void);
 
 //bool SevenSegDisplay_BlinkScreen(void);
 
-bool SevenSegDisplay_BlinkCharacter(void);
+//bool SevenSegDisplay_BlinkCharacter(void);
 
 
 
