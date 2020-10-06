@@ -1,17 +1,52 @@
+/***************************************************************************//**
+  @file     SysTick.c
+  @brief    SysTick Driver
+  @author   Grupo 2 - Lab de Micros
+ ******************************************************************************/
+/*******************************************************************************
+ * INCLUDE HEADER FILES
+ ******************************************************************************/
 #include <stddef.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
 #include "SysTick.h"
 #include "startup/hardware.h"
 
-static SysTickElement sysTickElements[INITIAL_SYSTICK_ELEMENTS_ARRAY_LENGTH];
-static int idCounter;
+/*******************************************************************************
+ * FUNCTION PROTOTYPES FOR PRIVATE FUNCTIONS WITH FILE LEVEL SCOPE
+ ******************************************************************************/
+/**
+ * @brief 	Finds the amount of not NULL elements in a SystickElement's array.
+ * 			The not NULL elements must be consecutive.
+ * @param sysTickElements SystickElement's array.
+ * @return The amount of not NULL elements.
+ */
 static int getArrayEffectiveLength (SysTickElement sysTickElements [] );
 
+/**
+ * @brief Manages the calling of the callbacks after their period has elapsed.
+ */
+__ISR__ SysTick_Handler (void);
+
+/*******************************************************************************
+ * PRIVATE VARIABLES WITH FILE LEVEL SCOPE
+ ******************************************************************************/
+
+/*A SystickElement's array to store the callbacks, their period, and other variables needed.*/
+static SysTickElement sysTickElements[INITIAL_SYSTICK_ELEMENTS_ARRAY_LENGTH];
+/*A counter that avoid the repetition of the IDs returned by SysTick_AddCallback*/
+static int idCounter;
+
+/*******************************************************************************
+ *******************************************************************************
+                        GLOBAL FUNCTION DEFINITIONS
+ *******************************************************************************
+ ******************************************************************************/
 bool SysTick_Init (void)
 {
 	SysTick->CTRL = 0x00;
-	SysTick->LOAD = SYSTICK_ISR_PERIOD_S - 1;
+	SysTick->LOAD = SYSTICK_ISR_PERIOD - 1;
 	SysTick->VAL = 0x00;
 	SysTick->CTRL = SysTick_CTRL_CLKSOURCE_Msk | SysTick_CTRL_TICKINT_Msk |	SysTick_CTRL_ENABLE_Msk;
 
@@ -19,141 +54,158 @@ bool SysTick_Init (void)
 	return true;
 }
 
-__ISR__ SysTick_Handler (void)
+int SysTick_AddCallback(void (*newCallback)(void), int period)
 {
-	for(int i=0; i<(getArrayEffectiveLength(sysTickElements)); i++){
-		sysTickElements[i].counter ++;
-		if(sysTickElements[i].counter == sysTickElements[i].timersPeriodMultiple){
-			(*sysTickElements[i].callback)();
-			sysTickElements[i].counter = 0;
-		}
-	}
-}
+	int quotient = (int) (period / SYSTICK_ISR_PERIOD);	//Calculates how many SYSTICK_ISR_PERIODs are equivalent to the callback period.
 
-//Systick_ClrCallback adds an element to the array of callbacks.
-//newTime should be greater than SYSTICK_ISR_PERIOD_S. It indicates the period for the callback to be called.
-//Returns ID if no error was found;
-int SysTick_AddCallback(void (*newCallback)(void), int newTime)
-{
-	int newMultiple = (int) (newTime / SYSTICK_ISR_PERIOD_S);	//Calculates how many SYSTICK_ISR_PERIOD_Ss are equivalent to the callback period.
-	if(newMultiple!=0){
-		SysTickElement newSystickElement = {idCounter,newCallback, newMultiple, 0, false};	//Creates the new element
-		sysTickElements[getArrayEffectiveLength(sysTickElements)] = newSystickElement;
-		return idCounter++;
-	}
-	return SystickNotMultipleOfSystickPeriod;
+	if (quotient <= 0)
+		return SystickPeriodError;	//period must be greater than SYSTICK_ISR_PERIOD
+
+	SysTickElement newSystickElement = {idCounter,newCallback, quotient, 0, false};	//Creates the new element.
+	sysTickElements[getArrayEffectiveLength(sysTickElements)] = newSystickElement;	//Stores the new element.
+	return idCounter++;	//Returns the corresponding ID and increases the count afterwards.
 }
 
 
-//Systick_ClrCallback cancels a callback element.
 SystickError Systick_ClrCallback(int id)
 {
-	bool idFound = false;
-	int i = 0;
-	int arrayEffectiveLength = getArrayEffectiveLength(sysTickElements);
-	while((idFound == false) && (i < arrayEffectiveLength)){
-		if(sysTickElements[i].callbackID == id){
-			idFound = true;
-			for(int j=i; j<((getArrayEffectiveLength(sysTickElements))-1); j++){
+
+	bool idFound = false;	//Flag
+	int i = 0;				//Index
+	int arrayEffectiveLength = getArrayEffectiveLength(sysTickElements);	//Amount of not NULL elements in sysTickElements.
+
+	/*Searches for the id in the array*/
+	while((idFound == false) && (i < arrayEffectiveLength))
+	{
+		if(sysTickElements[i].callbackID == id)	//ID found.
+		{
+			idFound = true;	//Flag ON
+			/*Shifts the next elements one position (overwriting the element to be deleted)*/
+			for(int j=i; j<((getArrayEffectiveLength(sysTickElements))-1); j++)
+			{
 				sysTickElements[j].callbackID = sysTickElements[j+1].callbackID;
 				sysTickElements[j].callback = sysTickElements[j+1].callback;
 				sysTickElements[j].counter = sysTickElements[j+1].counter;
 				sysTickElements[j].paused = sysTickElements[j+1].paused;
-				sysTickElements[j].timersPeriodMultiple = sysTickElements[j+1].timersPeriodMultiple;
+				sysTickElements[j].counterLimit = sysTickElements[j+1].counterLimit;
 
 			}
-
-			//"Deleting" element
+			/*Re-establishes the previous last position of the array to default values.*/
 			sysTickElements[arrayEffectiveLength-1].callback = NULL;
 			sysTickElements[arrayEffectiveLength-1].counter = 0;
 			sysTickElements[arrayEffectiveLength-1].paused = false;
 			sysTickElements[arrayEffectiveLength-1].callbackID = 0;
-			sysTickElements[arrayEffectiveLength-1].timersPeriodMultiple = 0;
-
-
+			sysTickElements[arrayEffectiveLength-1].counterLimit = 0;
 		}
 		i++;
 	}
-	if(idFound == false){
+	if(idFound == false)
 		return SystickNoIdFound;
-	}
+
 	return SystickNoError;
 }
 
-//Systick_ChangeCallbackTime changes the time at which a callback is called.
-SystickError Systick_ChangeCallbackTime(int id, int newTime)
-{
-	bool idFound = false;
-	int i = 0;
-	do{
-		if(sysTickElements[i].callbackID == id){
-			idFound = true;
-			int newMultiple = (int) (newTime / SYSTICK_ISR_PERIOD_S);
-			if(newMultiple!=0){
-				sysTickElements[i].timersPeriodMultiple = newMultiple;
-				sysTickElements[i].counter = 0;
-			}
-		}
-		i++;
-	} while((idFound == false) && (i < getArrayEffectiveLength(sysTickElements)));
-	if(idFound == false){
-		return SystickNoIdFound;
-	}
-	return SystickNoError;
-}
-
-//Systick_PauseCallback pauses a callback.
 SystickError Systick_PauseCallback(int id)
 {
-	bool idFound = false;
-	int i = 0;
-	do{
-		if(sysTickElements[i].callbackID == id){
+	bool idFound = false;	//Flag
+	int i = 0;				//Index
+	int arrayEffectiveLength = getArrayEffectiveLength(sysTickElements);	//Amount of not NULL elements in sysTickElements.
+	/*Searches for the id in the array*/
+	while((idFound == false) && (i < arrayEffectiveLength))
+	{
+		if(sysTickElements[i].callbackID == id)	//ID found.
+		{
 			idFound = true;
-			sysTickElements[i].paused = true;
+			sysTickElements[i].paused = true;	//Pauses the calling of the callback.
 		}
 		i++;
-	} while((idFound == false) && (i < getArrayEffectiveLength(sysTickElements)));
-	if(idFound == false){
-		return SystickNoIdFound;
 	}
+	if(idFound == false)
+		return SystickNoIdFound;
+
 	return SystickNoError;
 }
 
-//Systick_ResumeCallback resumes a callback.
 SystickError Systick_ResumeCallback(int id)
 {
-	bool callbackFound = false;
-	int i = 0;
-	do{
-		if(sysTickElements[i].callbackID == id){
-			callbackFound = true;
-			sysTickElements[i].paused = false;
+	bool idFound = false;	//Flag
+	int i = 0;				//Index
+	int arrayEffectiveLength = getArrayEffectiveLength(sysTickElements);	//Amount of not NULL elements in sysTickElements.
+	/*Searches for the id in the array*/
+	while((idFound == false) && (i < arrayEffectiveLength))
+	{
+		if(sysTickElements[i].callbackID == id)	//ID found.
+		{
+			idFound = true;
+			sysTickElements[i].paused = false;	//Resumes the calling of the callback.
 		}
 		i++;
-	} while((callbackFound == false) && (i < getArrayEffectiveLength(sysTickElements)));
-	if(callbackFound == false){
-		return SystickNoIdFound;
 	}
+	if(idFound == false)
+		return SystickNoIdFound;
+
 	return SystickNoError;
 }
 
 
-//Returns the number of elements added to the array (the number of elements before an element with NULL callback is found).
-static int getArrayEffectiveLength (SysTickElement sysTickElements[] ){
+SystickError Systick_ChangeCallbackPeriod(int id, int newPeriod)
+{
+	bool idFound = false;	//Flag
+	int i = 0;				//Index
 
-	int i = 0;
-	bool foundLast = false;
-	while (foundLast == false && i < INITIAL_SYSTICK_ELEMENTS_ARRAY_LENGTH){
+	/*Searches for the id in the array*/
+	while((idFound == false) && (i < getArrayEffectiveLength(sysTickElements)))
+	{
+		if(sysTickElements[i].callbackID == id) //ID found
+		{
+			idFound = true;
+			int quotient = (int) (newPeriod / SYSTICK_ISR_PERIOD);
+			if (quotient <= 0)
+				return SystickPeriodError;	//newPeriod must be greater than SYSTICK_ISR_PERIOD
 
-		if (sysTickElements[i].callback == NULL){
-			foundLast = true;
-		}else{
-			i ++;
+			sysTickElements[i].counterLimit = quotient;	//New counter limit.
+			sysTickElements[i].counter = 0;				//Restarts counter.
 		}
+		i++;
+	}
+
+	if(idFound == false)
+		return SystickNoIdFound;
+
+	return SystickNoError;
+}
+
+/*******************************************************************************
+ *******************************************************************************
+                        LOCAL FUNCTION DEFINITIONS
+ *******************************************************************************
+ ******************************************************************************/
+
+static int getArrayEffectiveLength (SysTickElement sysTickElements[] )
+{
+	int i = 0;	//Index
+	bool foundLast = false;	//Flag
+	while (foundLast == false && i < INITIAL_SYSTICK_ELEMENTS_ARRAY_LENGTH)
+	{
+		if (sysTickElements[i].callback == NULL)	//Current element is null => The previous element was the last one.
+			foundLast = true;
+		else
+			i++;
 	}
 	return i;
 }
 
+__ISR__ SysTick_Handler (void)
+{
+	for(int i=0; i<(getArrayEffectiveLength(sysTickElements)); i++)	//Iterates through all the elements.
+	{
+		sysTickElements[i].counter ++;
+		if(sysTickElements[i].counter == sysTickElements[i].counterLimit)	//If the counter reaches the counterLimit the element's callback must be called.
+		{
+			(*sysTickElements[i].callback)();	//Callback's calling.
+			sysTickElements[i].counter = 0;		//Counter re-establishment.
+		}
+	}
+}
 
 
