@@ -11,16 +11,17 @@
 
 #define PORT2_SIM_SCGC5_MASK(p) (SIM_SCGC5_PORTA_MASK << (((p)>>5) & 0x07) )
 
-/**
- * @brief Configures the specified pin to behave either as an input or an output
- * @param pin the pin whose mode you wish to set (according PORTNUM2PIN)
- * @param mode INPUT, OUTPUT, INPUT_PULLUP or INPUT_PULLDOWN.
- */
+void interruptHandler(uint8_t port);
 
 static PORT_Type * ports[] = PORT_BASE_PTRS;
 static GPIO_Type * gpioPorts[] = GPIO_BASE_PTRS;
 
 
+/**
+ * @brief Configures the specified pin to behave either as an input or an output
+ * @param pin the pin whose mode you wish to set (according PORTNUM2PIN)
+ * @param mode INPUT, OUTPUT, INPUT_PULLUP or INPUT_PULLDOWN.
+ */
 void gpioMode (pin_t pin, uint8_t mode)
 {
 
@@ -31,9 +32,7 @@ void gpioMode (pin_t pin, uint8_t mode)
 
 
 	ports[port]->PCR[num] = 0x0;
-	ports[port]->PCR[num] |= PORT_PCR_MUX(1); //Set MUX to GPIO mode on pin22
-	//PORTB->PCR[21] |=PORT_PCR_DSE(1); //Drive strength: enabled
-	//PORTB->PCR[21] |=PORT_PCR_IRQC(0); //Disable interrupts
+	ports[port]->PCR[num] |= PORT_PCR_MUX(1); //Set MUX to GPIO
 
 	if(mode == OUTPUT) // Output
 	{
@@ -107,7 +106,7 @@ void gpioWrite (pin_t pin, bool value)
  * @param irqFun function to call on pin event
  * @return Registration succeed
  */
-static void (*callbacks[5])(void);
+static void (*callbacks[5][32])(void);
 
 bool gpioIRQ (pin_t pin, uint8_t irqMode, pinIrqFun_t irqFun)
 {
@@ -116,8 +115,8 @@ bool gpioIRQ (pin_t pin, uint8_t irqMode, pinIrqFun_t irqFun)
 	ports[port]->PCR[num] |= PORT_PCR_IRQC_MASK;
 	ports[port]->PCR[num] |= PORT_PCR_IRQC(irqMode);
 	NVIC_EnableIRQ(PORTA_IRQn + port);
-	callbacks[port] = irqFun;
-	//NVIC_SetVector(PORTA_IRQn + port, (uint32_t)irqFun);
+	callbacks[port][num] = irqFun;
+
 	return NVIC_GetActive(PORTA_IRQn + port); // not implemented yet
 }
 
@@ -135,25 +134,40 @@ bool PORT_ClearInterruptFlag (pin_t pin)
 
 __ISR__ PORTA_IRQHandler (void)
 {
-	callbacks[0]();
+	interruptHandler(0);
 }
 
 __ISR__ PORTB_IRQHandler (void)
 {
-	callbacks[1]();
+	interruptHandler(1);
 }
 
 __ISR__ PORTC_IRQHandler (void)
 {
-	callbacks[2]();
+	interruptHandler(2);
 }
 
 __ISR__ PORTD_IRQHandler (void)
 {
-	callbacks[3]();
+	interruptHandler(3);
 }
 
 __ISR__ PORTE_IRQHandler (void)
 {
-	callbacks[4]();
+	interruptHandler(4);
+}
+
+void interruptHandler(uint8_t port)
+{
+	int i;
+	uint32_t isfr = ports[port]->ISFR;
+	for (i = 0; i<32;i++)
+	{
+		if ( callbacks[port][i] && (isfr & 0x1) )
+		{
+			ports[port]->PCR[i] |= PORT_PCR_ISF_MASK;
+			callbacks[port][i]();
+		}
+		isfr >>= 1;
+	}
 }
