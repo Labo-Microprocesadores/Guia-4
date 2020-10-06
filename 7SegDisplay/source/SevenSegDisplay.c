@@ -4,22 +4,39 @@
   @author   Grupo 2
  ******************************************************************************/
 
-#include "7SegDisplay.h"
-#include "SysTick.h"
 #include "gpio.h"
+#include "SevenSegDisplay.h"
+#include "SysTick.h"
 
 
 
-bool SevenSegDisplay_Init(pin_t pins[], uint8_t tamanio)
+static uint8_t screen[4] = {NONE, NONE, NONE, NONE};
+static pin_t displayPins[SEG_LEN] = {PIN_SEGA, PIN_SEGB, PIN_SEGC, PIN_SEGD,
+							 	 	 PIN_SEGE, PIN_SEGF, PIN_SEGG, PIN_SEGDP};
+static pin_t selectPins[SEL_LEN] = {PIN_SEL0, PIN_SEL1};
+
+bool SevenSegDisplay_Init(void)
 {
-	Timer_Init();
-    uint8_t count;
-	for(count=0; count<tamanio;count++)
+	static bool isInit = false;
+	if(!isInit)
 	{
-	    gpioMode(pins[count], OUTPUT);
-	}
-	int systickCallbackID = Timer_AddCallback(&SevenSegDisplay_PISR, 10000000L); //ver si queda este tiempo
+		Timer_Init();
+		uint8_t count;
+		for(count=0; count<SEG_LEN ;count++)
+		{
+			gpioMode(displayPins[count], OUTPUT);
+		}
+		for(count=0; count<SEL_LEN ;count++)
+		{
+			gpioMode(selectPins[count], OUTPUT);
+		}
+	    //pongo los 2 pin a demultiplexar en 00 para que solo se prenda un 7segmentos
+	    gpioWrite (selectPins[0], false);
+	    gpioWrite (selectPins[1], false);
+
+		int systickCallbackID = Timer_AddCallback(&SevenSegDisplay_PISR, 10000000L); //ver si queda este tiempo
 	//idCounter = 1;
+	}
 	return true;
 }
 
@@ -39,28 +56,28 @@ bool SevenSegDisplay_ChangeCharacter(int screen_char, uint8_t new_char)
  * @param array with pins to 7 segments display
  * @return printed succeed
  */
-bool SevenSegDisplay_PrintCharacter(uint8_t character, pin_t pins[])
+bool SevenSegDisplay_PrintCharacter(uint8_t character)
 {
 	bool result[8];
 	int count;
 	//convert the number to binary and then with shifts find each bit, put them in result array
-	for(count=0; count<8; count++)
+	for(count=0; count<SEG_LEN; count++)
 	{
-		result[count]=(bool)(character & controller);
+		result[count]=(bool)(character & MASK);
 		character = character>>1;
 	}
 	//turn on the pins according to result array
-	for(count=0; count<8; count++)
+	for(count=0; count<SEG_LEN; count++)
 	{
-		gpioWrite(pins[count], result[count]);
+		gpioWrite(displayPins[count], result[count]);
 	}
 	return 0;
 }
 
-void SevenSegDisplay_PrintScreen(pin_t pins[])
+void SevenSegDisplay_PrintScreen(void)
 {
 	static int displayCounter = 0;
-	SevenSegDisplay_PrintCharacter(screen[displayCounter], pins);
+	SevenSegDisplay_PrintCharacter(screen[displayCounter]);
 	if (displayCounter == (int)(sizeof(screen)/sizeof(screen[0])))
 	{
 		displayCounter = 0;

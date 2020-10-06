@@ -45,6 +45,17 @@
 #define SW_ACTIVE       LOW
 #define SW_INPUT_TYPE   INPUT_PULLDOWN
 
+// 7Segment Board
+#define PIN_SEGA	PORTNUM2PIN(PB,2) // PTB2
+#define PIN_SEGB	PORTNUM2PIN(PB,3) // PTB3
+#define PIN_SEGC	PORTNUM2PIN(PB,10) // PTB10
+#define PIN_SEGD	PORTNUM2PIN(PB,11) // PTB11
+#define PIN_SEGE	PORTNUM2PIN(PC,11) // PTC11
+#define PIN_SEGF	PORTNUM2PIN(PC,10) // PTB10
+#define PIN_SEGG	PORTNUM2PIN(PB,20) // PTB20
+#define PIN_SEGDP	PORTNUM2PIN(PC,5) // PTC5
+#define PIN_SEL0	PORTNUM2PIN(PC,7) // PTC7
+#define PIN_SEL1	PORTNUM2PIN(PC,0) // PTC0
 
 /*******************************************************************************
  ******************************************************************************/

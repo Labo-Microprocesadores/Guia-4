@@ -1,5 +1,5 @@
 /*
- * 7SegDisplay.h
+ * SevenSegDisplay.h
  *
  *  Created on: 3 oct. 2020
  *      Author: Grupo 2
@@ -8,11 +8,11 @@
 #ifndef SEVENSEGDISPLAY_H_
 #define SEVENSEGDISPLAY_H_
 
-
+#include "gpio.h"
 #include <stdint.h>
 #include <stdbool.h>
-#include "gpio.h"
 #include "Timer.h"
+#include "board.h"
 
 #define ZERO	(uint8_t)0x3F
 #define ONE		(uint8_t)0x06
@@ -28,17 +28,18 @@
 #define MASK	(uint8_t)0x01
 #define NONE	(uint8_t)0x00
 
-uint8_t screen[4] = {NONE, NONE, NONE, NONE};
+#define SEG_LEN	8
+#define SEL_LEN	2
 
-bool SevenSegDisplay_Init(pin_t pins[]);
+bool SevenSegDisplay_Init(void);
 
 void SevenSegDisplay_PISR(void);
 
 bool SevenSegDisplay_ChangeCharacter(int screen_char, uint8_t new_char);
 
-bool SevenSegDisplay_PrintCharacter(uint8_t, pin_t pins[]);
+bool SevenSegDisplay_PrintCharacter(uint8_t character);
 
-void SevenSegDisplay_PrintScreen(pin_t pins[]);
+void SevenSegDisplay_PrintScreen(void);
 
 void SevenSegDisplay_EraseScreen(void);
 

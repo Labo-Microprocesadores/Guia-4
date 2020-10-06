@@ -4,19 +4,28 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../source/7SegDisplay.c \
-../source/App.c 
+../source/App.c \
+../source/SevenSegDisplay.c \
+../source/SysTick.c \
+../source/Timer.c \
+../source/gpio.c 
 
 O_SRCS += \
 ../source/gpio.o 
 
 OBJS += \
-./source/7SegDisplay.o \
-./source/App.o 
+./source/App.o \
+./source/SevenSegDisplay.o \
+./source/SysTick.o \
+./source/Timer.o \
+./source/gpio.o 
 
 C_DEPS += \
-./source/7SegDisplay.d \
-./source/App.d 
+./source/App.d \
+./source/SevenSegDisplay.d \
+./source/SysTick.d \
+./source/Timer.d \
+./source/gpio.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

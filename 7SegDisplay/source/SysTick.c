@@ -10,14 +10,19 @@ static int getArrayEffectiveLength (SysTickElement sysTickElements [] );
 
 bool SysTick_Init (void)
 {
-	SysTick->CTRL = 0x00;
-	SysTick->LOAD = SYSTICK_ISR_PERIOD_S - 1;
-	SysTick->VAL = 0x00;
-	SysTick->CTRL = SysTick_CTRL_CLKSOURCE_Msk | SysTick_CTRL_TICKINT_Msk |	SysTick_CTRL_ENABLE_Msk;
-
-	idCounter = 1;
+	static bool isInit = false;
+	if (!isInit)
+	{
+		SysTick->CTRL = 0x00;
+		SysTick->LOAD = SYSTICK_ISR_PERIOD_S - 1;
+		SysTick->VAL = 0x00;
+		SysTick->CTRL = SysTick_CTRL_CLKSOURCE_Msk | SysTick_CTRL_TICKINT_Msk |	SysTick_CTRL_ENABLE_Msk;
+		idCounter = 1;
+		isInit = true;
+	}
 	return true;
 }
+
 
 __ISR__ SysTick_Handler (void)
 {

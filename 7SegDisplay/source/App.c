@@ -8,8 +8,9 @@
  * INCLUDE HEADER FILES
  ******************************************************************************/
 
-#include "board.h"
 #include "gpio.h"
+#include "board.h"
+#include "SevenSegDisplay.h"
 
 
 /*******************************************************************************
@@ -33,14 +34,9 @@ static void delayLoop(uint32_t veces);
 /* Función que se llama 1 vez, al comienzo del programa */
 void App_Init (void)
 {
-    pin_t pins[TAMANIO_PINES];
-    SevenSegDisplay_Init(pins, TAMANIO_PINES);
+    SevenSegDisplay_Init();
  //harcodeado para prueba
-    //pongo los 2 pin a demultiplexar en 00 para que solo se prenda un 7segmentos
-    gpioWrite (pins[8], false);
-    gpioWrite (pins[9], false);
-
-    SevenSegDisplay_PrintCharacter(7, pins)
+    SevenSegDisplay_PrintCharacter(7);
  //fin de harcodeo
 }
 
@@ -48,7 +44,7 @@ void App_Init (void)
 void App_Run (void)
 {
     delayLoop(4000000UL);
-    gpioToggle(PIN_LED_BLUE);
+    //gpioToggle(PIN_LED_BLUE);
 }
 
 

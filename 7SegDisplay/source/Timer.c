@@ -16,9 +16,14 @@ void Timer_PISR(void);
 
 bool Timer_Init (void)
 {
-	SysTick_Init();
-	int systickCallbackID = SysTick_AddCallback(&Timer_PISR, 10000000L);
-	idCounter = 1;
+	static bool isInit = false;
+	if (!isInit)
+	{
+		SysTick_Init();
+		int systickCallbackID = SysTick_AddCallback(&Timer_PISR, 10000000L);
+		idCounter = 1;
+		isInit = true;
+	}
 	return true;
 }
 
