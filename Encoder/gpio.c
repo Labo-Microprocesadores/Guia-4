@@ -11,16 +11,17 @@
 
 #define PORT2_SIM_SCGC5_MASK(p) (SIM_SCGC5_PORTA_MASK << (((p)>>5) & 0x07) )
 
-/**
- * @brief Configures the specified pin to behave either as an input or an output
- * @param pin the pin whose mode you wish to set (according PORTNUM2PIN)
- * @param mode INPUT, OUTPUT, INPUT_PULLUP or INPUT_PULLDOWN.
- */
+void interruptHandler(uint8_t port);
 
 static PORT_Type * ports[] = PORT_BASE_PTRS;
 static GPIO_Type * gpioPorts[] = GPIO_BASE_PTRS;
 
 
+/**
+ * @brief Configures the specified pin to behave either as an input or an output
+ * @param pin the pin whose mode you wish to set (according PORTNUM2PIN)
+ * @param mode INPUT, OUTPUT, INPUT_PULLUP or INPUT_PULLDOWN.
+ */
 void gpioMode (pin_t pin, uint8_t mode)
 {
 
@@ -31,9 +32,7 @@ void gpioMode (pin_t pin, uint8_t mode)
 
 
 	ports[port]->PCR[num] = 0x0;
-	ports[port]->PCR[num] |= PORT_PCR_MUX(1); //Set MUX to GPIO mode on pin22
-	//PORTB->PCR[21] |=PORT_PCR_DSE(1); //Drive strength: enabled
-	//PORTB->PCR[21] |=PORT_PCR_IRQC(0); //Disable interrupts
+	ports[port]->PCR[num] |= PORT_PCR_MUX(1); //Set MUX to GPIO
 
 	if(mode == OUTPUT) // Output
 	{
@@ -135,60 +134,40 @@ bool PORT_ClearInterruptFlag (pin_t pin)
 
 __ISR__ PORTA_IRQHandler (void)
 {
-	int i;
-	for (i = 0; i<32;i++)
-	{
-		if ( callbacks[0][i] && (ports[0]->PCR[i] | PORT_PCR_ISF_MASK) )
-		{
-			callbacks[0][i]();
-		}
-	}
+	interruptHandler(0);
 }
 
 __ISR__ PORTB_IRQHandler (void)
 {
-	int i;
-	for (i = 0; i<32;i++)
-	{
-		if ( callbacks[1][i] && (ports[1]->PCR[i] | PORT_PCR_ISF_MASK) )
-		{
-			callbacks[1][i]();
-		}
-	}
+	interruptHandler(1);
 }
 
 __ISR__ PORTC_IRQHandler (void)
 {
-	int i;
-	for (i = 0; i<32;i++)
-	{
-		if ( callbacks[2][i] && (ports[2]->PCR[i] | PORT_PCR_ISF_MASK) )
-		{
-			callbacks[2][i]();
-		}
-	}
+	interruptHandler(2);
 }
 
 __ISR__ PORTD_IRQHandler (void)
 {
-	int i;
-	for (i = 0; i<32;i++)
-	{
-		if ( callbacks[3][i] && (ports[3]->PCR[i] | PORT_PCR_ISF_MASK) )
-		{
-			callbacks[3][i]();
-		}
-	}
+	interruptHandler(3);
 }
 
 __ISR__ PORTE_IRQHandler (void)
 {
+	interruptHandler(4);
+}
+
+void interruptHandler(uint8_t port)
+{
 	int i;
+	uint32_t isfr = ports[port]->ISFR;
 	for (i = 0; i<32;i++)
 	{
-		if ( callbacks[4][i] && (ports[4]->PCR[i] | PORT_PCR_ISF_MASK) )
+		if ( callbacks[port][i] && (isfr & 0x1) )
 		{
-			callbacks[4][i]();
+			ports[port]->PCR[i] |= PORT_PCR_ISF_MASK;
+			callbacks[port][i]();
 		}
+		isfr >>= 1;
 	}
 }
