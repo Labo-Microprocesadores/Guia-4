@@ -10,9 +10,14 @@
 
 
 
-bool SevenSegDisplay_Init(pin_t pins[])
+bool SevenSegDisplay_Init(pin_t pins[], uint8_t tamanio)
 {
 	Timer_Init();
+    uint8_t count;
+	for(count=0; count<tamanio;count++)
+	{
+	    gpioMode(pins[count], OUTPUT);
+	}
 	int systickCallbackID = Timer_AddCallback(&SevenSegDisplay_PISR, 10000000L); //ver si queda este tiempo
 	//idCounter = 1;
 	return true;
