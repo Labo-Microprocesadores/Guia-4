@@ -17,4 +17,5 @@ SUBDIRS := \
 CMSIS \
 source \
 source/startup \
+source/test \
 

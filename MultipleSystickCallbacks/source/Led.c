@@ -12,7 +12,6 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "Timer.h"
-#include "board.h"
 #include "gpio.h"
 #include "Led.h"
 
@@ -31,7 +30,22 @@ static int findLedIndexByID (LedID id);
  * @brief Manages the time and events of the processes taking place in each LED.
  */
 static void Led_PISR(void);
-
+/**
+ * @brief Manages all the related with the On For Defined Time processes each cycle of the PISR.
+ */
+static void OnForDefinedTimeCalledFromPISR(LedElement* ledElement);
+/**
+ * @brief Manages all the related with the Blink processes each cycle of the PISR.
+ */
+static void BlinkCalledFromPISR(LedElement* ledElement);
+/**
+ * @brief Manages all the related with the Repetition Blink processes each cycle of the PISR.
+ */
+static void RepetitionBlinkCalledFromPISR(LedElement* ledElement);
+/**
+ * @brief Manages all the related with the Infinite Blink processes each cycle of the PISR.
+ */
+static void InfiniteBlinkCalledFromPISR(LedElement* ledElement);
 
 /*******************************************************************************
  * PRIVATE VARIABLES WITH FILE LEVEL SCOPE
@@ -74,7 +88,7 @@ bool Led_Init (void)
 	ledElements[1] = greenLed;
 	ledElements[2] = blueLed;
 
-	Timer_AddCallback(&Led_PISR, LED_ISR_PERIOD); //Requests Timer to periodically call the Led's ISR.
+	Timer_AddCallback(&Led_PISR, LED_ISR_PERIOD, false); //Requests Timer to periodically call the Led's ISR.
 	return true;
 }
 
@@ -95,12 +109,11 @@ void Led_Toggle(LedID ledID)
 
 LedError Led_OnForDefinedTime(LedID ledID, int onTime)
 {
-	unsigned int onTimeConvertion = onTime * MS_TO_TICK_CONVERTION;	//Converts the time in ms to ticks.
 	int indexInArray = findLedIndexByID(ledID);	//Finds the LED index in the ledElements array.
 	if (indexInArray == -1)
 		return LedNoIdFound;
 
-	int quotient = (int) (onTimeConvertion / LED_ISR_PERIOD);	//Calculates how many LED_ISR_PERIOD are equivalent to the onTime period.
+	int quotient = (int) (onTime / LED_ISR_PERIOD);	//Calculates how many LED_ISR_PERIOD are equivalent to the onTime period.
 
 	if (quotient <= 0)
 		return LedPeriodError;	//period must be greater than LED_ISR_PERIOD.
@@ -109,7 +122,7 @@ LedError Led_OnForDefinedTime(LedID ledID, int onTime)
 	ledElements[indexInArray].onForDefinedTimeProperties.onTime = onTime;
 	ledElements[indexInArray].onForDefinedTimeProperties.onTimeCounterLimit = quotient;	//Indicates the amount of times the Led's ISR must occur before the LED turns off.
 	ledElements[indexInArray].onForDefinedTimeProperties.onTimeCounter = 0;				//Counts the amount of times the Led's ISR occurred.
-	Led_On(ledElements[indexInArray].ledID);	//Turns the LED on (starts the process).
+
 
 	ledElements[indexInArray].isOnForDefinedTime = true;	//Flag indicating the process is taking place.
 	return LedNoError;
@@ -118,11 +131,14 @@ LedError Led_OnForDefinedTime(LedID ledID, int onTime)
 
 LedError Led_CustomBlink(LedID ledID,int blinkTimes, int blinkPeriod, int onTime)
 {
-	unsigned int blinkPeriodConvertion = blinkPeriod * MS_TO_TICK_CONVERTION; //Converts the time in ms to ticks.
 	int indexInArray = findLedIndexByID(ledID); //Finds the LED index in the ledElements array.
 	if (indexInArray == -1)
 		return LedNoIdFound;
-	int quotient = (int) (blinkPeriodConvertion / LED_ISR_PERIOD); //Calculates how many LED_ISR_PERIOD are equivalent to a blinkPeriod.
+
+	if (onTime > blinkPeriod)
+		return LedPeriodError;
+
+	int quotient = (int) (blinkPeriod / LED_ISR_PERIOD); //Calculates how many LED_ISR_PERIOD are equivalent to a blinkPeriod.
 	if (quotient <= 0)
 		return LedPeriodError;	//blinkPeriod must be greater than LED_ISR_PERIOD.
 
@@ -141,18 +157,21 @@ LedError Led_CustomBlink(LedID ledID,int blinkTimes, int blinkPeriod, int onTime
 	ledElements[indexInArray].isBlinking = true;	//Flag indicating the process is taking place.
 
 	//Requests a "On For Defined Time" process (starts a "Blink" process).
-	Led_OnForDefinedTime(ledElements[indexInArray].ledID, ledElements[indexInArray].onForDefinedTimeProperties.onTime);
+
 	return LedNoError;
 }
 
 LedError Led_CustomRepetitionBlink(LedID ledID, int repetitionTimes ,int repetitionPeriod ,int blinkTimesEachRepetition, int blinkPeriodEachRepetition, int onTimeEachBlink)
 {
 
-	unsigned int repetitionPeriodConvertion = repetitionPeriod * MS_TO_TICK_CONVERTION; //Converts the time in ms to ticks.
 	int indexInArray = findLedIndexByID(ledID); //Finds the LED index in the ledElements array.
 	if (indexInArray == -1)
 		return LedNoIdFound;
-	int quotient = (int) (repetitionPeriodConvertion / LED_ISR_PERIOD);	//Calculates how many LED_ISR_PERIOD are equivalent to a repetitionPeriod.
+
+	if (blinkPeriodEachRepetition > repetitionPeriod || onTimeEachBlink > blinkPeriodEachRepetition)
+		return LedPeriodError;
+
+	int quotient = (int) (repetitionPeriod / LED_ISR_PERIOD);	//Calculates how many LED_ISR_PERIOD are equivalent to a repetitionPeriod.
 	if (quotient <= 0)
 		return LedPeriodError;	//repetitionPeriod must be greater than LED_ISR_PERIOD.
 
@@ -176,11 +195,6 @@ LedError Led_CustomRepetitionBlink(LedID ledID, int repetitionTimes ,int repetit
 	ledElements[indexInArray].onForDefinedTimeProperties.onTime = onTimeEachBlink;
 
 	ledElements[indexInArray].isRepeatedlyBlinking = true; //Flag indicating the process is taking place.
-
-	//Requests a "Blink" process (starts a "Repetition Blink" process).
-	Led_CustomBlink(ledElements[indexInArray].ledID,blinkTimesEachRepetition,blinkPeriodEachRepetition, onTimeEachBlink);
-
-
 	return LedNoError;
 }
 
@@ -235,6 +249,14 @@ LedError Led_StopAllProcesses(LedID ledId)
 	return LedNoError;
 }
 
+void Led_StopAllProcessedFromAllLeds()
+{
+	for (int i = 0; i < sizeof(ledElements)/sizeof(ledElements[0]); i++) //Iterates through each LED
+	{
+		Led_StopAllProcesses(ledElements[i].ledID);
+	}
+}
+
 
 /*******************************************************************************
  *******************************************************************************
@@ -257,78 +279,96 @@ static void Led_PISR(void)
 {
 	for (int i = 0; i < sizeof(ledElements)/sizeof(ledElements[0]); i++) //Iterates through each LED
 	{
-		if (ledElements[i].isOnForDefinedTime)	//Checks if a "On For Defined Time" process is taking place.
+		if(ledElements[i].isInfinitelyBlinking) //Checks if a "Infinite Blink" process is taking place.
 		{
-			ledElements[i].onForDefinedTimeProperties.onTimeCounter++;
-			/*Checks if the process has to be finished*/
-			if(ledElements[i].onForDefinedTimeProperties.onTimeCounter == ledElements[i].onForDefinedTimeProperties.onTimeCounterLimit)
-			{
-				//Finishes the process and resets variables.
-				ledElements[i].isOnForDefinedTime = false;
-				ledElements[i].onForDefinedTimeProperties.onTimeCounterLimit = 0;
-				ledElements[i].onForDefinedTimeProperties.onTimeCounter = 0;
-				Led_Off(ledElements[i].ledID);	//Turns the LED off (finishes the process).
-			}
-		}
-
-		if(ledElements[i].isBlinking) //Checks if a "Blink" process is taking place.
-		{
-			ledElements[i].blinkProperties.blinkTimeCounter++;
-			/*Checks if a "On For Defined Time" subprocess has finished*/
-			if(ledElements[i].blinkProperties.blinkTimeCounter == ledElements[i].blinkProperties.blinkTimeCounterLimit)
-			{
-				//Finishes the "On For Defined Time" subprocess and resets variables.
-				ledElements[i].blinkProperties.blinkTimeCounter = 0;
-				ledElements[i].blinkProperties.blinkCounter++;
-				/*Checks if the "Blink" process has completed*/
-				if(ledElements[i].blinkProperties.blinkCounter == ledElements[i].blinkProperties.blinkTimes)
-				{
-					//Finishes the process and resets variables.
-					ledElements[i].blinkProperties.blinkCounter = 0;
-					ledElements[i].isBlinking = false;
-				}
-				else
-				{
-					/*If the "Blink" process has not completed, another "On For Defined" subprocess is started*/
-					Led_OnForDefinedTime(ledElements[i].ledID, ledElements[i].onForDefinedTimeProperties.onTime);
-				}
-			}
+			InfiniteBlinkCalledFromPISR(&ledElements[i]);
 		}
 
 		if(ledElements[i].isRepeatedlyBlinking) //Checks if a "Repetition Blink" process is taking place.
 		{
-			ledElements[i].repetitionBlinkProperties.repetitionBlinkTimeCounter ++;
-			/*Checks if a "Blink" subprocess has finished*/
-			if(ledElements[i].repetitionBlinkProperties.repetitionBlinkTimeCounter == ledElements[i].repetitionBlinkProperties.repetitionBlinkTimeCounterLimit)
-			{
-				//Finishes the "Blink" subprocess and resets variables.
-				ledElements[i].repetitionBlinkProperties.repetitionBlinkTimeCounter = 0;
-				ledElements[i].repetitionBlinkProperties.repetitionCounter++;
-				/*Checks if the "Repetition Blink" process has completed*/
-				if(ledElements[i].repetitionBlinkProperties.repetitionCounter == ledElements[i].repetitionBlinkProperties.repetitionTimes)
-				{
-					//Finishes the process and resets variables.
-					ledElements[i].repetitionBlinkProperties.repetitionCounter = 0;
-					ledElements[i].isRepeatedlyBlinking = false;
-				}
-				else
-				{
-					/*If the "Repetition Blink" process has not completed, another "Blink" subprocess is started*/
-					Led_CustomBlink(ledElements[i].ledID, ledElements[i].blinkProperties.blinkTimes, ledElements[i].blinkProperties.blinkPeriod, ledElements[i].onForDefinedTimeProperties.onTime);
-				}
-
-			}
+			RepetitionBlinkCalledFromPISR(&ledElements[i]);
 		}
 
-		if(ledElements[i].isInfinitelyBlinking) //Checks if a "Infinite Blink" process is taking place.
+		if(ledElements[i].isBlinking) //Checks if a "Blink" process is taking place.
 		{
-			ledElements[i].infiniteBlinkProperties.toggleTimeCounter ++;
-			/*Checks if a toggle needs to be done.*/
-			if (ledElements[i].infiniteBlinkProperties.toggleTimeCounter == ledElements[i].infiniteBlinkProperties.toggleTimeCounterLimit)
-			{
-				ledElements[i].infiniteBlinkProperties.toggleTimeCounter = 0;
-				Led_Toggle(ledElements[i].ledID);	//Toggles the LED
-			}
+			BlinkCalledFromPISR(&ledElements[i]);
 		}
+		if (ledElements[i].isOnForDefinedTime)	//Checks if a "On For Defined Time" process is taking place.
+		{
+
+			OnForDefinedTimeCalledFromPISR(&ledElements[i]);
+		}
+
 	}
+}
+
+static void OnForDefinedTimeCalledFromPISR(LedElement* ledElement)
+{
+	if(ledElement->onForDefinedTimeProperties.onTimeCounter == 0)	//Enters for the first time.
+	Led_On(ledElement->ledID);										//Turns the LED on (starts the process).
+	/*Checks if the process has to be finished*/
+	if(ledElement->onForDefinedTimeProperties.onTimeCounter == ledElement->onForDefinedTimeProperties.onTimeCounterLimit)
+	{
+		//Finishes the process and resets variables.
+		ledElement->isOnForDefinedTime = false;
+		ledElement->onForDefinedTimeProperties.onTimeCounter = 0;
+		Led_Off(ledElement->ledID);	//Turns the LED off (finishes the process).
+	}
+	ledElement->onForDefinedTimeProperties.onTimeCounter++;
+}
+
+static void BlinkCalledFromPISR(LedElement* ledElement)
+{
+	/*If it enters for the first time, the process is started by requesting a "Led On For Defined Time" subprocess*/
+	if(ledElement->blinkProperties.blinkTimeCounter == 0)	//If a subprocess has to start.
+		Led_OnForDefinedTime(ledElement->ledID, ledElement->onForDefinedTimeProperties.onTime);	//New subprocess
+	/*Checks if a "Led On For Defined Time" subprocess has finished*/
+	else if(ledElement->blinkProperties.blinkTimeCounter == ledElement->blinkProperties.blinkTimeCounterLimit) //If a subprocess has to end.
+	{
+		//Finishes the "On For Defined Time" subprocess and resets variables.
+		ledElement->blinkProperties.blinkTimeCounter = 0;
+		/*Checks if the "Blink" process has completed*/
+		if(++ledElement->blinkProperties.blinkCounter == ledElement->blinkProperties.blinkTimes)	//If the process has to end.
+			ledElement->isBlinking = false;//Finishes the process.
+		else //If the process hasn't completed, it requests another "Led On For Defined Time" subprocess
+			Led_OnForDefinedTime(ledElement->ledID, ledElement->onForDefinedTimeProperties.onTime);
+
+	}
+
+	ledElement->blinkProperties.blinkTimeCounter++;
+}
+
+static void RepetitionBlinkCalledFromPISR(LedElement* ledElement)
+{
+	/*If it enters for the first time, the process is started by requesting a "Blink" subprocess*/
+	if(ledElement->repetitionBlinkProperties.repetitionBlinkTimeCounter == 0)
+		Led_CustomBlink(ledElement->ledID,ledElement->blinkProperties.blinkTimes,ledElement->blinkProperties.blinkPeriod, ledElement->onForDefinedTimeProperties.onTime);
+	/*Checks if a "Blink" subprocess has finished*/
+	else if(ledElement->repetitionBlinkProperties.repetitionBlinkTimeCounter == ledElement->repetitionBlinkProperties.repetitionBlinkTimeCounterLimit)
+	{
+		//Finishes the "Blink" subprocess and resets variables.
+		ledElement->repetitionBlinkProperties.repetitionBlinkTimeCounter = 0;
+		/*Checks if the "Repetition Blink" process has completed*/
+		if(++ledElement->repetitionBlinkProperties.repetitionCounter == ledElement->repetitionBlinkProperties.repetitionTimes)
+			ledElement->isRepeatedlyBlinking = false;//Finishes the process.
+		else	//If the process hasn't completed, it requests another "Blink" subprocess
+			Led_CustomBlink(ledElement->ledID,ledElement->blinkProperties.blinkTimes,ledElement->blinkProperties.blinkPeriod, ledElement->onForDefinedTimeProperties.onTime);
+	}
+
+
+	ledElement->repetitionBlinkProperties.repetitionBlinkTimeCounter++;
+}
+
+static void InfiniteBlinkCalledFromPISR(LedElement* ledElement)
+{
+	if (ledElement->infiniteBlinkProperties.toggleTimeCounter == 0)	//Enters for the first time.
+		Led_Toggle(ledElement->ledID);	//Toggles the LED			//Starts the process.
+
+	/*Checks if a toggle needs to be done.*/
+	else if (ledElement->infiniteBlinkProperties.toggleTimeCounter == ledElement->infiniteBlinkProperties.toggleTimeCounterLimit) //Reaches the time limit.
+	{
+		ledElement->infiniteBlinkProperties.toggleTimeCounter = 0;	//Restart
+		Led_Toggle(ledElement->ledID);	//Toggles the LED
+	}
+	ledElement->infiniteBlinkProperties.toggleTimeCounter++;	//Next time count.
 }

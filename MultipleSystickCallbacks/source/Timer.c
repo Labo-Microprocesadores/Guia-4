@@ -42,14 +42,14 @@ bool Timer_Init (void)
 	return true;
 }
 
-int Timer_AddCallback(void (*newCallback)(void), int period)
+int Timer_AddCallback(void (*newCallback)(void), int period, bool callOnce)
 {
 	int quotient = (int) (period / TIMER_ISR_PERIOD);	//Calculates how many TIMER_ISR_PERIOD are equivalent to the callback period.
 
 	if (quotient <= 0)
 		return TimerPeriodError;	//period must be greater than TIMER_ISR_PERIOD.
 
-	TimerElement newTimerElement = {idCounter,newCallback, quotient, 0, false};	//Creates the new element
+	TimerElement newTimerElement = {idCounter,newCallback, quotient, 0, false, callOnce};	//Creates the new element
 	timerElements[getArrayEffectiveLength(timerElements)] = newTimerElement;	//Stores the new element
 	return idCounter++;
 }
@@ -194,6 +194,8 @@ static void Timer_PISR(void)
 		{
 			(*timerElements[i].callback)();	//Callback's calling.
 			timerElements[i].counter = 0;	//Counter re-establishment.
+			if (timerElements[i].callOnce)
+				Timer_DeleteCallback(timerElements[i].callbackID);
 		}
 	}
 }

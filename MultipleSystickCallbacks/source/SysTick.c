@@ -56,7 +56,7 @@ bool SysTick_Init (void)
 
 int SysTick_AddCallback(void (*newCallback)(void), int period)
 {
-	int quotient = (int) (period / SYSTICK_ISR_PERIOD);	//Calculates how many SYSTICK_ISR_PERIODs are equivalent to the callback period.
+	int quotient = (int) (period * MS_TO_TICK_CONVERTION / SYSTICK_ISR_PERIOD);	//Calculates how many SYSTICK_ISR_PERIODs are equivalent to the callback period.
 
 	if (quotient <= 0)
 		return SystickPeriodError;	//period must be greater than SYSTICK_ISR_PERIOD
@@ -159,7 +159,7 @@ SystickError Systick_ChangeCallbackPeriod(int id, int newPeriod)
 		if(sysTickElements[i].callbackID == id) //ID found
 		{
 			idFound = true;
-			int quotient = (int) (newPeriod / SYSTICK_ISR_PERIOD);
+			int quotient = (int) (newPeriod * MS_TO_TICK_CONVERTION / SYSTICK_ISR_PERIOD);
 			if (quotient <= 0)
 				return SystickPeriodError;	//newPeriod must be greater than SYSTICK_ISR_PERIOD
 
