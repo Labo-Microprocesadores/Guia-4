@@ -54,50 +54,6 @@ int Timer_AddCallback(void (*newCallback)(void), int period, bool callOnce)
 	return idCounter++;
 }
 
-TimerError Timer_PauseCallback(int timerID)
-{
-	bool idFound = false;	//Flag
-	int i = 0;				//Index
-
-	/*Searches for the id in the array*/
-	while((idFound == false) && (i < getArrayEffectiveLength(timerElements)))
-	{
-		if(timerElements[i].callbackID == timerID)
-		{
-			idFound = true;					//ID found
-			timerElements[i].paused = true;	//Pauses the calling of the callback.
-		}
-		i++;
-	};
-	if(idFound == false)
-		return TimerNoIdFound;
-
-	return TimerNoError;
-
-}
-
-//ResumeTimer
-TimerError Timer_ResumeCallback(int timerID)
-{
-	bool idFound = false;	//Flag
-	int i = 0;				//Index
-
-	/*Searches for the id in the array*/
-	while((idFound == false) && (i < getArrayEffectiveLength(timerElements)))
-	{
-		if(timerElements[i].callbackID == timerID)
-		{
-			idFound = true;			//ID found
-			timerElements[i].paused = false; //Resumes the calling of the callback.
-		}
-		i++;
-	} ;
-	if(idFound == false)
-		return TimerNoIdFound;
-
-	return TimerNoError;
-}
-
 TimerError Timer_DeleteCallback(int timerID)
 {
 	bool idFound = false;	//Flag
@@ -135,6 +91,52 @@ TimerError Timer_DeleteCallback(int timerID)
 	return TimerNoError;
 }
 
+TimerError Timer_PauseCallback(int timerID)
+{
+	bool idFound = false;	//Flag
+	int i = 0;				//Index
+
+	/*Searches for the id in the array*/
+	while((idFound == false) && (i < getArrayEffectiveLength(timerElements)))
+	{
+		if(timerElements[i].callbackID == timerID)
+		{
+			idFound = true;					//ID found
+			timerElements[i].paused = true;	//Pauses the calling of the callback.
+		}
+		i++;
+	};
+	if(idFound == false)
+		return TimerNoIdFound;
+
+	return TimerNoError;
+
+}
+
+
+TimerError Timer_ResumeCallback(int timerID)
+{
+	bool idFound = false;	//Flag
+	int i = 0;				//Index
+
+	/*Searches for the id in the array*/
+	while((idFound == false) && (i < getArrayEffectiveLength(timerElements)))
+	{
+		if(timerElements[i].callbackID == timerID)
+		{
+			idFound = true;			//ID found
+			timerElements[i].paused = false; //Resumes the calling of the callback.
+		}
+		i++;
+	} ;
+	if(idFound == false)
+		return TimerNoIdFound;
+
+	return TimerNoError;
+}
+
+
+
 
 TimerError Timer_ChangeCallbackPeriod(int timerID, int newPeriod)
 {
@@ -163,6 +165,26 @@ TimerError Timer_ChangeCallbackPeriod(int timerID, int newPeriod)
 	return TimerNoError;
 }
 
+float Timer_GetCallbackProgress(int timerID)
+{
+	bool idFound = false;	//Flag
+	int i = 0;				//Index
+	float progressFraction = -1.0;	//Error by default
+
+	/*Searches for the id in the array*/
+	while((idFound == false) && (i < getArrayEffectiveLength(timerElements)))
+	{
+		if(timerElements[i].callbackID == timerID)
+		{
+			idFound = true;					//ID found
+			progressFraction =  (float)timerElements[i].counter/timerElements[i].counterLimit;
+		}
+		i++;
+	};
+
+	return progressFraction;
+}
+
 /*******************************************************************************
  *******************************************************************************
                         LOCAL FUNCTION DEFINITIONS
@@ -189,14 +211,18 @@ static void Timer_PISR(void)
 
 	for(int i=0; i<(getArrayEffectiveLength(timerElements)); i++)	//Iterates through all the elements.
 	{
-		timerElements[i].counter ++;
-		if(timerElements[i].counter == timerElements[i].counterLimit)	//If the counter reaches the counterLimit the element's callback must be called.
+		if (!timerElements[i].paused)
 		{
-			(*timerElements[i].callback)();	//Callback's calling.
-			timerElements[i].counter = 0;	//Counter re-establishment.
-			if (timerElements[i].callOnce)
-				Timer_DeleteCallback(timerElements[i].callbackID);
+			if(timerElements[i].counter == timerElements[i].counterLimit)	//If the counter reaches the counterLimit the element's callback must be called.
+			{
+				(*timerElements[i].callback)();	//Callback's calling.
+				timerElements[i].counter = 0;	//Counter re-establishment.
+				if (timerElements[i].callOnce)
+					Timer_DeleteCallback(timerElements[i].callbackID);
+			}
+			timerElements[i].counter ++;
 		}
+
 	}
 }
 

@@ -13,24 +13,27 @@
 #include <test/LedTimerTestBench.h>
 #include "../Timer.h"
 #include "../Led.h"
-int OnForDefinedTimeTestID;
-
+int onForDefinedTimeTestID;
+int callBackProgressID;
+int pauseCallbackId;
+bool paused;
 static void OnForDefinedTimeTest(void);
 static void OnlyOnceCallbackTest(void);
 static void FinishInfiniteBlinkTestGreen(void);
 static void FinishInfiniteBlinkTestRed(void);
 static void FinishAllTestBlue(void);
 static void FinishAll(void);
+static void GetCallbackProgress(void);
+static void PauseAndResumeCallbackTest(void);
+static void PauseAndResumeCallbackTestAction(void);
 void TestLedAndTimer()
 {
 	/*On For Define Time Test + Timer Add Callback Test + Timer Delete Callback Test*/
-	//OnForDefinedTimeTestID = Timer_AddCallback(&OnForDefinedTimeTest, 4000, false);	//Wait 4 seconds before it starts.
-
+	onForDefinedTimeTestID = Timer_AddCallback(&OnForDefinedTimeTest, 4000, false);	//Wait 4 seconds before it starts.
 
 
 	/*Call callback only once test*/
 	//Timer_AddCallback(&OnlyOnceCallbackTest, 1000, true);
-
 
 
 	/*Custom Blink*/
@@ -91,6 +94,18 @@ void TestLedAndTimer()
 	Timer_AddCallback(&FinishAll, 8000, true);	//Should cancel all blinks after 8 seconds.
 	*/
 
+	/*Get Timer Callback Progress*/
+	/*
+	callBackProgressID = Timer_AddCallback(&FinishAll, 8000, false); //8 seconds.
+	Timer_AddCallback(&GetCallbackProgress, 1000, false); //Prints fraction every 1 second.
+	*/
+
+	/*Timer Pause and Resume Callback*/
+	/*
+	paused = false;
+	pauseCallbackId = Timer_AddCallback(&PauseAndResumeCallbackTest, 1000, false); //1 seconds.
+	Timer_AddCallback(&PauseAndResumeCallbackTestAction, 4000, false); //4 seconds.	Should pause and resume every 4 seconds.
+	*/
 
 }
 
@@ -108,7 +123,7 @@ static void OnForDefinedTimeTest(void)
 		Led_OnForDefinedTime(LED_BLUE, 4000); //4s
 		break;
 	case 3:
-		Timer_DeleteCallback(OnForDefinedTimeTestID);
+		Timer_DeleteCallback(onForDefinedTimeTestID);
 		break;
 	case 4:
 		Led_OnForDefinedTime(LED_BLUE, 4000); //WILL TURN ON ONLY IF DELETE CALLBACK FAILS.
@@ -136,6 +151,28 @@ static void FinishAllTestBlue(void)
 static void FinishAll(void)
 {
 	Led_StopAllProcessedFromAllLeds();
+}
+static void GetCallbackProgress(void)
+{
+
+	float fraction = Timer_GetCallbackProgress(callBackProgressID);
+	Led_OnForDefinedTime(LED_RED, (int) (fraction*1000));
+
+	printf("Progress: %d%%\n", (int) (fraction*100));
+}
+
+static void PauseAndResumeCallbackTest(void)
+{
+	Led_OnForDefinedTime(LED_GREEN, 500); //0.5s
+}
+
+static void PauseAndResumeCallbackTestAction(void)
+{
+	if (paused)
+		Timer_ResumeCallback(pauseCallbackId);
+	else
+		Timer_PauseCallback(pauseCallbackId);
+	paused = !paused;
 }
 
 

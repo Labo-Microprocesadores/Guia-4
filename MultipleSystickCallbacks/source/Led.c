@@ -295,17 +295,15 @@ static void Led_PISR(void)
 		}
 		if (ledElements[i].isOnForDefinedTime)	//Checks if a "On For Defined Time" process is taking place.
 		{
-
 			OnForDefinedTimeCalledFromPISR(&ledElements[i]);
 		}
-
 	}
 }
 
 static void OnForDefinedTimeCalledFromPISR(LedElement* ledElement)
 {
 	if(ledElement->onForDefinedTimeProperties.onTimeCounter == 0)	//Enters for the first time.
-	Led_On(ledElement->ledID);										//Turns the LED on (starts the process).
+		Led_On(ledElement->ledID);										//Turns the LED on (starts the process).
 	/*Checks if the process has to be finished*/
 	if(ledElement->onForDefinedTimeProperties.onTimeCounter == ledElement->onForDefinedTimeProperties.onTimeCounterLimit)
 	{
@@ -332,9 +330,7 @@ static void BlinkCalledFromPISR(LedElement* ledElement)
 			ledElement->isBlinking = false;//Finishes the process.
 		else //If the process hasn't completed, it requests another "Led On For Defined Time" subprocess
 			Led_OnForDefinedTime(ledElement->ledID, ledElement->onForDefinedTimeProperties.onTime);
-
 	}
-
 	ledElement->blinkProperties.blinkTimeCounter++;
 }
 
@@ -354,8 +350,6 @@ static void RepetitionBlinkCalledFromPISR(LedElement* ledElement)
 		else	//If the process hasn't completed, it requests another "Blink" subprocess
 			Led_CustomBlink(ledElement->ledID,ledElement->blinkProperties.blinkTimes,ledElement->blinkProperties.blinkPeriod, ledElement->onForDefinedTimeProperties.onTime);
 	}
-
-
 	ledElement->repetitionBlinkProperties.repetitionBlinkTimeCounter++;
 }
 

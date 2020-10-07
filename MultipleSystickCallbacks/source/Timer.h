@@ -89,6 +89,11 @@ TimerError Timer_ResumeCallback(int timerID);
  */
 TimerError Timer_ChangeCallbackPeriod(int timerID, int newPeriod);
 
-
+/**
+ * @brief Indicates the fraction of time that has elapsed in relation to the callback period.
+ * @param timerID The callback ID given by Timer_AddCallback.
+ * @return Progress fraction as a float. Example: 0.5. 0<=progress<=1. If it returns -1, an error has ocurred.
+ */
+float Timer_GetCallbackProgress(int timerID);
 
 #endif /* TIMER_H_ */

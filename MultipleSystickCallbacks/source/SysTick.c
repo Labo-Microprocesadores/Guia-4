@@ -198,13 +198,16 @@ static int getArrayEffectiveLength (SysTickElement sysTickElements[] )
 __ISR__ SysTick_Handler (void)
 {
 	for(int i=0; i<(getArrayEffectiveLength(sysTickElements)); i++)	//Iterates through all the elements.
-	{
-		sysTickElements[i].counter ++;
-		if(sysTickElements[i].counter == sysTickElements[i].counterLimit)	//If the counter reaches the counterLimit the element's callback must be called.
+	{	if (!sysTickElements[i].paused)
 		{
-			(*sysTickElements[i].callback)();	//Callback's calling.
-			sysTickElements[i].counter = 0;		//Counter re-establishment.
+			if(sysTickElements[i].counter == sysTickElements[i].counterLimit)	//If the counter reaches the counterLimit the element's callback must be called.
+			{
+				(*sysTickElements[i].callback)();	//Callback's calling.
+				sysTickElements[i].counter = 0;		//Counter re-establishment.
+			}
+			sysTickElements[i].counter ++;
 		}
+
 	}
 }
 
