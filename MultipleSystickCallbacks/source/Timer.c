@@ -42,60 +42,16 @@ bool Timer_Init (void)
 	return true;
 }
 
-int Timer_AddCallback(void (*newCallback)(void), int period)
+int Timer_AddCallback(void (*newCallback)(void), int period, bool callOnce)
 {
 	int quotient = (int) (period / TIMER_ISR_PERIOD);	//Calculates how many TIMER_ISR_PERIOD are equivalent to the callback period.
 
 	if (quotient <= 0)
 		return TimerPeriodError;	//period must be greater than TIMER_ISR_PERIOD.
 
-	TimerElement newTimerElement = {idCounter,newCallback, quotient, 0, false};	//Creates the new element
+	TimerElement newTimerElement = {idCounter,newCallback, quotient, 0, false, callOnce};	//Creates the new element
 	timerElements[getArrayEffectiveLength(timerElements)] = newTimerElement;	//Stores the new element
 	return idCounter++;
-}
-
-TimerError Timer_PauseCallback(int timerID)
-{
-	bool idFound = false;	//Flag
-	int i = 0;				//Index
-
-	/*Searches for the id in the array*/
-	while((idFound == false) && (i < getArrayEffectiveLength(timerElements)))
-	{
-		if(timerElements[i].callbackID == timerID)
-		{
-			idFound = true;					//ID found
-			timerElements[i].paused = true;	//Pauses the calling of the callback.
-		}
-		i++;
-	};
-	if(idFound == false)
-		return TimerNoIdFound;
-
-	return TimerNoError;
-
-}
-
-//ResumeTimer
-TimerError Timer_ResumeCallback(int timerID)
-{
-	bool idFound = false;	//Flag
-	int i = 0;				//Index
-
-	/*Searches for the id in the array*/
-	while((idFound == false) && (i < getArrayEffectiveLength(timerElements)))
-	{
-		if(timerElements[i].callbackID == timerID)
-		{
-			idFound = true;			//ID found
-			timerElements[i].paused = false; //Resumes the calling of the callback.
-		}
-		i++;
-	} ;
-	if(idFound == false)
-		return TimerNoIdFound;
-
-	return TimerNoError;
 }
 
 TimerError Timer_DeleteCallback(int timerID)
@@ -135,6 +91,52 @@ TimerError Timer_DeleteCallback(int timerID)
 	return TimerNoError;
 }
 
+TimerError Timer_PauseCallback(int timerID)
+{
+	bool idFound = false;	//Flag
+	int i = 0;				//Index
+
+	/*Searches for the id in the array*/
+	while((idFound == false) && (i < getArrayEffectiveLength(timerElements)))
+	{
+		if(timerElements[i].callbackID == timerID)
+		{
+			idFound = true;					//ID found
+			timerElements[i].paused = true;	//Pauses the calling of the callback.
+		}
+		i++;
+	};
+	if(idFound == false)
+		return TimerNoIdFound;
+
+	return TimerNoError;
+
+}
+
+
+TimerError Timer_ResumeCallback(int timerID)
+{
+	bool idFound = false;	//Flag
+	int i = 0;				//Index
+
+	/*Searches for the id in the array*/
+	while((idFound == false) && (i < getArrayEffectiveLength(timerElements)))
+	{
+		if(timerElements[i].callbackID == timerID)
+		{
+			idFound = true;			//ID found
+			timerElements[i].paused = false; //Resumes the calling of the callback.
+		}
+		i++;
+	} ;
+	if(idFound == false)
+		return TimerNoIdFound;
+
+	return TimerNoError;
+}
+
+
+
 
 TimerError Timer_ChangeCallbackPeriod(int timerID, int newPeriod)
 {
@@ -163,6 +165,29 @@ TimerError Timer_ChangeCallbackPeriod(int timerID, int newPeriod)
 	return TimerNoError;
 }
 
+float Timer_GetCallbackProgress(int timerID)
+{
+	bool idFound = false;	//Flag
+	int i = 0;				//Index
+	float progressFraction = -1.0;	//Error by default
+
+	/*Searches for the id in the array*/
+	while((idFound == false) && (i < getArrayEffectiveLength(timerElements)))
+	{
+		if(timerElements[i].callbackID == timerID)
+		{
+			idFound = true;					//ID found
+			if (timerElements[i].counter == 0)
+				progressFraction = 0;	//If the count of the callback hasn't started.
+			else
+				progressFraction =  (float)(timerElements[i].counter-1)/timerElements[i].counterLimit;	//timerElements[i].counter-1 because the counter counts the times that it enters the pISR. Therefore, the -1 converts the count to time intervals.
+		}
+		i++;
+	};
+
+	return progressFraction;
+}
+
 /*******************************************************************************
  *******************************************************************************
                         LOCAL FUNCTION DEFINITIONS
@@ -189,12 +214,18 @@ static void Timer_PISR(void)
 
 	for(int i=0; i<(getArrayEffectiveLength(timerElements)); i++)	//Iterates through all the elements.
 	{
-		timerElements[i].counter ++;
-		if(timerElements[i].counter == timerElements[i].counterLimit)	//If the counter reaches the counterLimit the element's callback must be called.
+		if (!timerElements[i].paused)
 		{
-			(*timerElements[i].callback)();	//Callback's calling.
-			timerElements[i].counter = 0;	//Counter re-establishment.
+			if(timerElements[i].counter == timerElements[i].counterLimit)	//If the counter reaches the counterLimit the element's callback must be called.
+			{
+				(*timerElements[i].callback)();	//Callback's calling.
+				timerElements[i].counter = 0;	//Counter re-establishment.
+				if (timerElements[i].callOnce)
+					Timer_DeleteCallback(timerElements[i].callbackID);
+			}
+			timerElements[i].counter ++;
 		}
+
 	}
 }
 

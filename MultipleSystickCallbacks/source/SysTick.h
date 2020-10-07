@@ -12,7 +12,7 @@
  ******************************************************************************/
 #define SYSTICK_ISR_PERIOD 100000L //1ms
 #define INITIAL_SYSTICK_ELEMENTS_ARRAY_LENGTH	20
-
+#define MS_TO_TICK_CONVERTION	100000	//1ms
 /*******************************************************************************
  * ENUMERATIONS AND STRUCTURES AND TYPEDEFS
  ******************************************************************************/
@@ -49,7 +49,8 @@ bool SysTick_Init (void);
 /**
  * @brief Adds a callback to be periodically called by SysTick.
  * @param newCallback The function to be called. Must receive and return void. Usually a PISR.
- * @param period The period (in ms.) with which the callback is called. Must be greater than SYSTICK_ISR_PERIOD.
+ * @param period The period (in ms.) with which the callback is called. Must be greater than SYSTICK_ISR_PERIOD (or equal).
+ * 			Example: newPeriod = 2000 is equivalent to 2ms
  * @return 	An ID to represent the callback element if no error occurred.
  * 			Must use this ID in case the calling needs to be cancelled or the period needs to be changed.
  * 			WARNING: if the returning number is negative it indicates an error and must be interpreted as a SystickError element.
@@ -81,7 +82,8 @@ SystickError Systick_ResumeCallback(int id);
 /**
  * @brief Changes the period of calling of a callback.
  * @param id The callback ID given by Systick_AddCallback.
- * @param newPeriod The new period (in ms.) with which the callback is called. Must be greater than SYSTICK_ISR_PERIOD.
+ * @param newPeriod The new period (in ms.) with which the callback is called. Must be greater than SYSTICK_ISR_PERIOD (or equal).
+ * 				Example: newPeriod = 2000 is equivalent to 2ms
  * @return A SystickError indicating whether an error occurred (and its type) or not.
  * WARNING If the quotient between newPeriod and SYSTICK_ISR_PERIOD is not an integer, it will be truncated.
  */

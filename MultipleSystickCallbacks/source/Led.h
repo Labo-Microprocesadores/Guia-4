@@ -6,17 +6,16 @@
 
 #ifndef LED_H_
 #define LED_H_
-
+#include "board.h"
 /*******************************************************************************
  * CONSTANT AND MACRO DEFINITIONS USING #DEFINE
  ******************************************************************************/
-#define LED_ISR_PERIOD	10000000L	//100ms
-#define MS_TO_TICK_CONVERTION	100000	//1ms
+#define LED_ISR_PERIOD	100	//100ms
 #define DEFAULT_LED_STATE	OFF
 /*******************************************************************************
  * ENUMERATIONS AND STRUCTURES AND TYPEDEFS
  ******************************************************************************/
-typedef enum LedBlinkSpeed {NO_SPEED = 0, SLOW = 15, NORMAL = 5, FAST = 2} LedBlinkSpeed;
+typedef enum LedBlinkSpeed {NO_SPEED = 0, SLOW = 16, NORMAL = 6, FAST = 2} LedBlinkSpeed;
 typedef enum LedState {ON = LOW, OFF = HIGH} LedState;
 typedef enum LedID {LED_RED = PIN_LED_RED , LED_BLUE = PIN_LED_BLUE, LED_GREEN = PIN_LED_GREEN} LedID;
 typedef enum LedError {LedNoError = 0, LedPeriodError = -1, LedNoIdFound = -2, LedOtherErrors = -3} LedError;
@@ -146,7 +145,8 @@ void Led_Toggle(LedID ledID);
  * @brief 	Starts a "On For Defined Time" process.
  * 			A "On For Defined Time" process consists of a LED being ON during a defined time. After this time has elapsed, the LED is turned off.
  * @param ledID. The ID corresponding to the LED.
- * @param onTime. The time in ms. during which the LED must be ON.
+ * @param onTime. The time in ms. during which the LED must be ON in ms.
+ * 					Example: onTime = 3000 is equivalent to 3000ms (3s)
  * WARNING If the quotient between onTime and LED_ISR_PERIOD is not an integer, it will be truncated.
  * @return A LedError indicating whether an error occurred (and its type) or not.
  */
@@ -159,7 +159,8 @@ LedError Led_OnForDefinedTime(LedID ledID, int onTime);
  * 			This function is "custom" because it gives the chance of determining the properties of the process described.
  * @param ledID. The ID corresponding to the LED.
  * @param blinkTimes. How many times the LED must be turned on and off.
- * @param blinkPeriod. The duration of an ON-OFF process during the blink.
+ * @param blinkPeriod. The duration of an ON-OFF process during the blink in ms.
+ * 							Example: blinkPeriod = 3000 is equivalent to 3000ms (3s)
  * @param onTime. The time in ms. during which the LED must be ON in an ON-OFF process.
  * @see Led_OnForDefinedTime.
  * WARNING If the quotient between blinkPeriod and LED_ISR_PERIOD is not an integer, it will be truncated.
@@ -176,6 +177,7 @@ LedError Led_CustomBlink(LedID ledID, int blinkTimes, int blinkPeriod, int onTim
  * @param ledID. The ID corresponding to the LED.
  * @param repetitionTimes. How many times a "Blink" process must occur.
  * @param repetitionPeriod. The duration of an "Repetition Blink" in ms.
+ * 							Example: repetitionPeriod = 3000 is equivalent to 3000ms (3s)
  * @param blinkTimesEachRepetition. How many times the LED must be turned on and off in each "Blink" process.
  * @param blinkPeriodEachRepetition. The duration of an ON-OFF process during each "Blink" process in ms.
  * @param onTimeEachBlink. The time in ms. during which the LED must be ON in each ON-OFF process in each "Blink" process.
@@ -208,4 +210,9 @@ LedError Led_StopInfiniteBlink(LedID ledId);
  * @return A LedError indicating whether an error occurred (and its type) or not.
  */
 LedError Led_StopAllProcesses(LedID ledId);
+
+/**
+ * @brief Stops all the processes ("On For Defined Time", "Blink", "Repetition Blink") from all LEDS and turns them to their default state.
+ */
+void Led_StopAllProcessedFromAllLeds();
 #endif /* LED_H_ */
