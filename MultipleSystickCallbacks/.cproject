@@ -509,9 +509,6 @@
 							</tool>
 						</toolChain>
 					</folderInfo>
-					<fileInfo id="com.crt.advproject.config.exe.release.1849427946.577202657" name="LedTimerTestBench.c" rcbsApplicability="disable" resourcePath="source/test/LedTimerTestBench.c" toolsToInvoke="com.crt.advproject.gcc.exe.release.1962465883.1022426109">
-						<tool id="com.crt.advproject.gcc.exe.release.1962465883.1022426109" name="MCU C Compiler" superClass="com.crt.advproject.gcc.exe.release.1962465883"/>
-					</fileInfo>
 					<sourceEntries>
 						<entry flags="LOCAL|VALUE_WORKSPACE_PATH" kind="sourcePath" name="CMSIS"/>
 						<entry flags="LOCAL|VALUE_WORKSPACE_PATH" kind="sourcePath" name="board"/>

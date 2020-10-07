@@ -302,7 +302,7 @@ Discarded input sections
  .text.Timer_ChangeCallbackPeriod
                 0x00000000       0xb8 ./source/Timer.o
  .text.Timer_GetCallbackProgress
-                0x00000000       0xa4 ./source/Timer.o
+                0x00000000       0xc4 ./source/Timer.o
  .debug_macro   0x00000000      0xa90 ./source/Timer.o
  .debug_macro   0x00000000       0x10 ./source/Timer.o
  .debug_macro   0x00000000      0x12d ./source/Timer.o
@@ -1423,7 +1423,7 @@ OUTPUT(MultipleSystickCallbacks.axf elf32-littlearm)
  .debug_macro   0x000132a9      0x34e C:/Users/pabli/Documents/MCUXpressoIDE_10.2.0_759/workspace/MultipleSystickCallbacks/source/gpio.o
  .debug_macro   0x000135f7       0x22 C:/Users/pabli/Documents/MCUXpressoIDE_10.2.0_759/workspace/MultipleSystickCallbacks/source/gpio.o
 
-.debug_line     0x00000000     0x1bdf
+.debug_line     0x00000000     0x1be1
  .debug_line    0x00000000      0x243 ./source/test/LedTimerTestBench.o
  .debug_line    0x00000243      0x221 ./source/startup/hardware.o
  .debug_line    0x00000464      0x1c2 ./source/startup/main.o
@@ -1432,9 +1432,9 @@ OUTPUT(MultipleSystickCallbacks.axf elf32-littlearm)
  .debug_line    0x00000d5d      0x18b ./source/App.o
  .debug_line    0x00000ee8      0x327 ./source/Led.o
  .debug_line    0x0000120f      0x337 ./source/SysTick.o
- .debug_line    0x00001546      0x29c ./source/Timer.o
- .debug_line    0x000017e2      0x211 ./CMSIS/system_MK64F12.o
- .debug_line    0x000019f3      0x1ec C:/Users/pabli/Documents/MCUXpressoIDE_10.2.0_759/workspace/MultipleSystickCallbacks/source/gpio.o
+ .debug_line    0x00001546      0x29e ./source/Timer.o
+ .debug_line    0x000017e4      0x211 ./CMSIS/system_MK64F12.o
+ .debug_line    0x000019f5      0x1ec C:/Users/pabli/Documents/MCUXpressoIDE_10.2.0_759/workspace/MultipleSystickCallbacks/source/gpio.o
 
 .debug_str      0x00000000    0x7a475
  .debug_str     0x00000000     0x4c45 ./source/test/LedTimerTestBench.o

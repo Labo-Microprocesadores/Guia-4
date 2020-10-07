@@ -177,7 +177,10 @@ float Timer_GetCallbackProgress(int timerID)
 		if(timerElements[i].callbackID == timerID)
 		{
 			idFound = true;					//ID found
-			progressFraction =  (float)timerElements[i].counter/timerElements[i].counterLimit;
+			if (timerElements[i].counter == 0)
+				progressFraction = 0;	//If the count of the callback hasn't started.
+			else
+				progressFraction =  (float)(timerElements[i].counter-1)/timerElements[i].counterLimit;	//timerElements[i].counter-1 because the counter counts the times that it enters the pISR. Therefore, the -1 converts the count to time intervals.
 		}
 		i++;
 	};
