@@ -14,11 +14,11 @@
 /************************************************
  * Defines
  ************************************************/
-#define WORD_LONG	40
-#define CHAR_LONG	5
-#define BITS_PER_CHAR 5
-#define BUFFER_LEN 	(3*WORD_LONG*CHAR_LONG)
-#define MAX_DATA_LEN 37
+#define WORD_LONG		40
+#define CHAR_LONG		5
+#define BITS_PER_CHAR 	5
+#define BUFFER_LEN 		(3*WORD_LONG*CHAR_LONG)
+#define MAX_DATA_LEN 	37
 /*************************************************
  *  Funciones locales
  ************************************************/
@@ -35,7 +35,9 @@ static bool event = false;
 
 static uint16_t bit = 0;
 static uint8_t message[BUFFER_LEN];
-
+/*
+{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,0,1,0,1,0,1,0,0,1,1,1,1,1,0,0,1,0,0,1,0,1,0,1,1,1,0,1,0,1,0,1,0,1,1,1,0,1,0,0,0,1,1,0,0,0,1,1,0,1,1,1,1,0,0,1,1,0,1,1,1,1,0,1,1,0,1,1,0,1,0,1,0,1,0,1,1,1,0,1,0,1,0,0,1,0,0,1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,0,0,1,1,1,1,1,0,1,1,1,1,1,1,1,0,0,1,1,1,1,0,1,1,1,1,0,1,0,1,0,1,1,1,1,0,0,1,1,1,1,1,0,0,1,0,0,0,0,1,1,0,1,1,0,0,0,0,1,1,0,0,1,1,0,0,1,1,0,1,1,0,0,0,1,1,1,1,1,1,0,1,1,1,0,1,0,0,0,0,0,0,0,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
+*/
 
 void Lector_Init(void)
 {
@@ -50,15 +52,18 @@ void Lector_Init(void)
 
 void EnableIRQcallback(void)
 {
-	int new_enable = gpioRead(LECTOR_ENABLE);
-	if (!new_enable) // falling edge
+	if(!event)
 	{
-		enable = true;
-	}
-	else
-	{
-		enable = false;
-		event = true;
+		int new_enable = gpioRead(LECTOR_ENABLE);
+		if (!new_enable) // falling edge
+		{
+			enable = true;
+		}
+		else
+		{
+			enable = false;
+			event = true;
+		}
 	}
 }
 

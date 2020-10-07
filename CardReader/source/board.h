@@ -41,8 +41,8 @@
 
 // Lector de tarjetas
 #define LECTOR_ENABLE 	PORTNUM2PIN(PA,2)
-#define LECTOR_DATA		PORTNUM2PIN(PC,3)
-#define LECTOR_CLOCK	PORTNUM2PIN(PA,1)
+#define LECTOR_DATA		PORTNUM2PIN(PA,1)
+#define LECTOR_CLOCK	PORTNUM2PIN(PC,3)
 /*******************************************************************************
  ******************************************************************************/
 
