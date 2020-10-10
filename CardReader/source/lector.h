@@ -8,29 +8,51 @@
 #ifndef LECTOR_H_
 #define LECTOR_H_
 
+/*******************************************************************************
+ * INCLUDE HEADER FILES
+ ******************************************************************************/
+
 #include <stdbool.h>
 #include <stdint.h>
 
+/*******************************************************************************
+ * CONSTANT AND MACRO DEFINITIONS USING #DEFINE
+ ******************************************************************************/
+
+#define MAX_CARD_NUMBER_LEN	19
+#define MAX_EXTRA_DATA_LEN	29
+
+/*******************************************************************************
+ * ENUMERATIONS AND STRUCTURES AND TYPEDEFS
+ ******************************************************************************/
 typedef struct
 {
-	uint8_t card_number[19];
-	uint8_t extra_data[15];
+	uint8_t card_number[MAX_CARD_NUMBER_LEN];
+	uint8_t extra_data[MAX_EXTRA_DATA_LEN];
+	uint8_t number_len;
+	uint8_t data_len;
 }card_t;
 
+/*******************************************************************************
+ * FUNCTION PROTOTYPES WITH GLOBAL SCOPE
+ ******************************************************************************/
+
 /*
- * Inicializa el lector de tarjetas
+ * @brief Inicializa el driver del lector de tarjetas
  */
 void Lector_Init(void);
 
 /*
- * Devuelve si hay un evento para levantar del lector
+ * @brief Funcion para verificar la exitencia de un evento generado por el driver
+ * @return Existe el evento
  */
 bool Lector_Event(void);
 
 
 /*
- * Escribe un array de datos en el puntero data
- * Devuelve true si fue exitoso, false en caso de error
+ * @brief Recupera informacion generada en un evento
+ * @param data, puntero a una estructura card_t para escribir los datos genrados
+ * @return Devuelve true en caso exitoso, false si hubo un error al leer los datos
  */
 bool Lector_GetData(card_t * data);
 

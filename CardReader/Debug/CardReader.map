@@ -492,7 +492,7 @@ END GROUP
                 0x14001000                __top_FLEX_RAM = 0x14001000
                 0x14001000                __top_RAM3 = 0x14001000
 
-.text           0x00000000     0x1910
+.text           0x00000000     0x1bb0
  FILL mask 0xff
                 0x00000000                __vectors_start__ = ABSOLUTE (.)
  *(SORT_BY_ALIGNMENT(.isr_vector))
@@ -502,19 +502,19 @@ END GROUP
                 0x00000198                . = ALIGN (0x4)
                 0x00000198                __section_table_start = .
                 0x00000198                __data_section_table = .
-                0x00000198        0x4 LONG 0x1910 LOADADDR (.data)
+                0x00000198        0x4 LONG 0x1bb0 LOADADDR (.data)
                 0x0000019c        0x4 LONG 0x20000000 ADDR (.data)
                 0x000001a0        0x4 LONG 0x28 SIZEOF (.data)
-                0x000001a4        0x4 LONG 0x1910 LOADADDR (.data_RAM2)
+                0x000001a4        0x4 LONG 0x1bb0 LOADADDR (.data_RAM2)
                 0x000001a8        0x4 LONG 0x1fff0000 ADDR (.data_RAM2)
                 0x000001ac        0x4 LONG 0x0 SIZEOF (.data_RAM2)
-                0x000001b0        0x4 LONG 0x1910 LOADADDR (.data_RAM3)
+                0x000001b0        0x4 LONG 0x1bb0 LOADADDR (.data_RAM3)
                 0x000001b4        0x4 LONG 0x14000000 ADDR (.data_RAM3)
                 0x000001b8        0x4 LONG 0x0 SIZEOF (.data_RAM3)
                 0x000001bc                __data_section_table_end = .
                 0x000001bc                __bss_section_table = .
                 0x000001bc        0x4 LONG 0x20000028 ADDR (.bss)
-                0x000001c0        0x4 LONG 0x820 SIZEOF (.bss)
+                0x000001c0        0x4 LONG 0x830 SIZEOF (.bss)
                 0x000001c4        0x4 LONG 0x1fff0000 ADDR (.bss_RAM2)
                 0x000001c8        0x4 LONG 0x0 SIZEOF (.bss_RAM2)
                 0x000001cc        0x4 LONG 0x14000000 ADDR (.bss_RAM3)
@@ -684,397 +684,397 @@ END GROUP
                 0x00000c98       0x48 ./source/lector.o
                 0x00000c98                EnableIRQcallback
  .text.ClockIRQcallback
-                0x00000ce0       0x44 ./source/lector.o
+                0x00000ce0       0x4c ./source/lector.o
                 0x00000ce0                ClockIRQcallback
  .text.Lector_Event
-                0x00000d24       0x18 ./source/lector.o
-                0x00000d24                Lector_Event
+                0x00000d2c       0x18 ./source/lector.o
+                0x00000d2c                Lector_Event
  .text.Lector_GetData
-                0x00000d3c       0x5c ./source/lector.o
-                0x00000d3c                Lector_GetData
+                0x00000d44      0x2f4 ./source/lector.o
+                0x00000d44                Lector_GetData
  .text.find_ss_fs_es
-                0x00000d98       0xb8 ./source/lector.o
-                0x00000d98                find_ss_fs_es
- .text.find_fs  0x00000e50       0x84 ./source/lector.o
-                0x00000e50                find_fs
- .text.find_es  0x00000ed4       0x84 ./source/lector.o
-                0x00000ed4                find_es
+                0x00001038       0xb8 ./source/lector.o
+                0x00001038                find_ss_fs_es
+ .text.find_fs  0x000010f0       0x84 ./source/lector.o
+                0x000010f0                find_fs
+ .text.find_es  0x00001174       0x84 ./source/lector.o
+                0x00001174                find_es
  .text.SystemInit
-                0x00000f58       0x3c ./CMSIS/system_MK64F12.o
-                0x00000f58                SystemInit
- .text._initio  0x00000f94       0x78 c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_c.a(initio.o)
-                0x00000f94                _initio
- .text.setvbuf  0x0000100c       0x40 c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_c.a(setvbuf.o)
-                0x0000100c                setvbuf
- .text.fflush   0x0000104c       0x44 c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_c.a(fflush.o)
-                0x0000104c                fflush
- .text.fseek    0x00001090      0x100 c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_c.a(fseek.o)
-                0x00001090                fseek
- .text.ftell    0x00001190       0x44 c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_c.a(ftell.o)
-                0x00001190                ftell
+                0x000011f8       0x3c ./CMSIS/system_MK64F12.o
+                0x000011f8                SystemInit
+ .text._initio  0x00001234       0x78 c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_c.a(initio.o)
+                0x00001234                _initio
+ .text.setvbuf  0x000012ac       0x40 c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_c.a(setvbuf.o)
+                0x000012ac                setvbuf
+ .text.fflush   0x000012ec       0x44 c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_c.a(fflush.o)
+                0x000012ec                fflush
+ .text.fseek    0x00001330      0x100 c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_c.a(fseek.o)
+                0x00001330                fseek
+ .text.ftell    0x00001430       0x44 c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_c.a(ftell.o)
+                0x00001430                ftell
  .text._Cwritebuf
-                0x000011d4       0x6c c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_c.a(_writebuf.o)
-                0x000011d4                _Cwritebuf
- .text.main     0x00001240       0x1a ./source/startup/main.o
-                0x00001240                main
+                0x00001474       0x6c c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_c.a(_writebuf.o)
+                0x00001474                _Cwritebuf
+ .text.main     0x000014e0       0x1a ./source/startup/main.o
+                0x000014e0                main
  .text.HardFault_Handler
-                0x0000125a       0x2c ./source/startup/semihost_hardfault.o
-                0x0000125a                HardFault_Handler
+                0x000014fa       0x2c ./source/startup/semihost_hardfault.o
+                0x000014fa                HardFault_Handler
  .text.DMA0_IRQHandler
-                0x00001286        0x8 ./source/startup/startup_mk64f12.o
-                0x00001286                DMA0_IRQHandler
+                0x00001526        0x8 ./source/startup/startup_mk64f12.o
+                0x00001526                DMA0_IRQHandler
  .text.DMA1_IRQHandler
-                0x0000128e        0x8 ./source/startup/startup_mk64f12.o
-                0x0000128e                DMA1_IRQHandler
+                0x0000152e        0x8 ./source/startup/startup_mk64f12.o
+                0x0000152e                DMA1_IRQHandler
  .text.DMA2_IRQHandler
-                0x00001296        0x8 ./source/startup/startup_mk64f12.o
-                0x00001296                DMA2_IRQHandler
+                0x00001536        0x8 ./source/startup/startup_mk64f12.o
+                0x00001536                DMA2_IRQHandler
  .text.DMA3_IRQHandler
-                0x0000129e        0x8 ./source/startup/startup_mk64f12.o
-                0x0000129e                DMA3_IRQHandler
+                0x0000153e        0x8 ./source/startup/startup_mk64f12.o
+                0x0000153e                DMA3_IRQHandler
  .text.DMA4_IRQHandler
-                0x000012a6        0x8 ./source/startup/startup_mk64f12.o
-                0x000012a6                DMA4_IRQHandler
+                0x00001546        0x8 ./source/startup/startup_mk64f12.o
+                0x00001546                DMA4_IRQHandler
  .text.DMA5_IRQHandler
-                0x000012ae        0x8 ./source/startup/startup_mk64f12.o
-                0x000012ae                DMA5_IRQHandler
+                0x0000154e        0x8 ./source/startup/startup_mk64f12.o
+                0x0000154e                DMA5_IRQHandler
  .text.DMA6_IRQHandler
-                0x000012b6        0x8 ./source/startup/startup_mk64f12.o
-                0x000012b6                DMA6_IRQHandler
+                0x00001556        0x8 ./source/startup/startup_mk64f12.o
+                0x00001556                DMA6_IRQHandler
  .text.DMA7_IRQHandler
-                0x000012be        0x8 ./source/startup/startup_mk64f12.o
-                0x000012be                DMA7_IRQHandler
+                0x0000155e        0x8 ./source/startup/startup_mk64f12.o
+                0x0000155e                DMA7_IRQHandler
  .text.DMA8_IRQHandler
-                0x000012c6        0x8 ./source/startup/startup_mk64f12.o
-                0x000012c6                DMA8_IRQHandler
+                0x00001566        0x8 ./source/startup/startup_mk64f12.o
+                0x00001566                DMA8_IRQHandler
  .text.DMA9_IRQHandler
-                0x000012ce        0x8 ./source/startup/startup_mk64f12.o
-                0x000012ce                DMA9_IRQHandler
+                0x0000156e        0x8 ./source/startup/startup_mk64f12.o
+                0x0000156e                DMA9_IRQHandler
  .text.DMA10_IRQHandler
-                0x000012d6        0x8 ./source/startup/startup_mk64f12.o
-                0x000012d6                DMA10_IRQHandler
+                0x00001576        0x8 ./source/startup/startup_mk64f12.o
+                0x00001576                DMA10_IRQHandler
  .text.DMA11_IRQHandler
-                0x000012de        0x8 ./source/startup/startup_mk64f12.o
-                0x000012de                DMA11_IRQHandler
+                0x0000157e        0x8 ./source/startup/startup_mk64f12.o
+                0x0000157e                DMA11_IRQHandler
  .text.DMA12_IRQHandler
-                0x000012e6        0x8 ./source/startup/startup_mk64f12.o
-                0x000012e6                DMA12_IRQHandler
+                0x00001586        0x8 ./source/startup/startup_mk64f12.o
+                0x00001586                DMA12_IRQHandler
  .text.DMA13_IRQHandler
-                0x000012ee        0x8 ./source/startup/startup_mk64f12.o
-                0x000012ee                DMA13_IRQHandler
+                0x0000158e        0x8 ./source/startup/startup_mk64f12.o
+                0x0000158e                DMA13_IRQHandler
  .text.DMA14_IRQHandler
-                0x000012f6        0x8 ./source/startup/startup_mk64f12.o
-                0x000012f6                DMA14_IRQHandler
+                0x00001596        0x8 ./source/startup/startup_mk64f12.o
+                0x00001596                DMA14_IRQHandler
  .text.DMA15_IRQHandler
-                0x000012fe        0x8 ./source/startup/startup_mk64f12.o
-                0x000012fe                DMA15_IRQHandler
+                0x0000159e        0x8 ./source/startup/startup_mk64f12.o
+                0x0000159e                DMA15_IRQHandler
  .text.DMA_Error_IRQHandler
-                0x00001306        0x8 ./source/startup/startup_mk64f12.o
-                0x00001306                DMA_Error_IRQHandler
+                0x000015a6        0x8 ./source/startup/startup_mk64f12.o
+                0x000015a6                DMA_Error_IRQHandler
  .text.MCM_IRQHandler
-                0x0000130e        0x8 ./source/startup/startup_mk64f12.o
-                0x0000130e                MCM_IRQHandler
+                0x000015ae        0x8 ./source/startup/startup_mk64f12.o
+                0x000015ae                MCM_IRQHandler
  .text.FTFE_IRQHandler
-                0x00001316        0x8 ./source/startup/startup_mk64f12.o
-                0x00001316                FTFE_IRQHandler
+                0x000015b6        0x8 ./source/startup/startup_mk64f12.o
+                0x000015b6                FTFE_IRQHandler
  .text.Read_Collision_IRQHandler
-                0x0000131e        0x8 ./source/startup/startup_mk64f12.o
-                0x0000131e                Read_Collision_IRQHandler
+                0x000015be        0x8 ./source/startup/startup_mk64f12.o
+                0x000015be                Read_Collision_IRQHandler
  .text.LVD_LVW_IRQHandler
-                0x00001326        0x8 ./source/startup/startup_mk64f12.o
-                0x00001326                LVD_LVW_IRQHandler
+                0x000015c6        0x8 ./source/startup/startup_mk64f12.o
+                0x000015c6                LVD_LVW_IRQHandler
  .text.LLWU_IRQHandler
-                0x0000132e        0x8 ./source/startup/startup_mk64f12.o
-                0x0000132e                LLWU_IRQHandler
+                0x000015ce        0x8 ./source/startup/startup_mk64f12.o
+                0x000015ce                LLWU_IRQHandler
  .text.WDOG_EWM_IRQHandler
-                0x00001336        0x8 ./source/startup/startup_mk64f12.o
-                0x00001336                WDOG_EWM_IRQHandler
+                0x000015d6        0x8 ./source/startup/startup_mk64f12.o
+                0x000015d6                WDOG_EWM_IRQHandler
  .text.RNG_IRQHandler
-                0x0000133e        0x8 ./source/startup/startup_mk64f12.o
-                0x0000133e                RNG_IRQHandler
+                0x000015de        0x8 ./source/startup/startup_mk64f12.o
+                0x000015de                RNG_IRQHandler
  .text.I2C0_IRQHandler
-                0x00001346        0x8 ./source/startup/startup_mk64f12.o
-                0x00001346                I2C0_IRQHandler
+                0x000015e6        0x8 ./source/startup/startup_mk64f12.o
+                0x000015e6                I2C0_IRQHandler
  .text.I2C1_IRQHandler
-                0x0000134e        0x8 ./source/startup/startup_mk64f12.o
-                0x0000134e                I2C1_IRQHandler
+                0x000015ee        0x8 ./source/startup/startup_mk64f12.o
+                0x000015ee                I2C1_IRQHandler
  .text.SPI0_IRQHandler
-                0x00001356        0x8 ./source/startup/startup_mk64f12.o
-                0x00001356                SPI0_IRQHandler
+                0x000015f6        0x8 ./source/startup/startup_mk64f12.o
+                0x000015f6                SPI0_IRQHandler
  .text.SPI1_IRQHandler
-                0x0000135e        0x8 ./source/startup/startup_mk64f12.o
-                0x0000135e                SPI1_IRQHandler
+                0x000015fe        0x8 ./source/startup/startup_mk64f12.o
+                0x000015fe                SPI1_IRQHandler
  .text.I2S0_Tx_IRQHandler
-                0x00001366        0x8 ./source/startup/startup_mk64f12.o
-                0x00001366                I2S0_Tx_IRQHandler
+                0x00001606        0x8 ./source/startup/startup_mk64f12.o
+                0x00001606                I2S0_Tx_IRQHandler
  .text.I2S0_Rx_IRQHandler
-                0x0000136e        0x8 ./source/startup/startup_mk64f12.o
-                0x0000136e                I2S0_Rx_IRQHandler
+                0x0000160e        0x8 ./source/startup/startup_mk64f12.o
+                0x0000160e                I2S0_Rx_IRQHandler
  .text.UART0_LON_IRQHandler
-                0x00001376        0x8 ./source/startup/startup_mk64f12.o
-                0x00001376                UART0_LON_IRQHandler
+                0x00001616        0x8 ./source/startup/startup_mk64f12.o
+                0x00001616                UART0_LON_IRQHandler
  .text.UART0_RX_TX_IRQHandler
-                0x0000137e        0x8 ./source/startup/startup_mk64f12.o
-                0x0000137e                UART0_RX_TX_IRQHandler
+                0x0000161e        0x8 ./source/startup/startup_mk64f12.o
+                0x0000161e                UART0_RX_TX_IRQHandler
  .text.UART0_ERR_IRQHandler
-                0x00001386        0x8 ./source/startup/startup_mk64f12.o
-                0x00001386                UART0_ERR_IRQHandler
+                0x00001626        0x8 ./source/startup/startup_mk64f12.o
+                0x00001626                UART0_ERR_IRQHandler
  .text.UART1_RX_TX_IRQHandler
-                0x0000138e        0x8 ./source/startup/startup_mk64f12.o
-                0x0000138e                UART1_RX_TX_IRQHandler
+                0x0000162e        0x8 ./source/startup/startup_mk64f12.o
+                0x0000162e                UART1_RX_TX_IRQHandler
  .text.UART1_ERR_IRQHandler
-                0x00001396        0x8 ./source/startup/startup_mk64f12.o
-                0x00001396                UART1_ERR_IRQHandler
+                0x00001636        0x8 ./source/startup/startup_mk64f12.o
+                0x00001636                UART1_ERR_IRQHandler
  .text.UART2_RX_TX_IRQHandler
-                0x0000139e        0x8 ./source/startup/startup_mk64f12.o
-                0x0000139e                UART2_RX_TX_IRQHandler
+                0x0000163e        0x8 ./source/startup/startup_mk64f12.o
+                0x0000163e                UART2_RX_TX_IRQHandler
  .text.UART2_ERR_IRQHandler
-                0x000013a6        0x8 ./source/startup/startup_mk64f12.o
-                0x000013a6                UART2_ERR_IRQHandler
+                0x00001646        0x8 ./source/startup/startup_mk64f12.o
+                0x00001646                UART2_ERR_IRQHandler
  .text.UART3_RX_TX_IRQHandler
-                0x000013ae        0x8 ./source/startup/startup_mk64f12.o
-                0x000013ae                UART3_RX_TX_IRQHandler
+                0x0000164e        0x8 ./source/startup/startup_mk64f12.o
+                0x0000164e                UART3_RX_TX_IRQHandler
  .text.UART3_ERR_IRQHandler
-                0x000013b6        0x8 ./source/startup/startup_mk64f12.o
-                0x000013b6                UART3_ERR_IRQHandler
+                0x00001656        0x8 ./source/startup/startup_mk64f12.o
+                0x00001656                UART3_ERR_IRQHandler
  .text.ADC0_IRQHandler
-                0x000013be        0x8 ./source/startup/startup_mk64f12.o
-                0x000013be                ADC0_IRQHandler
+                0x0000165e        0x8 ./source/startup/startup_mk64f12.o
+                0x0000165e                ADC0_IRQHandler
  .text.CMP0_IRQHandler
-                0x000013c6        0x8 ./source/startup/startup_mk64f12.o
-                0x000013c6                CMP0_IRQHandler
+                0x00001666        0x8 ./source/startup/startup_mk64f12.o
+                0x00001666                CMP0_IRQHandler
  .text.CMP1_IRQHandler
-                0x000013ce        0x8 ./source/startup/startup_mk64f12.o
-                0x000013ce                CMP1_IRQHandler
+                0x0000166e        0x8 ./source/startup/startup_mk64f12.o
+                0x0000166e                CMP1_IRQHandler
  .text.FTM0_IRQHandler
-                0x000013d6        0x8 ./source/startup/startup_mk64f12.o
-                0x000013d6                FTM0_IRQHandler
+                0x00001676        0x8 ./source/startup/startup_mk64f12.o
+                0x00001676                FTM0_IRQHandler
  .text.FTM1_IRQHandler
-                0x000013de        0x8 ./source/startup/startup_mk64f12.o
-                0x000013de                FTM1_IRQHandler
+                0x0000167e        0x8 ./source/startup/startup_mk64f12.o
+                0x0000167e                FTM1_IRQHandler
  .text.FTM2_IRQHandler
-                0x000013e6        0x8 ./source/startup/startup_mk64f12.o
-                0x000013e6                FTM2_IRQHandler
+                0x00001686        0x8 ./source/startup/startup_mk64f12.o
+                0x00001686                FTM2_IRQHandler
  .text.CMT_IRQHandler
-                0x000013ee        0x8 ./source/startup/startup_mk64f12.o
-                0x000013ee                CMT_IRQHandler
+                0x0000168e        0x8 ./source/startup/startup_mk64f12.o
+                0x0000168e                CMT_IRQHandler
  .text.RTC_IRQHandler
-                0x000013f6        0x8 ./source/startup/startup_mk64f12.o
-                0x000013f6                RTC_IRQHandler
+                0x00001696        0x8 ./source/startup/startup_mk64f12.o
+                0x00001696                RTC_IRQHandler
  .text.RTC_Seconds_IRQHandler
-                0x000013fe        0x8 ./source/startup/startup_mk64f12.o
-                0x000013fe                RTC_Seconds_IRQHandler
+                0x0000169e        0x8 ./source/startup/startup_mk64f12.o
+                0x0000169e                RTC_Seconds_IRQHandler
  .text.PIT0_IRQHandler
-                0x00001406        0x8 ./source/startup/startup_mk64f12.o
-                0x00001406                PIT0_IRQHandler
+                0x000016a6        0x8 ./source/startup/startup_mk64f12.o
+                0x000016a6                PIT0_IRQHandler
  .text.PIT1_IRQHandler
-                0x0000140e        0x8 ./source/startup/startup_mk64f12.o
-                0x0000140e                PIT1_IRQHandler
+                0x000016ae        0x8 ./source/startup/startup_mk64f12.o
+                0x000016ae                PIT1_IRQHandler
  .text.PIT2_IRQHandler
-                0x00001416        0x8 ./source/startup/startup_mk64f12.o
-                0x00001416                PIT2_IRQHandler
+                0x000016b6        0x8 ./source/startup/startup_mk64f12.o
+                0x000016b6                PIT2_IRQHandler
  .text.PIT3_IRQHandler
-                0x0000141e        0x8 ./source/startup/startup_mk64f12.o
-                0x0000141e                PIT3_IRQHandler
+                0x000016be        0x8 ./source/startup/startup_mk64f12.o
+                0x000016be                PIT3_IRQHandler
  .text.PDB0_IRQHandler
-                0x00001426        0x8 ./source/startup/startup_mk64f12.o
-                0x00001426                PDB0_IRQHandler
+                0x000016c6        0x8 ./source/startup/startup_mk64f12.o
+                0x000016c6                PDB0_IRQHandler
  .text.USB0_IRQHandler
-                0x0000142e        0x8 ./source/startup/startup_mk64f12.o
-                0x0000142e                USB0_IRQHandler
+                0x000016ce        0x8 ./source/startup/startup_mk64f12.o
+                0x000016ce                USB0_IRQHandler
  .text.USBDCD_IRQHandler
-                0x00001436        0x8 ./source/startup/startup_mk64f12.o
-                0x00001436                USBDCD_IRQHandler
+                0x000016d6        0x8 ./source/startup/startup_mk64f12.o
+                0x000016d6                USBDCD_IRQHandler
  .text.Reserved71_IRQHandler
-                0x0000143e        0x8 ./source/startup/startup_mk64f12.o
-                0x0000143e                Reserved71_IRQHandler
+                0x000016de        0x8 ./source/startup/startup_mk64f12.o
+                0x000016de                Reserved71_IRQHandler
  .text.DAC0_IRQHandler
-                0x00001446        0x8 ./source/startup/startup_mk64f12.o
-                0x00001446                DAC0_IRQHandler
+                0x000016e6        0x8 ./source/startup/startup_mk64f12.o
+                0x000016e6                DAC0_IRQHandler
  .text.MCG_IRQHandler
-                0x0000144e        0x8 ./source/startup/startup_mk64f12.o
-                0x0000144e                MCG_IRQHandler
+                0x000016ee        0x8 ./source/startup/startup_mk64f12.o
+                0x000016ee                MCG_IRQHandler
  .text.LPTMR0_IRQHandler
-                0x00001456        0x8 ./source/startup/startup_mk64f12.o
-                0x00001456                LPTMR0_IRQHandler
+                0x000016f6        0x8 ./source/startup/startup_mk64f12.o
+                0x000016f6                LPTMR0_IRQHandler
  .text.SWI_IRQHandler
-                0x0000145e        0x8 ./source/startup/startup_mk64f12.o
-                0x0000145e                SWI_IRQHandler
+                0x000016fe        0x8 ./source/startup/startup_mk64f12.o
+                0x000016fe                SWI_IRQHandler
  .text.SPI2_IRQHandler
-                0x00001466        0x8 ./source/startup/startup_mk64f12.o
-                0x00001466                SPI2_IRQHandler
+                0x00001706        0x8 ./source/startup/startup_mk64f12.o
+                0x00001706                SPI2_IRQHandler
  .text.UART4_RX_TX_IRQHandler
-                0x0000146e        0x8 ./source/startup/startup_mk64f12.o
-                0x0000146e                UART4_RX_TX_IRQHandler
+                0x0000170e        0x8 ./source/startup/startup_mk64f12.o
+                0x0000170e                UART4_RX_TX_IRQHandler
  .text.UART4_ERR_IRQHandler
-                0x00001476        0x8 ./source/startup/startup_mk64f12.o
-                0x00001476                UART4_ERR_IRQHandler
+                0x00001716        0x8 ./source/startup/startup_mk64f12.o
+                0x00001716                UART4_ERR_IRQHandler
  .text.UART5_RX_TX_IRQHandler
-                0x0000147e        0x8 ./source/startup/startup_mk64f12.o
-                0x0000147e                UART5_RX_TX_IRQHandler
+                0x0000171e        0x8 ./source/startup/startup_mk64f12.o
+                0x0000171e                UART5_RX_TX_IRQHandler
  .text.UART5_ERR_IRQHandler
-                0x00001486        0x8 ./source/startup/startup_mk64f12.o
-                0x00001486                UART5_ERR_IRQHandler
+                0x00001726        0x8 ./source/startup/startup_mk64f12.o
+                0x00001726                UART5_ERR_IRQHandler
  .text.CMP2_IRQHandler
-                0x0000148e        0x8 ./source/startup/startup_mk64f12.o
-                0x0000148e                CMP2_IRQHandler
+                0x0000172e        0x8 ./source/startup/startup_mk64f12.o
+                0x0000172e                CMP2_IRQHandler
  .text.FTM3_IRQHandler
-                0x00001496        0x8 ./source/startup/startup_mk64f12.o
-                0x00001496                FTM3_IRQHandler
+                0x00001736        0x8 ./source/startup/startup_mk64f12.o
+                0x00001736                FTM3_IRQHandler
  .text.DAC1_IRQHandler
-                0x0000149e        0x8 ./source/startup/startup_mk64f12.o
-                0x0000149e                DAC1_IRQHandler
+                0x0000173e        0x8 ./source/startup/startup_mk64f12.o
+                0x0000173e                DAC1_IRQHandler
  .text.ADC1_IRQHandler
-                0x000014a6        0x8 ./source/startup/startup_mk64f12.o
-                0x000014a6                ADC1_IRQHandler
+                0x00001746        0x8 ./source/startup/startup_mk64f12.o
+                0x00001746                ADC1_IRQHandler
  .text.I2C2_IRQHandler
-                0x000014ae        0x8 ./source/startup/startup_mk64f12.o
-                0x000014ae                I2C2_IRQHandler
+                0x0000174e        0x8 ./source/startup/startup_mk64f12.o
+                0x0000174e                I2C2_IRQHandler
  .text.CAN0_ORed_Message_buffer_IRQHandler
-                0x000014b6        0x8 ./source/startup/startup_mk64f12.o
-                0x000014b6                CAN0_ORed_Message_buffer_IRQHandler
+                0x00001756        0x8 ./source/startup/startup_mk64f12.o
+                0x00001756                CAN0_ORed_Message_buffer_IRQHandler
  .text.CAN0_Bus_Off_IRQHandler
-                0x000014be        0x8 ./source/startup/startup_mk64f12.o
-                0x000014be                CAN0_Bus_Off_IRQHandler
+                0x0000175e        0x8 ./source/startup/startup_mk64f12.o
+                0x0000175e                CAN0_Bus_Off_IRQHandler
  .text.CAN0_Error_IRQHandler
-                0x000014c6        0x8 ./source/startup/startup_mk64f12.o
-                0x000014c6                CAN0_Error_IRQHandler
+                0x00001766        0x8 ./source/startup/startup_mk64f12.o
+                0x00001766                CAN0_Error_IRQHandler
  .text.CAN0_Tx_Warning_IRQHandler
-                0x000014ce        0x8 ./source/startup/startup_mk64f12.o
-                0x000014ce                CAN0_Tx_Warning_IRQHandler
+                0x0000176e        0x8 ./source/startup/startup_mk64f12.o
+                0x0000176e                CAN0_Tx_Warning_IRQHandler
  .text.CAN0_Rx_Warning_IRQHandler
-                0x000014d6        0x8 ./source/startup/startup_mk64f12.o
-                0x000014d6                CAN0_Rx_Warning_IRQHandler
+                0x00001776        0x8 ./source/startup/startup_mk64f12.o
+                0x00001776                CAN0_Rx_Warning_IRQHandler
  .text.CAN0_Wake_Up_IRQHandler
-                0x000014de        0x8 ./source/startup/startup_mk64f12.o
-                0x000014de                CAN0_Wake_Up_IRQHandler
+                0x0000177e        0x8 ./source/startup/startup_mk64f12.o
+                0x0000177e                CAN0_Wake_Up_IRQHandler
  .text.SDHC_IRQHandler
-                0x000014e6        0x8 ./source/startup/startup_mk64f12.o
-                0x000014e6                SDHC_IRQHandler
+                0x00001786        0x8 ./source/startup/startup_mk64f12.o
+                0x00001786                SDHC_IRQHandler
  .text.ENET_1588_Timer_IRQHandler
-                0x000014ee        0x8 ./source/startup/startup_mk64f12.o
-                0x000014ee                ENET_1588_Timer_IRQHandler
+                0x0000178e        0x8 ./source/startup/startup_mk64f12.o
+                0x0000178e                ENET_1588_Timer_IRQHandler
  .text.ENET_Transmit_IRQHandler
-                0x000014f6        0x8 ./source/startup/startup_mk64f12.o
-                0x000014f6                ENET_Transmit_IRQHandler
+                0x00001796        0x8 ./source/startup/startup_mk64f12.o
+                0x00001796                ENET_Transmit_IRQHandler
  .text.ENET_Receive_IRQHandler
-                0x000014fe        0x8 ./source/startup/startup_mk64f12.o
-                0x000014fe                ENET_Receive_IRQHandler
+                0x0000179e        0x8 ./source/startup/startup_mk64f12.o
+                0x0000179e                ENET_Receive_IRQHandler
  .text.ENET_Error_IRQHandler
-                0x00001506        0x8 ./source/startup/startup_mk64f12.o
-                0x00001506                ENET_Error_IRQHandler
+                0x000017a6        0x8 ./source/startup/startup_mk64f12.o
+                0x000017a6                ENET_Error_IRQHandler
  .text.App_Init
-                0x0000150e       0x44 ./source/App.o
-                0x0000150e                App_Init
+                0x000017ae       0x44 ./source/App.o
+                0x000017ae                App_Init
  .text.getArrayEffectiveLength
-                0x00001552       0x54 ./source/SysTick.o
-                0x00001552                getArrayEffectiveLength
+                0x000017f2       0x54 ./source/SysTick.o
+                0x000017f2                getArrayEffectiveLength
  .text.PORTA_IRQHandler
-                0x000015a6       0x1e ./source/gpio.o
-                0x000015a6                PORTA_IRQHandler
+                0x00001846       0x1e ./source/gpio.o
+                0x00001846                PORTA_IRQHandler
  .text.PORTB_IRQHandler
-                0x000015c4       0x1e ./source/gpio.o
-                0x000015c4                PORTB_IRQHandler
+                0x00001864       0x1e ./source/gpio.o
+                0x00001864                PORTB_IRQHandler
  .text.PORTC_IRQHandler
-                0x000015e2       0x1e ./source/gpio.o
-                0x000015e2                PORTC_IRQHandler
+                0x00001882       0x1e ./source/gpio.o
+                0x00001882                PORTC_IRQHandler
  .text.PORTD_IRQHandler
-                0x00001600       0x1e ./source/gpio.o
-                0x00001600                PORTD_IRQHandler
+                0x000018a0       0x1e ./source/gpio.o
+                0x000018a0                PORTD_IRQHandler
  .text.PORTE_IRQHandler
-                0x0000161e       0x1e ./source/gpio.o
-                0x0000161e                PORTE_IRQHandler
+                0x000018be       0x1e ./source/gpio.o
+                0x000018be                PORTE_IRQHandler
  .text.SystemInitHook
-                0x0000163c        0xe ./CMSIS/system_MK64F12.o
-                0x0000163c                SystemInitHook
- .text.__main   0x0000164a        0xe c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_semihost_nf.a(_cr__main.o)
-                0x0000164a                __CR_SEMIHOST
-                0x0000164a                __main
- .text._fdopen  0x00001658       0x68 c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_c.a(_fdopen.o)
-                0x00001658                _fdopen
- .text.fclose   0x000016c0       0x58 c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_c.a(fclose.o)
-                0x000016c0                fclose
- .text.remove   0x00001718       0x14 c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_c.a(remove.o)
-                0x00001718                remove
- .text.strlen   0x0000172c       0x4a c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_c.a(strlen.o)
-                0x0000172c                strlen
- .text.memset   0x00001776        0x4 c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_c.a(memset.o)
-                0x00001776                memset
+                0x000018dc        0xe ./CMSIS/system_MK64F12.o
+                0x000018dc                SystemInitHook
+ .text.__main   0x000018ea        0xe c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_semihost_nf.a(_cr__main.o)
+                0x000018ea                __CR_SEMIHOST
+                0x000018ea                __main
+ .text._fdopen  0x000018f8       0x68 c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_c.a(_fdopen.o)
+                0x000018f8                _fdopen
+ .text.fclose   0x00001960       0x58 c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_c.a(fclose.o)
+                0x00001960                fclose
+ .text.remove   0x000019b8       0x14 c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_c.a(remove.o)
+                0x000019b8                remove
+ .text.strlen   0x000019cc       0x4a c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_c.a(strlen.o)
+                0x000019cc                strlen
+ .text.memset   0x00001a16        0x4 c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_c.a(memset.o)
+                0x00001a16                memset
  .text._do_fflush
-                0x0000177a       0x40 c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_c.a(_do_fflush.o)
-                0x0000177a                _do_fflush
- .text._fflush  0x000017ba       0x52 c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_c.a(_fflush.o)
-                0x000017ba                _fflush
- .text.free     0x0000180c       0x30 c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_c.a(alloc.o)
-                0x0000180c                free
+                0x00001a1a       0x40 c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_c.a(_do_fflush.o)
+                0x00001a1a                _do_fflush
+ .text._fflush  0x00001a5a       0x52 c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_c.a(_fflush.o)
+                0x00001a5a                _fflush
+ .text.free     0x00001aac       0x30 c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_c.a(alloc.o)
+                0x00001aac                free
  .text._deferredlazyseek
-                0x0000183c       0x40 c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_c.a(_deferredlazyseek.o)
-                0x0000183c                _deferredlazyseek
+                0x00001adc       0x40 c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_c.a(_deferredlazyseek.o)
+                0x00001adc                _deferredlazyseek
  .text.__aeabi_memset_lowlevel
-                0x0000187c       0x32 c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard\libcr_eabihelpers.a(memcpy.o)
-                0x0000187c                __aeabi_lowlevel_memset
+                0x00001b1c       0x32 c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard\libcr_eabihelpers.a(memcpy.o)
+                0x00001b1c                __aeabi_lowlevel_memset
  .text.__sys_close
-                0x000018ae        0xc c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_semihost_nf.a(__sys_close.o)
-                0x000018ae                __sys_close
+                0x00001b4e        0xc c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_semihost_nf.a(__sys_close.o)
+                0x00001b4e                __sys_close
  .text.__sys_flen
-                0x000018ba        0xc c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_semihost_nf.a(__sys_flen.o)
-                0x000018ba                __sys_flen
+                0x00001b5a        0xc c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_semihost_nf.a(__sys_flen.o)
+                0x00001b5a                __sys_flen
  .text.__sys_istty
-                0x000018c6        0xc c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_semihost_nf.a(__sys_istty.o)
-                0x000018c6                __sys_istty
+                0x00001b66        0xc c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_semihost_nf.a(__sys_istty.o)
+                0x00001b66                __sys_istty
  .text.__sys_remove
-                0x000018d2        0xc c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_semihost_nf.a(__sys_remove.o)
-                0x000018d2                __sys_remove
+                0x00001b72        0xc c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_semihost_nf.a(__sys_remove.o)
+                0x00001b72                __sys_remove
  .text.__sys_seek
-                0x000018de        0xc c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_semihost_nf.a(__sys_seek.o)
-                0x000018de                __sys_seek
+                0x00001b7e        0xc c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_semihost_nf.a(__sys_seek.o)
+                0x00001b7e                __sys_seek
  .text.__sys_tmpnam
-                0x000018ea        0xc c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_semihost_nf.a(__sys_tmpnam.o)
-                0x000018ea                __sys_tmpnam
+                0x00001b8a        0xc c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_semihost_nf.a(__sys_tmpnam.o)
+                0x00001b8a                __sys_tmpnam
  .text.__sys_write
-                0x000018f6        0xc c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_semihost_nf.a(__sys_write.o)
-                0x000018f6                __sys_write
+                0x00001b96        0xc c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_semihost_nf.a(__sys_write.o)
+                0x00001b96                __sys_write
  *(SORT_BY_ALIGNMENT(.rodata) SORT_BY_ALIGNMENT(.rodata.*) SORT_BY_ALIGNMENT(.constdata) SORT_BY_ALIGNMENT(.constdata.*))
- *fill*         0x00001902        0x2 ff
+ *fill*         0x00001ba2        0x2 ff
  .rodata.__num_Ciob_streams
-                0x00001904        0x4 c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_semihost_nf.a(__ciob.o)
-                0x00001904                __num_Ciob_streams
+                0x00001ba4        0x4 c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_semihost_nf.a(__ciob.o)
+                0x00001ba4                __num_Ciob_streams
  .rodata._initio.str1.1
-                0x00001908        0x4 c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_c.a(initio.o)
-                0x00001910                . = ALIGN (0x8)
- *fill*         0x0000190c        0x4 ff
+                0x00001ba8        0x4 c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_c.a(initio.o)
+                0x00001bb0                . = ALIGN (0x8)
+ *fill*         0x00001bac        0x4 ff
 
-.glue_7         0x00001910        0x0
- .glue_7        0x00001910        0x0 linker stubs
+.glue_7         0x00001bb0        0x0
+ .glue_7        0x00001bb0        0x0 linker stubs
 
-.glue_7t        0x00001910        0x0
- .glue_7t       0x00001910        0x0 linker stubs
+.glue_7t        0x00001bb0        0x0
+ .glue_7t       0x00001bb0        0x0 linker stubs
 
-.vfp11_veneer   0x00001910        0x0
- .vfp11_veneer  0x00001910        0x0 linker stubs
+.vfp11_veneer   0x00001bb0        0x0
+ .vfp11_veneer  0x00001bb0        0x0 linker stubs
 
-.v4_bx          0x00001910        0x0
- .v4_bx         0x00001910        0x0 linker stubs
+.v4_bx          0x00001bb0        0x0
+ .v4_bx         0x00001bb0        0x0 linker stubs
 
-.iplt           0x00001910        0x0
- .iplt          0x00001910        0x0 ./source/startup/hardware.o
+.iplt           0x00001bb0        0x0
+ .iplt          0x00001bb0        0x0 ./source/startup/hardware.o
 
-.rel.dyn        0x00001910        0x0
- .rel.iplt      0x00001910        0x0 ./source/startup/hardware.o
+.rel.dyn        0x00001bb0        0x0
+ .rel.iplt      0x00001bb0        0x0 ./source/startup/hardware.o
 
 .ARM.extab
  *(SORT_BY_ALIGNMENT(.ARM.extab*) SORT_BY_ALIGNMENT(.gnu.linkonce.armextab.*))
-                0x00001910                __exidx_start = .
+                0x00001bb0                __exidx_start = .
 
 .ARM.exidx
  *(SORT_BY_ALIGNMENT(.ARM.exidx*) SORT_BY_ALIGNMENT(.gnu.linkonce.armexidx.*))
-                0x00001910                __exidx_end = .
-                0x00001910                _etext = .
+                0x00001bb0                __exidx_end = .
+                0x00001bb0                _etext = .
 
 .m_usb_data
  *(SORT_BY_ALIGNMENT(m_usb_bdt))
 
-.data_RAM2      0x1fff0000        0x0 load address 0x00001910
+.data_RAM2      0x1fff0000        0x0 load address 0x00001bb0
  FILL mask 0xff
                 [!provide]                PROVIDE (__start_data_RAM2, .)
  *(SORT_BY_ALIGNMENT(.ramfunc.$RAM2))
@@ -1084,7 +1084,7 @@ END GROUP
                 0x1fff0000                . = ALIGN (0x8)
                 [!provide]                PROVIDE (__end_data_RAM2, .)
 
-.data_RAM3      0x14000000        0x0 load address 0x00001910
+.data_RAM3      0x14000000        0x0 load address 0x00001bb0
  FILL mask 0xff
                 [!provide]                PROVIDE (__start_data_RAM3, .)
  *(SORT_BY_ALIGNMENT(.ramfunc.$RAM3))
@@ -1100,7 +1100,7 @@ END GROUP
                 0x20000000                . = ALIGN (0x4)
                 0x20000000                _end_uninit_RESERVED = .
 
-.data           0x20000000       0x28 load address 0x00001910
+.data           0x20000000       0x28 load address 0x00001bb0
  FILL mask 0xff
                 0x20000000                _data = .
  *(SORT_BY_ALIGNMENT(vtable))
@@ -1112,7 +1112,7 @@ END GROUP
                 0x20000028                . = ALIGN (0x8)
                 0x20000028                _edata = .
 
-.igot.plt       0x20000028        0x0 load address 0x00001938
+.igot.plt       0x20000028        0x0 load address 0x00001bd8
  .igot.plt      0x20000028        0x0 ./source/startup/hardware.o
 
 .bss_RAM2       0x1fff0000        0x0
@@ -1129,40 +1129,40 @@ END GROUP
                 0x14000000                . = ALIGN ((. != 0x0)?0x8:0x1)
                 [!provide]                PROVIDE (__end_bss_RAM3, .)
 
-.bss            0x20000028      0x820
+.bss            0x20000028      0x830
                 0x20000028                _bss = .
  *(SORT_BY_ALIGNMENT(.bss*))
  .bss.__LDM_interruptDisableCount
                 0x20000028        0x4 ./source/startup/hardware.o
- .bss.message.5156
-                0x2000002c       0x22 ./source/App.o
- *fill*         0x2000004e        0x2 
+ .bss.message.5158
+                0x2000002c       0x33 ./source/App.o
+ *fill*         0x2000005f        0x1 
  .bss.timerElements
-                0x20000050      0x258 ./source/SysTick.o
-                0x20000050                timerElements
- .bss.moves     0x200002a8        0x4 ./source/encoder.o
+                0x20000060      0x258 ./source/SysTick.o
+                0x20000060                timerElements
+ .bss.moves     0x200002b8        0x4 ./source/encoder.o
  .bss.callbacks
-                0x200002ac      0x280 ./source/gpio.o
- .bss.message   0x2000052c      0x258 ./source/lector.o
- .bss.errno     0x20000784        0x4 c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_c.a(errno.o)
-                0x20000784                errno
- .bss.__Ciob    0x20000788       0xb4 c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_semihost_nf.a(__ciob.o)
-                0x20000788                __Ciob
- .bss.bit       0x2000083c        0x2 ./source/lector.o
- .bss.state.5157
-                0x2000083e        0x1 ./source/App.o
+                0x200002bc      0x280 ./source/gpio.o
+ .bss.message   0x2000053c      0x258 ./source/lector.o
+ .bss.errno     0x20000794        0x4 c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_c.a(errno.o)
+                0x20000794                errno
+ .bss.__Ciob    0x20000798       0xb4 c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_semihost_nf.a(__ciob.o)
+                0x20000798                __Ciob
+ .bss.bit       0x2000084c        0x2 ./source/lector.o
+ .bss.state.5159
+                0x2000084e        0x1 ./source/App.o
  .bss.existingEvent
-                0x2000083f        0x1 ./source/encoder.o
- .bss.statusA   0x20000840        0x1 ./source/encoder.o
- .bss.statusB   0x20000841        0x1 ./source/encoder.o
+                0x2000084f        0x1 ./source/encoder.o
+ .bss.statusA   0x20000850        0x1 ./source/encoder.o
+ .bss.statusB   0x20000851        0x1 ./source/encoder.o
  .bss.init.5149
-                0x20000842        0x1 ./source/encoder.o
- .bss.enable    0x20000843        0x1 ./source/lector.o
- .bss.event     0x20000844        0x1 ./source/lector.o
+                0x20000852        0x1 ./source/encoder.o
+ .bss.enable    0x20000853        0x1 ./source/lector.o
+ .bss.event     0x20000854        0x1 ./source/lector.o
  *(SORT_BY_ALIGNMENT(COMMON))
-                0x20000848                . = ALIGN (0x8)
- *fill*         0x20000845        0x3 
-                0x20000848                _ebss = .
+                0x20000858                . = ALIGN (0x8)
+ *fill*         0x20000855        0x3 
+                0x20000858                _ebss = .
                 [!provide]                PROVIDE (end, .)
 
 .noinit_RAM2    0x1fff0000        0x0
@@ -1175,48 +1175,48 @@ END GROUP
  *(SORT_BY_ALIGNMENT(.noinit.$FLEX_RAM*))
                 0x14000000                . = ALIGN (0x8)
 
-.noinit         0x20000848        0x0
-                0x20000848                _noinit = .
+.noinit         0x20000858        0x0
+                0x20000858                _noinit = .
  *(SORT_BY_ALIGNMENT(.noinit*))
-                0x20000848                . = ALIGN (0x8)
-                0x20000848                _end_noinit = .
+                0x20000858                . = ALIGN (0x8)
+                0x20000858                _end_noinit = .
                 0x00001000                _HeapSize = 0x1000
 
-.heap           0x20000848     0x1000
-                0x20000848                _pvHeapStart = .
-                0x20001848                . = (. + _HeapSize)
- *fill*         0x20000848     0x1000 
-                0x20001848                . = ALIGN (0x8)
-                0x20001848                _pvHeapLimit = .
+.heap           0x20000858     0x1000
+                0x20000858                _pvHeapStart = .
+                0x20001858                . = (. + _HeapSize)
+ *fill*         0x20000858     0x1000 
+                0x20001858                . = ALIGN (0x8)
+                0x20001858                _pvHeapLimit = .
                 0x00001000                _StackSize = 0x1000
 
 .heap2stackfill
-                0x20001848     0x1000
-                0x20002848                . = (. + _StackSize)
- *fill*         0x20001848     0x1000 
+                0x20001858     0x1000
+                0x20002858                . = (. + _StackSize)
+ *fill*         0x20001858     0x1000 
 
 .stack          0x2002f000        0x0
                 0x2002f000                _vStackBase = .
                 0x2002f000                . = ALIGN (0x8)
                 0x20030000                _vStackTop = (. + _StackSize)
                 0x00000000                _image_start = LOADADDR (.text)
-                0x00001938                _image_end = (LOADADDR (.data) + SIZEOF (.data))
-                0x00001938                _image_size = (_image_end - _image_start)
+                0x00001bd8                _image_end = (LOADADDR (.data) + SIZEOF (.data))
+                0x00001bd8                _image_size = (_image_end - _image_start)
 OUTPUT(CardReader.axf elf32-littlearm)
 
-.debug_info     0x00000000     0x2dad
+.debug_info     0x00000000     0x2e2d
  .debug_info    0x00000000      0x6aa ./source/startup/hardware.o
  .debug_info    0x000006aa       0xec ./source/startup/main.o
  .debug_info    0x00000796       0x3b ./source/startup/semihost_hardfault.o
  .debug_info    0x000007d1      0x8b0 ./source/startup/startup_mk64f12.o
- .debug_info    0x00001081      0x1de ./source/App.o
- .debug_info    0x0000125f      0x43c ./source/SysTick.o
- .debug_info    0x0000169b      0x1ff ./source/encoder.o
- .debug_info    0x0000189a      0xa99 ./source/gpio.o
- .debug_info    0x00002333      0x449 ./source/lector.o
- .debug_info    0x0000277c      0x631 ./CMSIS/system_MK64F12.o
+ .debug_info    0x00001081      0x1f6 ./source/App.o
+ .debug_info    0x00001277      0x43c ./source/SysTick.o
+ .debug_info    0x000016b3      0x1ff ./source/encoder.o
+ .debug_info    0x000018b2      0xa99 ./source/gpio.o
+ .debug_info    0x0000234b      0x4b1 ./source/lector.o
+ .debug_info    0x000027fc      0x631 ./CMSIS/system_MK64F12.o
 
-.debug_abbrev   0x00000000      0xc4c
+.debug_abbrev   0x00000000      0xc57
  .debug_abbrev  0x00000000      0x14d ./source/startup/hardware.o
  .debug_abbrev  0x0000014d       0x9b ./source/startup/main.o
  .debug_abbrev  0x000001e8       0x2f ./source/startup/semihost_hardfault.o
@@ -1225,8 +1225,8 @@ OUTPUT(CardReader.axf elf32-littlearm)
  .debug_abbrev  0x00000483      0x17a ./source/SysTick.o
  .debug_abbrev  0x000005fd      0x130 ./source/encoder.o
  .debug_abbrev  0x0000072d      0x221 ./source/gpio.o
- .debug_abbrev  0x0000094e      0x1aa ./source/lector.o
- .debug_abbrev  0x00000af8      0x154 ./CMSIS/system_MK64F12.o
+ .debug_abbrev  0x0000094e      0x1b5 ./source/lector.o
+ .debug_abbrev  0x00000b03      0x154 ./CMSIS/system_MK64F12.o
 
 .debug_aranges  0x00000000      0x550
  .debug_aranges
@@ -1298,7 +1298,7 @@ OUTPUT(CardReader.axf elf32-littlearm)
  .debug_macro   0x00011c04       0x40 ./source/lector.o
  .debug_macro   0x00011c44       0x98 ./CMSIS/system_MK64F12.o
 
-.debug_line     0x00000000     0x187d
+.debug_line     0x00000000     0x18eb
  .debug_line    0x00000000      0x221 ./source/startup/hardware.o
  .debug_line    0x00000221      0x1c2 ./source/startup/main.o
  .debug_line    0x000003e3       0x5c ./source/startup/semihost_hardfault.o
@@ -1307,10 +1307,10 @@ OUTPUT(CardReader.axf elf32-littlearm)
  .debug_line    0x00000c92      0x2bb ./source/SysTick.o
  .debug_line    0x00000f4d      0x1aa ./source/encoder.o
  .debug_line    0x000010f7      0x31d ./source/gpio.o
- .debug_line    0x00001414      0x258 ./source/lector.o
- .debug_line    0x0000166c      0x211 ./CMSIS/system_MK64F12.o
+ .debug_line    0x00001414      0x2c6 ./source/lector.o
+ .debug_line    0x000016da      0x211 ./CMSIS/system_MK64F12.o
 
-.debug_str      0x00000000    0x79857
+.debug_str      0x00000000    0x7987a
  .debug_str     0x00000000    0x77e30 ./source/startup/hardware.o
                               0x77ebe (size before relaxing)
  .debug_str     0x00077e30       0x1e ./source/startup/main.o
@@ -1319,17 +1319,17 @@ OUTPUT(CardReader.axf elf32-littlearm)
                                0x2db7 (size before relaxing)
  .debug_str     0x00077e87      0x83d ./source/startup/startup_mk64f12.o
                                0x3625 (size before relaxing)
- .debug_str     0x000786c4      0x320 ./source/App.o
-                               0x47f3 (size before relaxing)
- .debug_str     0x000789e4      0x557 ./source/SysTick.o
+ .debug_str     0x000786c4      0x334 ./source/App.o
+                               0x4807 (size before relaxing)
+ .debug_str     0x000789f8      0x557 ./source/SysTick.o
                               0x782a3 (size before relaxing)
- .debug_str     0x00078f3b       0x6c ./source/encoder.o
+ .debug_str     0x00078f4f       0x6c ./source/encoder.o
                                0x47fd (size before relaxing)
- .debug_str     0x00078fa7      0x65f ./source/gpio.o
+ .debug_str     0x00078fbb      0x65f ./source/gpio.o
                               0x784fb (size before relaxing)
- .debug_str     0x00079606      0x1f3 ./source/lector.o
-                               0x49c1 (size before relaxing)
- .debug_str     0x000797f9       0x5e ./CMSIS/system_MK64F12.o
+ .debug_str     0x0007961a      0x202 ./source/lector.o
+                               0x49e4 (size before relaxing)
+ .debug_str     0x0007981c       0x5e ./CMSIS/system_MK64F12.o
                               0x77dc6 (size before relaxing)
 
 .comment        0x00000000       0x7e
@@ -1438,7 +1438,7 @@ OUTPUT(CardReader.axf elf32-littlearm)
  .ARM.attributes
                 0x0000073f       0x25 c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_semihost_nf.a(__sys_write.o)
 
-.debug_frame    0x00000000      0xf6c
+.debug_frame    0x00000000      0xf74
  .debug_frame   0x00000000       0x70 ./source/startup/hardware.o
  .debug_frame   0x00000070       0x2c ./source/startup/main.o
  .debug_frame   0x0000009c       0x20 ./source/startup/semihost_hardfault.o
@@ -1447,5 +1447,5 @@ OUTPUT(CardReader.axf elf32-littlearm)
  .debug_frame   0x00000a10       0xf8 ./source/SysTick.o
  .debug_frame   0x00000b08       0x78 ./source/encoder.o
  .debug_frame   0x00000b80      0x24c ./source/gpio.o
- .debug_frame   0x00000dcc      0x12c ./source/lector.o
- .debug_frame   0x00000ef8       0x74 ./CMSIS/system_MK64F12.o
+ .debug_frame   0x00000dcc      0x134 ./source/lector.o
+ .debug_frame   0x00000f00       0x74 ./CMSIS/system_MK64F12.o

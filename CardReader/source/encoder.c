@@ -5,22 +5,34 @@
  *      Author: Grupo 2
  */
 
+/*************************************************
+ * 			INCLUDES
+ *************************************************/
+
 #include "encoder.h"
 #include "SysTick.h"
 #include "gpio.h"
 #include "board.h"
 #include <stdbool.h>
 
-/****** Variable del Driver ***********/
+/*************************************************
+ *  	LOCAL FUNCTION DECLARATION
+ ************************************************/
+void lookForMoves(void);
+
+/************************************************
+ *  	VARIABLES WITH LOCAL SCOPE
+ ************************************************/
+
 static bool existingEvent = false;
 static bool statusA = false;
 static bool statusB = false;
 static int moves = 0;
-/*************************************/
 
-/******** Funciones internas *************/
-void lookForMoves(void);
-/************************************/
+
+/************************************************
+ * 		FUNCTION DEFINITION WITH GLOBAL SCOPE
+ ************************************************/
 
 void Encoder_Init(void)
 {
@@ -47,6 +59,10 @@ int Encoder_GetMove(void)
 	}
 	return 0;
 }
+
+/**************************************************
+ * 			LOCAL FUNCTIONS
+ **************************************************/
 
 void lookForMoves(void)
 {
