@@ -45,7 +45,7 @@ void App_Init (void)
 	gpioMode(PIN_SW3, INPUT);
 	SysTick_Init();
 	buttonsInit();
-	buttonConfiguration(PIN_SW3, TYPEMATIC, 50);
+	buttonConfiguration(PIN_SW3, TYPEMATIC , 50);
 
 }
 
@@ -58,6 +58,10 @@ void App_Run (void)
 		gpioToggle(PIN_LED_RED);
 	}
 	else if(wasReleased(PIN_SW3))
+	{
+		gpioWrite(PIN_LED_RED, HIGH);
+		gpioWrite(PIN_LED_GREEN, HIGH);
+	}else if(wasLkp(PIN_SW3))
 	{
 		gpioWrite(PIN_LED_RED, HIGH);
 		gpioWrite(PIN_LED_GREEN, HIGH);
