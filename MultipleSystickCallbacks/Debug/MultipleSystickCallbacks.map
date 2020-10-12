@@ -106,6 +106,10 @@ Discarded input sections
                 0x00000000       0x12 ./source/test/LedTimerTestBench.o
  .text.PauseAndResumeCallbackTestAction
                 0x00000000       0x4c ./source/test/LedTimerTestBench.o
+ .text.ResetTimerTest
+                0x00000000       0x18 ./source/test/LedTimerTestBench.o
+ .text.OnlyOnceCallbackTest2
+                0x00000000       0x12 ./source/test/LedTimerTestBench.o
  .group         0x00000000        0xc ./source/startup/hardware.o
  .group         0x00000000        0xc ./source/startup/hardware.o
  .group         0x00000000        0xc ./source/startup/hardware.o
@@ -295,11 +299,13 @@ Discarded input sections
  .text          0x00000000        0x0 ./source/Timer.o
  .data          0x00000000        0x0 ./source/Timer.o
  .bss           0x00000000        0x0 ./source/Timer.o
- .text.Timer_PauseCallback
+ .text.Timer_Pause
                 0x00000000       0x80 ./source/Timer.o
- .text.Timer_ResumeCallback
+ .text.Timer_Resume
                 0x00000000       0x80 ./source/Timer.o
- .text.Timer_ChangeCallbackPeriod
+ .text.Timer_Reset
+                0x00000000       0x80 ./source/Timer.o
+ .text.Timer_ChangePeriod
                 0x00000000       0xb8 ./source/Timer.o
  .text.Timer_GetCallbackProgress
                 0x00000000       0xc4 ./source/Timer.o
@@ -768,9 +774,9 @@ END GROUP
  .text.Timer_AddCallback
                 0x00000bf8       0x88 ./source/Timer.o
                 0x00000bf8                Timer_AddCallback
- .text.Timer_DeleteCallback
+ .text.Timer_Delete
                 0x00000c80      0x1b8 ./source/Timer.o
-                0x00000c80                Timer_DeleteCallback
+                0x00000c80                Timer_Delete
  .text.Timer_PISR
                 0x00000e38       0xec ./source/Timer.o
  .text.SystemInit
@@ -1248,7 +1254,7 @@ END GROUP
  .bss.onForDefinedTimeTestID
                 0x20000000        0x4 ./source/test/LedTimerTestBench.o
                 0x20000000                onForDefinedTimeTestID
- .bss.i.5522    0x20000004        0x4 ./source/test/LedTimerTestBench.o
+ .bss.i.5528    0x20000004        0x4 ./source/test/LedTimerTestBench.o
  .bss.__LDM_interruptDisableCount
                 0x20000008        0x4 ./source/startup/hardware.o
  .bss.ledElements
@@ -1318,18 +1324,18 @@ END GROUP
                 0x00001c70                _image_size = (_image_end - _image_start)
 OUTPUT(MultipleSystickCallbacks.axf elf32-littlearm)
 
-.debug_info     0x00000000     0x3309
- .debug_info    0x00000000      0x312 ./source/test/LedTimerTestBench.o
- .debug_info    0x00000312      0x6aa ./source/startup/hardware.o
- .debug_info    0x000009bc       0xec ./source/startup/main.o
- .debug_info    0x00000aa8       0x3b ./source/startup/semihost_hardfault.o
- .debug_info    0x00000ae3      0x8b0 ./source/startup/startup_mk64f12.o
- .debug_info    0x00001393      0x216 ./source/App.o
- .debug_info    0x000015a9      0x880 ./source/Led.o
- .debug_info    0x00001e29      0x52b ./source/SysTick.o
- .debug_info    0x00002354      0x4f8 ./source/Timer.o
- .debug_info    0x0000284c      0x631 ./CMSIS/system_MK64F12.o
- .debug_info    0x00002e7d      0x48c C:/Users/pabli/Documents/MCUXpressoIDE_10.2.0_759/workspace/MultipleSystickCallbacks/source/gpio.o
+.debug_info     0x00000000     0x336d
+ .debug_info    0x00000000      0x334 ./source/test/LedTimerTestBench.o
+ .debug_info    0x00000334      0x6aa ./source/startup/hardware.o
+ .debug_info    0x000009de       0xec ./source/startup/main.o
+ .debug_info    0x00000aca       0x3b ./source/startup/semihost_hardfault.o
+ .debug_info    0x00000b05      0x8b0 ./source/startup/startup_mk64f12.o
+ .debug_info    0x000013b5      0x216 ./source/App.o
+ .debug_info    0x000015cb      0x880 ./source/Led.o
+ .debug_info    0x00001e4b      0x52b ./source/SysTick.o
+ .debug_info    0x00002376      0x53a ./source/Timer.o
+ .debug_info    0x000028b0      0x631 ./CMSIS/system_MK64F12.o
+ .debug_info    0x00002ee1      0x48c C:/Users/pabli/Documents/MCUXpressoIDE_10.2.0_759/workspace/MultipleSystickCallbacks/source/gpio.o
 
 .debug_abbrev   0x00000000      0xd6b
  .debug_abbrev  0x00000000      0x14a ./source/test/LedTimerTestBench.o
@@ -1344,42 +1350,42 @@ OUTPUT(MultipleSystickCallbacks.axf elf32-littlearm)
  .debug_abbrev  0x00000ab5      0x154 ./CMSIS/system_MK64F12.o
  .debug_abbrev  0x00000c09      0x162 C:/Users/pabli/Documents/MCUXpressoIDE_10.2.0_759/workspace/MultipleSystickCallbacks/source/gpio.o
 
-.debug_aranges  0x00000000      0x5f8
+.debug_aranges  0x00000000      0x610
  .debug_aranges
-                0x00000000       0x68 ./source/test/LedTimerTestBench.o
+                0x00000000       0x78 ./source/test/LedTimerTestBench.o
  .debug_aranges
-                0x00000068       0x30 ./source/startup/hardware.o
+                0x00000078       0x30 ./source/startup/hardware.o
  .debug_aranges
-                0x00000098       0x20 ./source/startup/main.o
+                0x000000a8       0x20 ./source/startup/main.o
  .debug_aranges
-                0x000000b8       0x20 ./source/startup/semihost_hardfault.o
+                0x000000c8       0x20 ./source/startup/semihost_hardfault.o
  .debug_aranges
-                0x000000d8      0x330 ./source/startup/startup_mk64f12.o
+                0x000000e8      0x330 ./source/startup/startup_mk64f12.o
  .debug_aranges
-                0x00000408       0x28 ./source/App.o
+                0x00000418       0x28 ./source/App.o
  .debug_aranges
-                0x00000430       0xa0 ./source/Led.o
+                0x00000440       0xa0 ./source/Led.o
  .debug_aranges
-                0x000004d0       0x58 ./source/SysTick.o
+                0x000004e0       0x58 ./source/SysTick.o
  .debug_aranges
-                0x00000528       0x60 ./source/Timer.o
+                0x00000538       0x68 ./source/Timer.o
  .debug_aranges
-                0x00000588       0x30 ./CMSIS/system_MK64F12.o
+                0x000005a0       0x30 ./CMSIS/system_MK64F12.o
  .debug_aranges
-                0x000005b8       0x40 C:/Users/pabli/Documents/MCUXpressoIDE_10.2.0_759/workspace/MultipleSystickCallbacks/source/gpio.o
+                0x000005d0       0x40 C:/Users/pabli/Documents/MCUXpressoIDE_10.2.0_759/workspace/MultipleSystickCallbacks/source/gpio.o
 
-.debug_ranges   0x00000000      0x578
- .debug_ranges  0x00000000       0x58 ./source/test/LedTimerTestBench.o
- .debug_ranges  0x00000058       0x20 ./source/startup/hardware.o
- .debug_ranges  0x00000078       0x10 ./source/startup/main.o
- .debug_ranges  0x00000088       0x10 ./source/startup/semihost_hardfault.o
- .debug_ranges  0x00000098      0x320 ./source/startup/startup_mk64f12.o
- .debug_ranges  0x000003b8       0x18 ./source/App.o
- .debug_ranges  0x000003d0       0x90 ./source/Led.o
- .debug_ranges  0x00000460       0x48 ./source/SysTick.o
- .debug_ranges  0x000004a8       0x50 ./source/Timer.o
- .debug_ranges  0x000004f8       0x20 ./CMSIS/system_MK64F12.o
- .debug_ranges  0x00000518       0x60 C:/Users/pabli/Documents/MCUXpressoIDE_10.2.0_759/workspace/MultipleSystickCallbacks/source/gpio.o
+.debug_ranges   0x00000000      0x590
+ .debug_ranges  0x00000000       0x68 ./source/test/LedTimerTestBench.o
+ .debug_ranges  0x00000068       0x20 ./source/startup/hardware.o
+ .debug_ranges  0x00000088       0x10 ./source/startup/main.o
+ .debug_ranges  0x00000098       0x10 ./source/startup/semihost_hardfault.o
+ .debug_ranges  0x000000a8      0x320 ./source/startup/startup_mk64f12.o
+ .debug_ranges  0x000003c8       0x18 ./source/App.o
+ .debug_ranges  0x000003e0       0x90 ./source/Led.o
+ .debug_ranges  0x00000470       0x48 ./source/SysTick.o
+ .debug_ranges  0x000004b8       0x58 ./source/Timer.o
+ .debug_ranges  0x00000510       0x20 ./CMSIS/system_MK64F12.o
+ .debug_ranges  0x00000530       0x60 C:/Users/pabli/Documents/MCUXpressoIDE_10.2.0_759/workspace/MultipleSystickCallbacks/source/gpio.o
 
 .debug_macro    0x00000000    0x13619
  .debug_macro   0x00000000       0xbe ./source/test/LedTimerTestBench.o
@@ -1423,41 +1429,41 @@ OUTPUT(MultipleSystickCallbacks.axf elf32-littlearm)
  .debug_macro   0x000132a9      0x34e C:/Users/pabli/Documents/MCUXpressoIDE_10.2.0_759/workspace/MultipleSystickCallbacks/source/gpio.o
  .debug_macro   0x000135f7       0x22 C:/Users/pabli/Documents/MCUXpressoIDE_10.2.0_759/workspace/MultipleSystickCallbacks/source/gpio.o
 
-.debug_line     0x00000000     0x1be1
- .debug_line    0x00000000      0x243 ./source/test/LedTimerTestBench.o
- .debug_line    0x00000243      0x221 ./source/startup/hardware.o
- .debug_line    0x00000464      0x1c2 ./source/startup/main.o
- .debug_line    0x00000626       0x5c ./source/startup/semihost_hardfault.o
- .debug_line    0x00000682      0x6db ./source/startup/startup_mk64f12.o
- .debug_line    0x00000d5d      0x18b ./source/App.o
- .debug_line    0x00000ee8      0x327 ./source/Led.o
- .debug_line    0x0000120f      0x337 ./source/SysTick.o
- .debug_line    0x00001546      0x29e ./source/Timer.o
- .debug_line    0x000017e4      0x211 ./CMSIS/system_MK64F12.o
- .debug_line    0x000019f5      0x1ec C:/Users/pabli/Documents/MCUXpressoIDE_10.2.0_759/workspace/MultipleSystickCallbacks/source/gpio.o
+.debug_line     0x00000000     0x1c2c
+ .debug_line    0x00000000      0x267 ./source/test/LedTimerTestBench.o
+ .debug_line    0x00000267      0x221 ./source/startup/hardware.o
+ .debug_line    0x00000488      0x1c2 ./source/startup/main.o
+ .debug_line    0x0000064a       0x5c ./source/startup/semihost_hardfault.o
+ .debug_line    0x000006a6      0x6db ./source/startup/startup_mk64f12.o
+ .debug_line    0x00000d81      0x18b ./source/App.o
+ .debug_line    0x00000f0c      0x327 ./source/Led.o
+ .debug_line    0x00001233      0x337 ./source/SysTick.o
+ .debug_line    0x0000156a      0x2c5 ./source/Timer.o
+ .debug_line    0x0000182f      0x211 ./CMSIS/system_MK64F12.o
+ .debug_line    0x00001a40      0x1ec C:/Users/pabli/Documents/MCUXpressoIDE_10.2.0_759/workspace/MultipleSystickCallbacks/source/gpio.o
 
-.debug_str      0x00000000    0x7a475
- .debug_str     0x00000000     0x4c45 ./source/test/LedTimerTestBench.o
-                               0x4cea (size before relaxing)
- .debug_str     0x00004c45    0x73b47 ./source/startup/hardware.o
-                              0x77ed6 (size before relaxing)
- .debug_str     0x0007878c       0x1e ./source/startup/main.o
-                              0x77caa (size before relaxing)
- .debug_str     0x000787aa       0x39 ./source/startup/semihost_hardfault.o
-                               0x2dcf (size before relaxing)
- .debug_str     0x000787e3      0x83d ./source/startup/startup_mk64f12.o
-                               0x363d (size before relaxing)
- .debug_str     0x00079020       0x3e ./source/App.o
+.debug_str      0x00000000    0x7a437
+ .debug_str     0x00000000     0x4c6a ./source/test/LedTimerTestBench.o
+                               0x4d0f (size before relaxing)
+ .debug_str     0x00004c6a    0x73af8 ./source/startup/hardware.o
+                              0x77ee2 (size before relaxing)
+ .debug_str     0x00078762       0x1e ./source/startup/main.o
+                              0x77cb6 (size before relaxing)
+ .debug_str     0x00078780       0x39 ./source/startup/semihost_hardfault.o
+                               0x2ddb (size before relaxing)
+ .debug_str     0x000787b9      0x83d ./source/startup/startup_mk64f12.o
+                               0x3649 (size before relaxing)
+ .debug_str     0x00078ff6       0x3e ./source/App.o
                                0x4b97 (size before relaxing)
- .debug_str     0x0007905e      0x495 ./source/Led.o
+ .debug_str     0x00079034      0x495 ./source/Led.o
                                0x5065 (size before relaxing)
- .debug_str     0x000794f3      0x21e ./source/SysTick.o
+ .debug_str     0x000794c9      0x21e ./source/SysTick.o
                               0x78343 (size before relaxing)
- .debug_str     0x00079711      0x137 ./source/Timer.o
-                               0x3ab5 (size before relaxing)
- .debug_str     0x00079848       0x5e ./CMSIS/system_MK64F12.o
-                              0x77dde (size before relaxing)
- .debug_str     0x000798a6      0xbcf C:/Users/pabli/Documents/MCUXpressoIDE_10.2.0_759/workspace/MultipleSystickCallbacks/source/gpio.o
+ .debug_str     0x000796e7      0x123 ./source/Timer.o
+                               0x3aa1 (size before relaxing)
+ .debug_str     0x0007980a       0x5e ./CMSIS/system_MK64F12.o
+                              0x77dea (size before relaxing)
+ .debug_str     0x00079868      0xbcf C:/Users/pabli/Documents/MCUXpressoIDE_10.2.0_759/workspace/MultipleSystickCallbacks/source/gpio.o
                               0x772d6 (size before relaxing)
 
 .comment        0x00000000       0x7e
@@ -1572,15 +1578,15 @@ OUTPUT(MultipleSystickCallbacks.axf elf32-littlearm)
  .ARM.attributes
                 0x000007af       0x25 c:/nxp/mcuxpressoide_10.2.0_759/ide/tools/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libcr_semihost_nf.a(__sys_write.o)
 
-.debug_frame    0x00000000     0x119c
- .debug_frame   0x00000000      0x130 ./source/test/LedTimerTestBench.o
- .debug_frame   0x00000130       0x70 ./source/startup/hardware.o
- .debug_frame   0x000001a0       0x2c ./source/startup/main.o
- .debug_frame   0x000001cc       0x20 ./source/startup/semihost_hardfault.o
- .debug_frame   0x000001ec      0x904 ./source/startup/startup_mk64f12.o
- .debug_frame   0x00000af0       0x4c ./source/App.o
- .debug_frame   0x00000b3c      0x288 ./source/Led.o
- .debug_frame   0x00000dc4      0x140 ./source/SysTick.o
- .debug_frame   0x00000f04      0x15c ./source/Timer.o
- .debug_frame   0x00001060       0x74 ./CMSIS/system_MK64F12.o
- .debug_frame   0x000010d4       0xc8 C:/Users/pabli/Documents/MCUXpressoIDE_10.2.0_759/workspace/MultipleSystickCallbacks/source/gpio.o
+.debug_frame    0x00000000     0x11f8
+ .debug_frame   0x00000000      0x168 ./source/test/LedTimerTestBench.o
+ .debug_frame   0x00000168       0x70 ./source/startup/hardware.o
+ .debug_frame   0x000001d8       0x2c ./source/startup/main.o
+ .debug_frame   0x00000204       0x20 ./source/startup/semihost_hardfault.o
+ .debug_frame   0x00000224      0x904 ./source/startup/startup_mk64f12.o
+ .debug_frame   0x00000b28       0x4c ./source/App.o
+ .debug_frame   0x00000b74      0x288 ./source/Led.o
+ .debug_frame   0x00000dfc      0x140 ./source/SysTick.o
+ .debug_frame   0x00000f3c      0x180 ./source/Timer.o
+ .debug_frame   0x000010bc       0x74 ./CMSIS/system_MK64F12.o
+ .debug_frame   0x00001130       0xc8 C:/Users/pabli/Documents/MCUXpressoIDE_10.2.0_759/workspace/MultipleSystickCallbacks/source/gpio.o

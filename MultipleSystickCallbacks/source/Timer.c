@@ -54,7 +54,7 @@ int Timer_AddCallback(void (*newCallback)(void), int period, bool callOnce)
 	return idCounter++;
 }
 
-TimerError Timer_DeleteCallback(int timerID)
+TimerError Timer_Delete(int timerID)
 {
 	bool idFound = false;	//Flag
 	int i = 0;				//Index
@@ -91,7 +91,7 @@ TimerError Timer_DeleteCallback(int timerID)
 	return TimerNoError;
 }
 
-TimerError Timer_PauseCallback(int timerID)
+TimerError Timer_Pause(int timerID)
 {
 	bool idFound = false;	//Flag
 	int i = 0;				//Index
@@ -114,7 +114,7 @@ TimerError Timer_PauseCallback(int timerID)
 }
 
 
-TimerError Timer_ResumeCallback(int timerID)
+TimerError Timer_Resume(int timerID)
 {
 	bool idFound = false;	//Flag
 	int i = 0;				//Index
@@ -135,10 +135,28 @@ TimerError Timer_ResumeCallback(int timerID)
 	return TimerNoError;
 }
 
+TimerError Timer_Reset(int timerID)
+{
+	bool idFound = false;	//Flag
+	int i = 0;				//Index
 
+	/*Searches for the id in the array*/
+	while((idFound == false) && (i < getArrayEffectiveLength(timerElements)))
+	{
+		if(timerElements[i].callbackID == timerID)
+		{
+			idFound = true;			//ID found
+			timerElements[i].counter = 0; //Resets the calling of the callback.
+		}
+		i++;
+	} ;
+	if(idFound == false)
+		return TimerNoIdFound;
 
+	return TimerNoError;
+}
 
-TimerError Timer_ChangeCallbackPeriod(int timerID, int newPeriod)
+TimerError Timer_ChangePeriod(int timerID, int newPeriod)
 {
 	bool idFound = false;	//Flag
 	int i = 0;				//Index
@@ -221,7 +239,7 @@ static void Timer_PISR(void)
 				(*timerElements[i].callback)();	//Callback's calling.
 				timerElements[i].counter = 0;	//Counter re-establishment.
 				if (timerElements[i].callOnce)
-					Timer_DeleteCallback(timerElements[i].callbackID);
+					Timer_Delete(timerElements[i].callbackID);
 			}
 			timerElements[i].counter ++;
 		}

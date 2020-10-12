@@ -62,22 +62,27 @@ int Timer_AddCallback(void (*newCallback)(void), int period, bool callOnce);
  * @param timerID The callback ID given by Timer_AddCallback.
  * @return A TimerError indicating whether an error occurred (and its type) or not.
  */
-TimerError Timer_DeleteCallback(int timerID);
+TimerError Timer_Delete(int timerID);
 
 /**
  * @brief Pauses the calling of a callback by Timer.
  * @param timerID The callback ID given by Timer_AddCallback.
  * @return A TimerError indicating whether an error occurred (and its type) or not.
  */
-TimerError Timer_PauseCallback(int timerID);
+TimerError Timer_Pause(int timerID);
 
 /**
  * @brief Resumes the calling of a callback by Timer following a predefined period (defined in Timer_AddCallback).
  * @param timerID The callback ID given by Timer_AddCallback.
  * @return A TimerError indicating whether an error occurred (and its type) or not.
  */
-TimerError Timer_ResumeCallback(int timerID);
-
+TimerError Timer_Resume(int timerID);
+/**
+ * @brief Resets the calling of a callback by Timer following a predefined period (defined in Timer_AddCallback).
+ * @param timerID The callback ID given by Timer_AddCallback.
+ * @return A TimerError indicating whether an error occurred (and its type) or not.
+ */
+TimerError Timer_Reset(int timerID);
 
 /**
  * @brief Changes the period of calling of a callback.
@@ -87,7 +92,7 @@ TimerError Timer_ResumeCallback(int timerID);
  * @return A TimerError indicating whether an error occurred (and its type) or not.
  * WARNING If the quotient between newPeriod and TIMER_ISR_PERIOD is not an integer, it will be truncated.
  */
-TimerError Timer_ChangeCallbackPeriod(int timerID, int newPeriod);
+TimerError Timer_ChangePeriod(int timerID, int newPeriod);
 
 /**
  * @brief Indicates the fraction of time that has elapsed in relation to the callback period.

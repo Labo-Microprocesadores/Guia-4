@@ -19,6 +19,7 @@ int pauseCallbackId;
 bool paused;
 static void OnForDefinedTimeTest(void);
 static void OnlyOnceCallbackTest(void);
+static void OnlyOnceCallbackTest2(void);
 static void FinishInfiniteBlinkTestGreen(void);
 static void FinishInfiniteBlinkTestRed(void);
 static void FinishAllTestBlue(void);
@@ -26,6 +27,7 @@ static void FinishAll(void);
 static void GetCallbackProgress(void);
 static void PauseAndResumeCallbackTest(void);
 static void PauseAndResumeCallbackTestAction(void);
+static void ResetTimerTest(void);
 void TestLedAndTimer()
 {
 	/*On For Define Time Test + Timer Add Callback Test + Timer Delete Callback Test*/
@@ -107,6 +109,11 @@ void TestLedAndTimer()
 	Timer_AddCallback(&PauseAndResumeCallbackTestAction, 4000, false); //4 seconds.	Should pause and resume every 4 seconds.
 	*/
 
+	/*Timer Reset*/
+	/*
+	onForDefinedTimeTestID = Timer_AddCallback(&OnlyOnceCallbackTest2, 5000, true);	//Wait 5 seconds before it starts.
+	Timer_AddCallback(&ResetTimerTest, 2500, true);	//After 2.5 seconds of waiting, it resets the timer -> The led should turn on after 7.5 seconds in total.
+	*/
 }
 
 static void OnForDefinedTimeTest(void)
@@ -123,7 +130,7 @@ static void OnForDefinedTimeTest(void)
 		Led_OnForDefinedTime(LED_BLUE, 4000); //4s
 		break;
 	case 3:
-		Timer_DeleteCallback(onForDefinedTimeTestID);
+		Timer_Delete(onForDefinedTimeTestID);
 		break;
 	case 4:
 		Led_OnForDefinedTime(LED_BLUE, 4000); //WILL TURN ON ONLY IF DELETE CALLBACK FAILS.
@@ -169,11 +176,21 @@ static void PauseAndResumeCallbackTest(void)
 static void PauseAndResumeCallbackTestAction(void)
 {
 	if (paused)
-		Timer_ResumeCallback(pauseCallbackId);
+		Timer_Resume(pauseCallbackId);
 	else
-		Timer_PauseCallback(pauseCallbackId);
+		Timer_Pause(pauseCallbackId);
 	paused = !paused;
 }
+
+static void ResetTimerTest(void)
+{
+	Timer_Reset(onForDefinedTimeTestID);
+}
+static void OnlyOnceCallbackTest2(void)
+{
+	Led_OnForDefinedTime(LED_RED, 5000); //5s
+}
+
 
 
 
