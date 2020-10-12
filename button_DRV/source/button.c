@@ -9,22 +9,18 @@
 #include "SysTick.h"
 #include "gpio.h"
 
-typedef  struct
-	{
-		pin_t pin;
-		enum type typefunction;
-		bool lastState;
-		int currentCount;
-		int lkpTime;
-		int typeTime;
-		bool wasLkp;
-		bool wasPressed;
-		bool wasReleased;
-	}Button_t;
+
+/*******************************************************************************
+ * FUNCTION PROTOTYPES FOR PRIVATE FUNCTIONS WITH FILE LEVEL SCOPE
+ ******************************************************************************/
 
 static Button_t buttons[BUTTON_NUM];
 
-
+/*******************************************************************************
+ *******************************************************************************
+                        LOCAL FUNCTION DEFINITIONS
+ *******************************************************************************
+ ******************************************************************************/
 
 static void systick_callback(void)
 {
@@ -62,61 +58,70 @@ static void systick_callback(void)
 	}
 }
 
+
+/*******************************************************************************
+ *******************************************************************************
+                        GLOBAL FUNCTION DEFINITIONS
+ *******************************************************************************
+ ******************************************************************************/
+
+void buttonsInit(void)
+{
+	//add buttons to .h
+	SysTick_AddCallback(&systick_callback, 50*SYSTICK_ISR_PERIOD_S);
+}
+
+
 bool wasPressed(pin_t button)
 {
 	int count;
 	for(count=0;count<BUTTON_NUM;count++)
+	{
+		if(buttons[count].pin == button )
 		{
-			if(buttons[count].pin == button )
-			{
-				bool aux =buttons[count].wasPressed;
-				if(aux)
-					buttons[count].wasPressed = false;
-
-				return aux ;
-			}
+			bool aux =buttons[count].wasPressed;
+			if(aux)
+				buttons[count].wasPressed = false;
+			return aux ;
 		}
+	}
 
 }
 
 bool wasReleased(pin_t button)
 {
 	int count;
-		for(count=0;count<BUTTON_NUM;count++)
-			{
-				if(buttons[count].pin == button )
-				{
-					bool aux =buttons[count].wasReleased;
-					if(aux)
-						buttons[count].wasReleased = false;
+	for(count=0;count<BUTTON_NUM;count++)
+	{
+		if(buttons[count].pin == button )
+		{
+			bool aux =buttons[count].wasReleased;
+			if(aux)
+				buttons[count].wasReleased = false;
 
-					return aux ;
-				}
-			}
+			return aux ;
+		}
+	}
 
 }
 
 bool wasLkp(pin_t button)
 {
 	int count;
-		for(count=0;count<BUTTON_NUM;count++)
-			{
-				if(buttons[count].pin == button )
-				{
-					bool aux =buttons[count].wasLkp;
-					if(aux)
-						buttons[count].wasLkp = false;
+	for(count=0;count<BUTTON_NUM;count++)
+	{
+		if(buttons[count].pin == button )
+		{
+			bool aux =buttons[count].wasLkp;
+			if(aux)
+				buttons[count].wasLkp = false;
 
-					return aux ;
-				}
-			}
+			return aux ;
+		}
+	}
 }
-/**
- * @brief Configure button array based on user input
- * @param button, button's pin number
- * @param type, button's type of working (typematic, lkp)
- * @return Configure succeed
- */
+
+
 bool buttonConfiguration(pin_t button, int type, int time)
 {
 	int count;
@@ -151,8 +156,3 @@ bool buttonConfiguration(pin_t button, int type, int time)
 	return false;
 }
 
-void buttonsInit(void)
-{
-	//agregar botones del punto h
-	SysTick_AddCallback(&systick_callback, 50*SYSTICK_ISR_PERIOD_S);
-}

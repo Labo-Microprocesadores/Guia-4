@@ -112,12 +112,13 @@ bool gpioIRQ (pin_t pin, uint8_t irqMode, pinIrqFun_t irqFun)
 {
 	uint8_t port = PIN2PORT(pin);
 	uint8_t num = PIN2NUM(pin);
-	ports[port]->PCR[num] |= PORT_PCR_IRQC_MASK;
+
 	ports[port]->PCR[num] |= PORT_PCR_IRQC(irqMode);
 	NVIC_EnableIRQ(PORTA_IRQn + port);
-	callbacks[port][num] = irqFun;
 
-	return NVIC_GetActive(PORTA_IRQn + port); // not implemented yet
+	callbacks[port][num] = irqFun;
+	bool result = NVIC_GetEnableIRQ(PORTA_IRQn + port); // not implemented yet
+	return result;
 }
 
 /**
@@ -167,6 +168,7 @@ void interruptHandler(uint8_t port)
 		{
 			ports[port]->PCR[i] |= PORT_PCR_ISF_MASK;
 			callbacks[port][i]();
+			break;
 		}
 		isfr >>= 1;
 	}
