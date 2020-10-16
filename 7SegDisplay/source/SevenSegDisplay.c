@@ -17,7 +17,9 @@
 #define BACK_BUFFER 50
 #define BLINK_TIME 200
 #define PERIOD 5
-#define MOVE_SPEED 500
+#define MOVE_SPEED 700
+
+#define CONTROL PORTNUM2PIN(PD,1)
 /*************************************************
  *  	LOCAL FUNCTION DECLARATION
  ************************************************/
@@ -28,7 +30,7 @@ bool SevenSegDisplay_PrintCharacter(uint8_t character);
 /************************************************
  *  	VARIABLES WITH LOCAL SCOPE
  ************************************************/
-static sevenSeg_t screen[BACK_BUFFER];
+static sevenSeg_t screen[BACK_BUFFER+10];
 static uint8_t pos = 0;
 
 static pin_t displayPins[SEG_LEN] = {PIN_SEGA, PIN_SEGB, PIN_SEGC, PIN_SEGD,
@@ -48,6 +50,9 @@ bool SevenSegDisplay_Init(void)
 	static bool isInit = false;
 	if(!isInit)
 	{
+		gpioMode(CONTROL, OUTPUT);
+		gpioWrite(CONTROL, LOW);
+
 		SysTick_Init();
 		uint8_t count;
 		for(count=0; count<SEG_LEN ;count++)
@@ -62,10 +67,13 @@ bool SevenSegDisplay_Init(void)
 	    gpioWrite (selectPins[0], false);
 	    gpioWrite (selectPins[1], false);
 
-	    sevenSeg_t dummy = {NONE,false,true,0};
+	    //sevenSeg_t dummy = {NONE,false,true,0};
 	    for(count = 0; count<BACK_BUFFER; count++)
 	    {
-	    	screen[count] = dummy;
+	    	screen[count].character = 0;
+	    	screen[count].blinkCounter = 0;
+	    	screen[count].blink = false;
+	    	screen[count].blinkState = true;
 	    }
 
 	    int systickCallbackID = SysTick_AddCallback(&SevenSegDisplay_PISR, 1); //1 ms
@@ -189,32 +197,25 @@ void SevenSegDisplay_PISR(void)
 	static int8_t  currBright = MAX;
 	static uint8_t window = PERIOD;
 
-	uint8_t dataToPrint = (screen[pos+displayCounter].blinkState && (currBright > 0)) ? screen[pos+displayCounter].character: NONE;
+	gpioWrite(CONTROL, HIGH);
+	uint8_t curr_pos = pos+displayCounter;
+	if(curr_pos > BACK_BUFFER)
+	{
+		return;
+	}
+
+	uint8_t dataToPrint = (screen[curr_pos].blinkState && (currBright > 0)) ? screen[curr_pos].character: NONE;
 
 	gpioWrite(selectPins[0], (displayCounter & (1   )) != 0);
 	gpioWrite(selectPins[1], (displayCounter & (1<<1)) != 0);
 	SevenSegDisplay_PrintCharacter(dataToPrint);
 
-	currBright--;
-
-	if(--window == 0)
+	if(screen[curr_pos].blink)
 	{
-		displayCounter++;
-		window = PERIOD;
-		currBright = brightness;
-		if(displayCounter == SCREEN_SIZE)
+		if(--screen[curr_pos].blinkCounter == 0)
 		{
-			displayCounter = 0;
-		}
-
-	}
-
-	if(screen[pos+displayCounter].blink)
-	{
-		if(--screen[pos+displayCounter].blinkCounter == 0)
-		{
-			screen[pos+displayCounter].blinkCounter = BLINK_TIME;
-			screen[pos+displayCounter].blinkState = !screen[pos+displayCounter].blinkState;
+			screen[curr_pos].blinkCounter = BLINK_TIME;
+			screen[curr_pos].blinkState = !screen[curr_pos].blinkState;
 		}
 	}
 
@@ -232,6 +233,19 @@ void SevenSegDisplay_PISR(void)
 		}
 	}
 
+	currBright--;
+	if(--window == 0)
+	{
+		displayCounter++;
+		window = PERIOD;
+		currBright = brightness;
+		if(displayCounter == SCREEN_SIZE)
+		{
+			displayCounter = 0;
+		}
+
+	}
+	gpioWrite(CONTROL, LOW);
 }
 
 void SevenSegDisplay_EraseScreen(void)

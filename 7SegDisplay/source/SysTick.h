@@ -12,7 +12,7 @@
 /*******************************************************************************
  * CONSTANT AND MACRO DEFINITIONS USING #DEFINE
  ******************************************************************************/
-#define SYSTICK_ISR_PERIOD 100000L //0.5ms
+#define SYSTICK_ISR_PERIOD 100000L //1ms
 #define INITIAL_SYSTICK_ELEMENTS_ARRAY_LENGTH	20
 #define MS_TO_TICK_CONVERTION	100000	//1ms
 /*******************************************************************************

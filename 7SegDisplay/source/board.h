@@ -55,6 +55,12 @@
 #define LECTOR_DATA		PORTNUM2PIN(PA,1) // PTA1
 #define LECTOR_CLOCK	PORTNUM2PIN(PC,3) // PTC3
 
+// Multiplexed LED's
+#define LED_LINE_I 		PORTNUM2PIN(PC,16)// PTC 16
+#define LED_LINE_II		PORTNUM2PIN(PC,17)// PTC 17
+
+// Test point
+#define TP				PORTNUM2PIN(PC,4) // PTC4
 /*******************************************************************************
  ******************************************************************************/
 

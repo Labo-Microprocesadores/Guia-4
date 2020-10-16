@@ -5,6 +5,7 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../source/App.c \
+../source/MplxLed.c \
 ../source/SevenSegDisplay.c \
 ../source/SysTick.c \
 ../source/Timer.c \
@@ -14,6 +15,7 @@ C_SRCS += \
 
 OBJS += \
 ./source/App.o \
+./source/MplxLed.o \
 ./source/SevenSegDisplay.o \
 ./source/SysTick.o \
 ./source/Timer.o \
@@ -23,6 +25,7 @@ OBJS += \
 
 C_DEPS += \
 ./source/App.d \
+./source/MplxLed.d \
 ./source/SevenSegDisplay.d \
 ./source/SysTick.d \
 ./source/Timer.d \

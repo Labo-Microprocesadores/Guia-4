@@ -106,8 +106,8 @@ void SevenSegDisplay_SetBright(bright_t new_bright);
 
 /**
  * @brief Animate display movement to right or left
- * @param moves: amout of digit to swipe, posive=right, negative=left;
- * 		  time: time to swipe 1 character, expresed in milliseconds
+ * @param moves: amount of digit to swipe, positive=right, negative=left;
+ * 		  time: time to swipe 1 character, expressed in milliseconds
  */
 void SevenSegDisplay_Swipe(int8_t moves);
 

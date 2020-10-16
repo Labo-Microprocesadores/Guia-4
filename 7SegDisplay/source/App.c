@@ -13,7 +13,8 @@
 #include "SevenSegDisplay.h"
 #include "encoder.h"
 #include "lector.h"
-#include "SysTick.h"
+#include "MplxLed.h"
+
 /*******************************************************************************
  * CONSTANT AND MACRO DEFINITIONS USING #DEFINE
  ******************************************************************************/
@@ -34,15 +35,20 @@
 /* Función que se llama 1 vez, al comienzo del programa */
 void App_Init (void)
 {
+	gpioMode(TP, OUTPUT);
+	gpioWrite(TP, LOW);
+
     gpioMode(PIN_LED_RED, OUTPUT);
     gpioMode(PIN_LED_GREEN, OUTPUT);
     gpioWrite(PIN_LED_RED,HIGH);
     gpioWrite(PIN_LED_GREEN, HIGH);
-    SysTick_Init();
+
     Encoder_Init();
     Lector_Init();
     SevenSegDisplay_Init();
     SevenSegDisplay_SetBright(MAX);
+    MplxLed_Init();
+    MplxLed_InfiniteBlink(1,NORMAL);
 }
 
 /* Función que se llama constantemente en un ciclo infinito */
@@ -67,6 +73,7 @@ void App_Run (void)
 			{
 				 datos[i] = nums[my_message.card_number[i]];
 			}
+			SevenSegDisplay_EraseScreen();
 			SevenSegDisplay_WriteBuffer(datos, my_message.number_len, 0 );
 			SevenSegDisplay_SetPos(0);
 		}
@@ -84,7 +91,8 @@ void App_Run (void)
 
 	if(moves != 0)
 	{
-		SevenSegDisplay_Swipe(my_message.number_len-4);
+		MplxLed_Toggle(0);
+		SevenSegDisplay_Swipe(my_message.number_len);
 	}
 
 }

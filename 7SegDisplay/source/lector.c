@@ -20,7 +20,8 @@
 #define BUFFER_LEN 		(2*WORD_LONG*CHAR_LONG)
 #define MAX_DATA_LEN 	37
 
-
+#define CONTROL_A		PORTNUM2PIN(PD, 3)
+#define CONTROL_B		PORTNUM2PIN(PD, 2)
 /*************************************************
  *  	LOCAL FUNCTION DECLARATION
  ************************************************/
@@ -46,6 +47,12 @@ static uint8_t message[BUFFER_LEN];
  ************************************************/
 void Lector_Init(void)
 {
+	gpioMode(CONTROL_A, OUTPUT);
+	gpioWrite(CONTROL_A, LOW);
+
+	gpioMode(CONTROL_B, OUTPUT);
+	gpioWrite(CONTROL_B, LOW);
+
 	gpioMode(LECTOR_ENABLE, INPUT);
 	gpioMode(LECTOR_DATA, INPUT);
 	gpioMode(LECTOR_CLOCK, INPUT);
@@ -121,6 +128,7 @@ bool Lector_GetData(card_t * data)
  **************************************************/
 void EnableIRQcallback(void)
 {
+	gpioWrite(CONTROL_A, HIGH);
 	if(!event)
 	{
 		//int new_enable = gpioRead(LECTOR_ENABLE);
@@ -134,16 +142,19 @@ void EnableIRQcallback(void)
 			event = true;
 		}
 	}
+	gpioWrite(CONTROL_A, LOW);
 }
 
 void ClockIRQcallback(void)
 {
+	gpioWrite(CONTROL_B, HIGH);
 	if (enable)
 	{
 		uint8_t new_bit = !gpioRead(LECTOR_DATA);
 		message[bit] = new_bit;
 		bit++;
 	}
+	gpioWrite(CONTROL_B, LOW);
 }
 
 
@@ -188,7 +199,7 @@ uint16_t find_fs(uint16_t ss)
 
 		if(data == 0xD)
 		{
-			return i*CHAR_LONG + ss;
+			return (i+1)*CHAR_LONG + ss;
 		}
 	}
 	return 0;
@@ -206,7 +217,7 @@ uint16_t find_es(uint16_t fs)
 
 		if(data == 0x1F)
 		{
-			return i*CHAR_LONG+fs;
+			return (i+1)*CHAR_LONG+fs;
 		}
 	}
 	return 0;
