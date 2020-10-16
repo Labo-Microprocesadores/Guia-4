@@ -5,7 +5,7 @@
  * Generated linker script file for MK64FN1M0xxx12
  * Created from linkscript.ldt by FMCreateLinkLibraries
  * Using Freemarker v2.3.23
- * MCUXpresso IDE v10.2.0 [Build 759] [2018-05-15]  on 06-Oct-2020 01:08:05
+ * MCUXpresso IDE v10.2.0 [Build 759] [2018-05-15]  on 16/10/2020 00:40:24
  */
 
 INCLUDE "7SegDisplay_Debug_library.ld"
@@ -25,21 +25,21 @@ SECTIONS
         . = ALIGN(4) ;
         __section_table_start = .;
         __data_section_table = .;
+        LONG(LOADADDR(.data_RAM));
+        LONG(    ADDR(.data_RAM));
+        LONG(  SIZEOF(.data_RAM));
         LONG(LOADADDR(.data));
         LONG(    ADDR(.data));
         LONG(  SIZEOF(.data));
-        LONG(LOADADDR(.data_RAM2));
-        LONG(    ADDR(.data_RAM2));
-        LONG(  SIZEOF(.data_RAM2));
         LONG(LOADADDR(.data_RAM3));
         LONG(    ADDR(.data_RAM3));
         LONG(  SIZEOF(.data_RAM3));
         __data_section_table_end = .;
         __bss_section_table = .;
+        LONG(    ADDR(.bss_RAM));
+        LONG(  SIZEOF(.bss_RAM));
         LONG(    ADDR(.bss));
         LONG(  SIZEOF(.bss));
-        LONG(    ADDR(.bss_RAM2));
-        LONG(  SIZEOF(.bss_RAM2));
         LONG(    ADDR(.bss_RAM3));
         LONG(  SIZEOF(.bss_RAM3));
         __bss_section_table_end = .;
@@ -88,20 +88,20 @@ SECTIONS
     .m_usb_data (NOLOAD) :
     {
         *(m_usb_bdt)
-    } > SRAM_UPPER
-    /* DATA section for SRAM_LOWER */
+    } > SRAM_LOWER
+    /* DATA section for SRAM_UPPER */
 
-    .data_RAM2 : ALIGN(8)
+    .data_RAM : ALIGN(8)
     {
         FILL(0xff)
-        PROVIDE(__start_data_RAM2 = .) ;
-        *(.ramfunc.$RAM2)
-        *(.ramfunc.$SRAM_LOWER)
-        *(.data.$RAM2*)
-        *(.data.$SRAM_LOWER*)
+        PROVIDE(__start_data_RAM = .) ;
+        *(.ramfunc.$RAM)
+        *(.ramfunc.$SRAM_UPPER)
+        *(.data.$RAM*)
+        *(.data.$SRAM_UPPER*)
         . = ALIGN(8) ;
-        PROVIDE(__end_data_RAM2 = .) ;
-     } > SRAM_LOWER AT>PROGRAM_FLASH
+        PROVIDE(__end_data_RAM = .) ;
+     } > SRAM_UPPER AT>PROGRAM_FLASH
     /* DATA section for FLEX_RAM */
 
     .data_RAM3 : ALIGN(8)
@@ -121,9 +121,9 @@ SECTIONS
         KEEP(*(.bss.$RESERVED*))
         . = ALIGN(4) ;
         _end_uninit_RESERVED = .;
-    } > SRAM_UPPER
+    } > SRAM_LOWER
 
-    /* Main DATA section (SRAM_UPPER) */
+    /* Main DATA section (SRAM_LOWER) */
     .data : ALIGN(8)
     {
        FILL(0xff)
@@ -133,17 +133,17 @@ SECTIONS
        *(.data*)
        . = ALIGN(8) ;
        _edata = . ;
-    } > SRAM_UPPER AT>PROGRAM_FLASH
+    } > SRAM_LOWER AT>PROGRAM_FLASH
 
-    /* BSS section for SRAM_LOWER */
-    .bss_RAM2 : ALIGN(8)
+    /* BSS section for SRAM_UPPER */
+    .bss_RAM : ALIGN(8)
     {
-       PROVIDE(__start_bss_RAM2 = .) ;
-       *(.bss.$RAM2*)
-       *(.bss.$SRAM_LOWER*)
+       PROVIDE(__start_bss_RAM = .) ;
+       *(.bss.$RAM*)
+       *(.bss.$SRAM_UPPER*)
        . = ALIGN (. != 0 ? 8 : 1) ; /* avoid empty segment */
-       PROVIDE(__end_bss_RAM2 = .) ;
-    } > SRAM_LOWER 
+       PROVIDE(__end_bss_RAM = .) ;
+    } > SRAM_UPPER 
 
     /* BSS section for FLEX_RAM */
     .bss_RAM3 : ALIGN(8)
@@ -164,15 +164,15 @@ SECTIONS
         . = ALIGN(8) ;
         _ebss = .;
         PROVIDE(end = .);
-    } > SRAM_UPPER
+    } > SRAM_LOWER
 
-    /* NOINIT section for SRAM_LOWER */
-    .noinit_RAM2 (NOLOAD) : ALIGN(8)
+    /* NOINIT section for SRAM_UPPER */
+    .noinit_RAM (NOLOAD) : ALIGN(8)
     {
-       *(.noinit.$RAM2*)
-       *(.noinit.$SRAM_LOWER*)
+       *(.noinit.$RAM*)
+       *(.noinit.$SRAM_UPPER*)
        . = ALIGN(8) ;
-    } > SRAM_LOWER 
+    } > SRAM_UPPER 
 
     /* NOINIT section for FLEX_RAM */
     .noinit_RAM3 (NOLOAD) : ALIGN(8)
@@ -189,7 +189,7 @@ SECTIONS
         *(.noinit*) 
          . = ALIGN(8) ;
         _end_noinit = .;
-    } > SRAM_UPPER
+    } > SRAM_LOWER
 
     /* Reserve and place Heap within memory map */
     _HeapSize = 0x1000;

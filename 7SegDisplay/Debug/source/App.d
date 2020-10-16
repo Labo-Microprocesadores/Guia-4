@@ -1,6 +1,6 @@
 source/App.o source/App.d: ../source/App.c ../source/gpio.h \
- ../source/board.h ../source/SevenSegDisplay.h ../source/Timer.h \
- ../source/SysTick.h
+ ../source/board.h ../source/SevenSegDisplay.h ../source/encoder.h \
+ ../source/lector.h ../source/SysTick.h
 
 ../source/gpio.h:
 
@@ -8,6 +8,8 @@ source/App.o source/App.d: ../source/App.c ../source/gpio.h \
 
 ../source/SevenSegDisplay.h:
 
-../source/Timer.h:
+../source/encoder.h:
+
+../source/lector.h:
 
 ../source/SysTick.h:

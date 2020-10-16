@@ -20,7 +20,11 @@ bool Timer_Init (void)
 	if (!isInit)
 	{
 		SysTick_Init();
-		int systickCallbackID = SysTick_AddCallback(&Timer_PISR, 10000000L);
+		int systickCallbackID = SysTick_AddCallback(&Timer_PISR, TIMER_ISR_PERIOD_S);
+		if (systickCallbackID < 0)
+		{
+			return false;
+		}
 		idCounter = 1;
 		isInit = true;
 	}

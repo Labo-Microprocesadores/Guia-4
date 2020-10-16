@@ -1,7 +1,7 @@
 /***************************************************************************//**
   @file     gpio.h
   @brief    Simple GPIO Pin services, similar to Arduino
-  @author   Nicolás Magliola
+  @author   Nicolás Magliola, Grupo 2 - Lab de Micros
  ******************************************************************************/
 
 #ifndef _GPIO_H_
@@ -45,21 +45,25 @@ enum { PA, PB, PC, PD, PE };
 #define HIGH    1
 #endif // LOW
 
+/*******************************************************************************
+ * ENUMERATIONS AND STRUCTURES AND TYPEDEFS
+ ******************************************************************************/
 
 // IRQ modes
 enum {
     GPIO_IRQ_MODE_DISABLE,
+	GPIO_IRQ_MODE_DMA_RISE,
+	GPIO_IRQ_MODE_DMA_FALLING,
+	GPIO_IRQ_MODE_DMA_BOTH,
+
+	GPIO_IRQ_MODE_LOGIC_0 = 0x08,
     GPIO_IRQ_MODE_RISING_EDGE,
     GPIO_IRQ_MODE_FALLING_EDGE,
     GPIO_IRQ_MODE_BOTH_EDGES,
+	GPIO_IRQ_MODE_LOGIC_1,
 
     GPIO_IRQ_CANT_MODES
 };
-
-
-/*******************************************************************************
- * ENUMERATIONS AND STRUCTURES AND TYPEDEFS
- ******************************************************************************/
 
 typedef uint8_t pin_t;
 
