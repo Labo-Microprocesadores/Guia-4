@@ -19,7 +19,7 @@
 #define PERIOD 5
 #define MOVE_SPEED 700
 
-#define CONTROL PORTNUM2PIN(PD,1)
+
 /*************************************************
  *  	LOCAL FUNCTION DECLARATION
  ************************************************/
@@ -50,9 +50,6 @@ bool SevenSegDisplay_Init(void)
 	static bool isInit = false;
 	if(!isInit)
 	{
-		gpioMode(CONTROL, OUTPUT);
-		gpioWrite(CONTROL, LOW);
-
 		SysTick_Init();
 		uint8_t count;
 		for(count=0; count<SEG_LEN ;count++)
@@ -99,11 +96,11 @@ bool SevenSegDisplay_BlinkScreen(bool state)
 {
 	//set all variables on state (true or false)
 	uint8_t count;
-	for(count=0; count<SCREEN_SIZE; count++)
+	for(count=0; count<BACK_BUFFER; count++)
 	{
-		screen[pos+count].blink = state;
-		screen[pos+count].blinkCounter = BLINK_TIME;
-		screen[pos+count].blinkState = true;
+		screen[count].blink = state;
+		screen[count].blinkCounter = BLINK_TIME;
+		screen[count].blinkState = true;
 	}
 
 	return true;
@@ -197,12 +194,7 @@ void SevenSegDisplay_PISR(void)
 	static int8_t  currBright = MAX;
 	static uint8_t window = PERIOD;
 
-	gpioWrite(CONTROL, HIGH);
 	uint8_t curr_pos = pos+displayCounter;
-	if(curr_pos > BACK_BUFFER)
-	{
-		return;
-	}
 
 	uint8_t dataToPrint = (screen[curr_pos].blinkState && (currBright > 0)) ? screen[curr_pos].character: NONE;
 
@@ -245,12 +237,12 @@ void SevenSegDisplay_PISR(void)
 		}
 
 	}
-	gpioWrite(CONTROL, LOW);
+
 }
 
 void SevenSegDisplay_EraseScreen(void)
 {
-	for(int i = 1; i<((int)(sizeof(screen)/sizeof(screen[0]))); i++)
+	for(int i = 0; i<((int)(sizeof(screen)/sizeof(screen[0]))); i++)
 	{
 		screen[i].character = NONE;
 	}

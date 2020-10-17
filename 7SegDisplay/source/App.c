@@ -24,7 +24,7 @@
  * FUNCTION PROTOTYPES FOR PRIVATE FUNCTIONS WITH FILE LEVEL SCOPE
  ******************************************************************************/
 
-
+static const uint8_t nums[] = {ZERO,ONE,TWO,THREE,FOUR,FIVE,SIX,SEVEN,EIGHT,NINE};
 
 /*******************************************************************************
  *******************************************************************************
@@ -49,6 +49,7 @@ void App_Init (void)
     SevenSegDisplay_SetBright(MAX);
     MplxLed_Init();
     MplxLed_InfiniteBlink(1,NORMAL);
+
 }
 
 /* Función que se llama constantemente en un ciclo infinito */
@@ -56,7 +57,7 @@ void App_Init (void)
 void App_Run (void)
 {
 	static card_t my_message;
-	static const uint8_t nums[] = {ZERO,ONE,TWO,THREE,FOUR,FIVE,SIX,SEVEN,EIGHT,NINE};
+
 
 	int8_t moves = Encoder_GetMove();
 
@@ -73,7 +74,7 @@ void App_Run (void)
 			{
 				 datos[i] = nums[my_message.card_number[i]];
 			}
-			SevenSegDisplay_EraseScreen();
+
 			SevenSegDisplay_WriteBuffer(datos, my_message.number_len, 0 );
 			SevenSegDisplay_SetPos(0);
 		}
